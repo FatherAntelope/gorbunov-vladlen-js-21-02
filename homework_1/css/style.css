@@ -95,6 +95,10 @@ body {
     line-height: 1.5;
 }
 
+/*-----------
+Раздел категорий
+------------*/
+
 .products__categories {
     display: flex;
     flex: 1 1 50%;
@@ -102,6 +106,31 @@ body {
 
 .products__categories > .card:not(:last-child) {
     margin-right: 10px;
+}
+
+/*-----------
+Раздел популярных продуктов
+------------*/
+.products__popular-products {
+    margin-top: 20px;
+}
+
+.popular-products__title {
+    font-size: 18px;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+}
+
+.popular-products__cards {
+    display: flex;
+    flex: 1 1 calc(100% / 3);
+    flex-wrap: wrap;
+    margin-left: -15px;
+}
+
+.col-3 {
+    width: calc(100% / 3);
+    padding-left: 15px;
 }
 
 /*-----------
