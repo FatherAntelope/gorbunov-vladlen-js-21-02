@@ -1,1 +1,47 @@
 @import "nullstyle.css";
+
+:root {
+    --color-green: #009a58;
+    --color-white: #fff;
+    --color-gray: #c2c2c2;
+    --color-light-gray: #f2f2f2;
+    --color-blue: #85aab4;
+}
+
+body {
+    font-family: "Arial", sans-serif;
+    height: 100%;
+}
+
+.container {
+    margin: 0 auto;
+    max-width: 1230px;
+    padding: 0 15px;
+}
+
+.wrapper {
+    min-height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.header {
+    width: 100%;
+}
+
+.header__body {
+    display: flex;
+    align-items: center;
+    background-color: var(--color-green);
+    padding: 15px 20px;
+}
+
+.header__text {
+    color: var(--color-white);
+    font-weight: 700;
+    font-size: 18px;
+}
+
+
