@@ -3,8 +3,9 @@
 :root {
     --color-green: #009a58;
     --color-white: #fff;
+    --color-gray-dark: #75777d;
     --color-gray: #c2c2c2;
-    --color-light-gray: #f2f2f2;
+    --color-gray-light: #f2f2f2;
     --color-blue: #85aab4;
 }
 
@@ -26,6 +27,10 @@ body {
     flex-direction: column;
 }
 
+.main {
+    padding: 10px 0;
+    flex: 1 1 auto;
+}
 
 .header {
     width: 100%;
@@ -42,6 +47,23 @@ body {
     color: var(--color-white);
     font-weight: 700;
     font-size: 18px;
+}
+
+.footer {
+    width: 100%;
+}
+
+.footer__body {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--color-gray-light);
+    padding: 15px 20px;
+}
+
+.footer__contacts, .footer__copyright {
+    font-size: 16px;
+    color: var(--color-gray-dark);
 }
 
 
