@@ -6,7 +6,7 @@
     --color-gray-dark: #75777d;
     --color-gray: #c2c2c2;
     --color-gray-light: #f2f2f2;
-    --color-blue: #85aab4;
+    --color-blue: #51a7d0;
 }
 
 body {
@@ -75,10 +75,10 @@ body {
 /*-----------
 Элемент основного контента
 ------------*/
-.products__content {
 
-}
-
+/*-----------
+Элемент заголовочный текст
+------------*/
 .products__heading {
     padding: 15px 20px;
     margin-bottom: 10px;
@@ -93,6 +93,63 @@ body {
 .products__subtitle {
     font-size: 18px;
     line-height: 1.5;
+}
+
+.products__categories {
+    display: flex;
+    flex: 1 1 50%;
+}
+
+.products__categories > .card:not(:last-child) {
+    margin-right: 10px;
+}
+
+/*-----------
+Карточка
+------------*/
+.card {
+    padding: 15px 20px;
+    display: flex;
+    width: 100%;
+    background-color: var(--color-gray-light);
+    min-height: 20px;
+    margin: 10px 0;
+}
+
+.card__image {
+    height: 60px;
+    width: 60px;
+    background-color: var(--color-gray);
+    margin-right: 10px;
+}
+
+.card__body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card__info {
+    font-size: 18px;
+    line-height: 1.5;
+}
+
+.card__link a {
+    text-decoration: underline;
+    color: var(--color-blue);
+}
+
+.card__text {
+    color: var(--color-gray-dark)
+}
+
+.card__button {
+    border: none;
+    background-color: var(--color-gray);
+    text-align: center;
+    padding: 5px 10px;
+    font-size: 18px;
+    align-self: flex-start;
 }
 
 /*-----------
