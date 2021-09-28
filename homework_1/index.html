@@ -5,9 +5,215 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./css/style.css">
     <title>ДЗ №1</title>
 </head>
 <body>
+<div class="wrapper">
+    <header class="header">
+        <div class="header__container container">
+            <div class="header__body">
+                <div class="header__text">
+                    <h2>Интернет-магазин "Не только красивое"</h2>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="main">
+        <div class="main__container container">
+            <article class="products">
+                <div class="products__filter">
+                    <div class="products-list">
+                        <div class="products-list__header">
+                            <p>Морская рыба</p>
+                        </div>
+                        <form class="products-list__form" action="#">
+                            <div class="products-list__input">
+                                <input type="checkbox" id="product_shark">
+                                <label for="product_shark"> Акула </label>
+                            </div>
+                            <div class="products-list__input">
+                                <input type="checkbox" id="product_perch">
+                                <label for="product_perch"> Окунь </label>
+                            </div>
+                            <div class="products-list__input">
+                                <input type="checkbox" id="product_halibut">
+                                <label for="product_halibut"> Палтус </label>
+                            </div>
+                            <div class="products-list__input">
+                                <input type="checkbox" id="product_cod">
+                                <label for="product_cod"> Треска </label>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="products-list">
+                        <div class="products-list__header">
+                            <p>Пресноводная рыба</p>
+                        </div>
+                        <form class="products-list__form" action="#">
+                            <div class="products-list__input">
+                                <input type="checkbox" id="product_beloglazka">
+                                <label for="product_beloglazka"> Белоглазка </label>
+                            </div>
+                            <div class="products-list__input">
+                                <input type="checkbox" id="product_sturgeon">
+                                <label for="product_sturgeon"> Осётр </label>
+                            </div>
+                            <div class="products-list__input">
+                                <input type="checkbox" id="product_eel">
+                                <label for="product_eel"> Речной угорь </label>
+                            </div>
+                            <div class="products-list__input">
+                                <input type="checkbox" id="product_burbot">
+                                <label for="product_burbot"> Налим </label>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="products__content">
+                    <div class="products__heading">
+                        <div class="products__title">
+                            <h2>Рыбы на любой вкус</h2>
+                        </div>
+                        <div class="products__subtitle">
+                            <p>Мы продаем рыбу, а не только показываем!</p>
+                        </div>
+                    </div>
+                    <div class="products__categories">
+                        <div class="card">
+                            <div class="card__body">
+                                <div class="card__info">
+                                    <div class="card__link">
+                                        <a href="#">Замороженные рыбы</a>
+                                    </div>
+                                    <div class="card__text">
+                                        <p>Мы заморозили рыбу для вас</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card__body">
+                                <div class="card__info">
+                                    <div class="card__link">
+                                        <a href="#">Живые рыбы</a>
+                                    </div>
+                                    <div class="card__text">
+                                        <p>На кухню или на разведение</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="products__popular-products">
+                        <div class="popular-products">
+                            <div class="popular-products__title">
+                                <h2>Популярные</h2>
+                            </div>
+                            <div class="popular-products__cards">
+                                <div class="col-3">
+                                    <div class="card">
+                                        <div class="card__image"></div>
+                                        <div class="card__body">
+                                            <div class="card__info">
+                                                <div class="card__link">
+                                                    <a href="#">Паптус</a>
+                                                </div>
+                                            </div>
+                                            <button class="card__button">Купить</button>
+                                        </div>
+                                    </div>
+                                </div>
 
+                                <div class="col-3">
+                                    <div class="card">
+                                        <div class="card__image"></div>
+                                        <div class="card__body">
+                                            <div class="card__info">
+                                                <div class="card__link">
+                                                    <a href="#">Сёмга</a>
+                                                </div>
+                                            </div>
+                                            <button class="card__button">Купить</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-3">
+                                    <div class="card">
+                                        <div class="card__image"></div>
+                                        <div class="card__body">
+                                            <div class="card__info">
+                                                <div class="card__link">
+                                                    <a href="#">Сом</a>
+                                                </div>
+                                            </div>
+                                            <button class="card__button">Купить</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-3">
+                                    <div class="card">
+                                        <div class="card__image"></div>
+                                        <div class="card__body">
+                                            <div class="card__info">
+                                                <div class="card__link">
+                                                    <a href="#">Мойва</a>
+                                                </div>
+                                            </div>
+                                            <button class="card__button">Купить</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-3">
+                                    <div class="card">
+                                        <div class="card__image"></div>
+                                        <div class="card__body">
+                                            <div class="card__info">
+                                                <div class="card__link">
+                                                    <a href="#">Сельдь</a>
+                                                </div>
+                                            </div>
+                                            <button class="card__button">Купить</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-3">
+                                    <div class="card">
+                                        <div class="card__image"></div>
+                                        <div class="card__body">
+                                            <div class="card__info">
+                                                <div class="card__link">
+                                                    <a href="#">Тунец</a>
+                                                </div>
+                                            </div>
+                                            <button class="card__button">Купить</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </main>
+    <footer class="footer">
+        <div class="footer__container container">
+            <div class="footer__body">
+                <div class="footer__contacts">
+                    <p>Контакты</p>
+                </div>
+                <div class="footer__copyright">
+                    <p>@ 2021. ИП Рыбаков О. А.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
 </body>
 </html>
