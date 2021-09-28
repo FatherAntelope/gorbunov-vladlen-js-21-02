@@ -14,6 +14,9 @@ body {
     height: 100%;
 }
 
+/*-----------
+Стили размещения элементов
+------------*/
 .container {
     margin: 0 auto;
     max-width: 1230px;
@@ -32,6 +35,53 @@ body {
     flex: 1 1 auto;
 }
 
+/*-----------
+Сетка продуктов (рыбы)
+------------*/
+.products {
+    display: grid;
+    grid-template-columns: 25% 75%;
+    grid-template-rows: 83vh;
+}
+
+.products > *:not(:last-child) {
+    margin-right: 15px;
+}
+
+/*-----------
+Элемент фильтрации продуктов
+------------*/
+.products__filter {
+    background-color: var(--color-gray-light);
+    padding: 15px 20px;
+}
+
+.products-list__header {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+.products-list__input {
+    margin-left: 15px;
+}
+
+.products-list__input label {
+    font-size: 16px;
+    color: var(--color-gray-dark);
+    line-height: 1.5;
+}
+
+/*-----------
+Элемент основного контента
+------------*/
+.products__content {
+
+}
+
+/*-----------
+Шапка
+------------*/
 .header {
     width: 100%;
 }
@@ -49,6 +99,9 @@ body {
     font-size: 18px;
 }
 
+/*-----------
+Подвал
+------------*/
 .footer {
     width: 100%;
 }
