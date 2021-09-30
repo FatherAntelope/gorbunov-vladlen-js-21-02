@@ -50,10 +50,6 @@
             'footer footer';
 }
 
-.header, .footer, .sidebar, .main {
-    padding: 15px 20px;
-}
-
 /*****
 Шапка - элемент сетки
 ******/
@@ -70,6 +66,7 @@
     height: 100%;
     display: flex;
     align-items: center;
+    padding: 15px 20px;
 }
 
 .header__text {
@@ -88,6 +85,62 @@
 .sidebar {
     grid-area: sidebar;
     background-color: var(--color-gray-light);
+}
+
+.sidebar_theme_dark {
+    background-color: var(--color-gray-dark);
+}
+
+.sidebar__body {
+    height: 100%;
+    padding: 15px 20px;
+}
+
+/* (Можно сделать отдельный блок в виде горизонтального (flexbox row) фильтра) */
+.form-filter {
+    display: flex;
+}
+
+/* (Для сайдбара в виде вертикального (flexbox column) фильтра) */
+.sidebar__form-filter {
+    flex-direction: column;
+}
+
+.form-filter__group {
+    margin-bottom: 10px;
+}
+
+.form-filter__title {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.5;
+    margin-bottom: 5px;
+}
+
+.form-filter__title_theme_dark {
+    color: var(--color-gray-light);
+}
+
+.list-check {
+    display: flex;
+}
+
+.form-filter__list-check {
+    flex-direction: column;
+    margin-left: 15px;
+}
+
+.list-check__item {
+    font-size: 16px;
+    user-select: none;
+}
+
+.list-check__item:not(:last-child) {
+    margin-bottom: 5px;
+}
+
+.list-check__item_theme_dark {
+    color: var(--color-gray);
 }
 
 /*****
@@ -115,6 +168,7 @@
     height: 100%;
     align-items: center;
     justify-content: space-between;
+    padding: 15px 20px;
 }
 
 .footer__text {
@@ -129,6 +183,14 @@
 @media (max-width: 768px) {
     .header__text {
         font-size: 18px;
+    }
+
+    .form-filter__title {
+        font-size: 14px;
+    }
+
+    .list-check__item {
+        font-size: 14px;
     }
 }
 
