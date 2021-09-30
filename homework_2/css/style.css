@@ -106,6 +106,26 @@
     background-color: var(--color-gray-light);
 }
 
+.footer_theme_dark {
+    background-color: var(--color-gray-dark);
+}
+
+.footer__body {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.footer__text {
+    font-size: 16px;
+    color: var(--color-gray-dark);
+}
+
+.footer__text_theme_dark {
+    color: var(--color-gray);
+}
+
 @media (max-width: 768px) {
     .header__text {
         font-size: 18px;
@@ -119,10 +139,22 @@
     .sidebar {
         display: none;
     }
+
+    .footer__text {
+        font-size: 14px
+    }
 }
 
 @media (max-width: 480px) {
     .header__text {
         font-size: 16px;
+    }
+
+    .footer__body {
+        flex-direction: column;
+    }
+
+    .footer__text:not(:last-child) {
+        padding-bottom: 10px;
     }
 }
