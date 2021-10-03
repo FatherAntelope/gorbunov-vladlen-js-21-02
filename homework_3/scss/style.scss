@@ -208,9 +208,20 @@ $color-blue-light: #91c4ec;
     padding: 10px 15px;
     display: flex;
     width: 100%;
+    cursor: pointer;
+    transition: background-color 0.3s ease-out, box-shadow 0.3s ease-out;
+
+    &:hover {
+        background-color: $color-green;
+        box-shadow: 0 0 10px $color-green;
+    }
 
     &_theme_dark {
         background-color: $color-gray-dark;
+        &:hover {
+            background-color: $color-green-dark;
+            box-shadow: 0 0 10px $color-green-dark;
+        }
     }
 
     &__image {

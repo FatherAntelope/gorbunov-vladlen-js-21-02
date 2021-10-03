@@ -245,10 +245,22 @@ img {
   padding: 10px 15px;
   display: flex;
   width: 100%;
+  cursor: pointer;
+  transition: background-color 0.3s ease-out, box-shadow 0.3s ease-out;
+}
+
+.card:hover {
+  background-color: #009a58;
+  box-shadow: 0 0 10px #009a58;
 }
 
 .card_theme_dark {
   background-color: #75777d;
+}
+
+.card_theme_dark:hover {
+  background-color: #006439;
+  box-shadow: 0 0 10px #006439;
 }
 
 .card__image {
