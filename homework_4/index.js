@@ -77,3 +77,23 @@ function dataTransformation(dataTime) {
     return dataTime.replace(/\/+/g, ".").replace(/-/, ":");
 }
 
+/************
+ * Задача 5 *
+ ************/
+
+taskFive();
+
+function taskFive() {
+    const fullName = prompt("Задача 5. Введите ФИО", "").trim();
+    alert("Результат задачи №5: ФИО " + (checkFullName(fullName) ? "валидно" : "невалидно"));
+}
+
+/**
+ * Проверяет ФИО на корректность
+ * @param fullName {string}
+ * @returns {boolean}
+ */
+function checkFullName(fullName) {
+    return /^[А-я]+ [А-я]+( [А-я]*(вич|вна)$)?$/.test(fullName);
+}
+
