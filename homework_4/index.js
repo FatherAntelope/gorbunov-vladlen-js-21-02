@@ -120,15 +120,14 @@ function pascalToSnakeCase(pascalCase) {
 taskSix();
 
 function taskSix() {
-    let html = prompt("Задание 6. Введите HTML c комментариями", "");
-
+    const html = prompt("Задача 6. Введите HTML c комментариями", "");
     alert("Результат задачи №6: " + getHTMLComments(html));
 }
 
 /**
  * Получает массив комментариев и убирает с каждого элемента массива спецсимволы
  * @param html {string} html разметка
- * @returns {object} массив комментариев, если есть, иначе null
+ * @returns {Array | null} массив комментариев, если есть, иначе null
  */
 function getHTMLComments(html) {
     const htmlComments = html.match(/(<!--[\S\s]+?-->)/g);
@@ -137,4 +136,24 @@ function getHTMLComments(html) {
             return value.replace(/^<!--/, "").replace(/-->$/, "")
         })
         : null;
+}
+
+/************
+ * Задача 7 *
+ ************/
+
+taskSeven();
+
+function taskSeven() {
+    const stringWithNumbers = prompt("Задача 7. Введите строку с числами", "");
+    alert("Результат задачи №6: " + getNumbers(stringWithNumbers));
+}
+
+/**
+ * Получает все числа из строки (положительные, отрицательные, вещественные или целые)
+ * @param str {string} строка с числами
+ * @returns {Array | null} массив чисел, если найдено, иначе null
+ */
+function getNumbers(str) {
+    return str.match(/[+-]?\d+(\.?\d+)?/g);
 }
