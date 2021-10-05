@@ -16,8 +16,8 @@ function taskOne() {
 /**
  * Функция возвращает результат вхождения второй строки в первую без учета регистра,
  * при этом вторая должна быть определена
- * @param {String} stringOne первая строка
- * @param {String} stringTwo вторая строка
+ * @param {string} stringOne первая строка
+ * @param {string} stringTwo вторая строка
  * @returns {boolean} True - входит, иначе false
  */
 function isSecondContainsFirstStr(stringOne, stringTwo) {
@@ -45,11 +45,35 @@ function taskTwo() {
 
 /**
  * Функция отсекает с конца строки заданное количество символов
- * @param str {String} отсекаемая строка
- * @param countSymbols {Number} количество отсекаемых символов
- * @returns {String} если countSymbols > 0 - результат отсечение, иначе str
+ * @param str {string} отсекаемая строка
+ * @param countSymbols {number} количество отсекаемых символов
+ * @returns {string} если countSymbols > 0 - результат отсечение, иначе str
  */
 function sliceEnd(str, countSymbols) {
     return (countSymbols > 0) ? str.slice(0, -countSymbols).trimEnd() + "..." : str;
+}
+
+/************
+ * Задача 4 *
+ ************/
+
+taskFour();
+
+function taskFour() {
+    let dataTime = "12/02/2021 12-00";
+    if (/^(\d{2}\/\d{2}\/\d{4}) (\d{2}-\d{2})$/.test(dataTime)) {
+        alert("Результат задачи №4: " + dataTransformation(dataTime));
+    } else {
+        alert("Неверно задан формат даты и времени");
+    }
+}
+
+/**
+ * Меняет формат даты и времени с d/m/Y h-s в d.m.Y h:s
+ * @param dataTime {string} дата и время в формате d/m/Y h-s
+ * @returns {string} дата и время в формате d.m.Y h:s
+ */
+function dataTransformation(dataTime) {
+    return dataTime.replace(/\/+/g, ".").replace(/-/, ":");
 }
 
