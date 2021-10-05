@@ -6,7 +6,7 @@
 taskOne();
 
 function taskOne() {
-    let arrStrings = prompt("Задача 1. Введите 2 строки через запятую", "")
+    const arrStrings = prompt("Задача 1. Введите 2 строки через запятую", "")
         .split(",")
         .map((value => value.trim()));
 
@@ -34,9 +34,9 @@ function taskTwo() {
     let strCut = prompt("Задача 2. Введите строку и число для отсечения символов", "").trimEnd();
     let cutNum = strCut.match(/\d+$/);
 
-    if(cutNum != null) {
+    if (cutNum != null) {
         strCut = strCut.slice(0, -cutNum[0].length);
-        strCut =  sliceEnd(strCut, +cutNum[0]);
+        strCut = sliceEnd(strCut, +cutNum[0]);
         alert("Результат задачи №2: " + strCut);
     } else {
         alert("Строка должна содержать число в конце для отсечения!");
@@ -60,7 +60,7 @@ function sliceEnd(str, countSymbols) {
 taskFour();
 
 function taskFour() {
-    let dataTime = "12/02/2021 12-00";
+    const dataTime = "12/02/2021 12-00";
     if (/^(\d{2}\/\d{2}\/\d{4}) (\d{2}-\d{2})$/.test(dataTime)) {
         alert("Результат задачи №4: " + dataTransformation(dataTime));
     } else {
@@ -97,3 +97,17 @@ function checkFullName(fullName) {
     return /^[А-я]+ [А-я]+( [А-я]*(вич|вна)$)?$/.test(fullName);
 }
 
+/************
+ * Задача 6 *
+ ************/
+
+taskSix();
+
+function taskSix() {
+    let pascalCase = prompt("Задача 5. Введите строку в PascalCase").trim();
+    alert(pascalToSnakeCase(pascalCase));
+}
+
+function pascalToSnakeCase(pascalCase) {
+    return pascalCase.split(/(?=[A-Z])/).join("_").toLowerCase();
+}
