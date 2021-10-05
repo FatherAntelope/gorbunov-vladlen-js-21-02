@@ -1,4 +1,5 @@
 'use strict';
+
 /************
  * Задача 1 *
  ************/
@@ -54,15 +55,15 @@ function sliceEnd(str, countSymbols) {
 }
 
 /************
- * Задача 4 *
+ * Задача 3 *
  ************/
 
-taskFour();
+taskThree();
 
-function taskFour() {
+function taskThree() {
     const dataTime = "12/02/2021 12-00";
     if (/^(\d{2}\/\d{2}\/\d{4}) (\d{2}-\d{2})$/.test(dataTime)) {
-        alert("Результат задачи №4: " + dataTransformation(dataTime));
+        alert("Результат задачи №3: " + dataTransformation(dataTime));
     } else {
         alert("Неверно задан формат даты и времени");
     }
@@ -78,14 +79,14 @@ function dataTransformation(dataTime) {
 }
 
 /************
- * Задача 5 *
+ * Задача 4 *
  ************/
 
-taskFive();
+taskFour();
 
-function taskFive() {
-    const fullName = prompt("Задача 5. Введите ФИО", "").trim();
-    alert("Результат задачи №5: ФИО " + (checkFullName(fullName) ? "валидно" : "невалидно"));
+function taskFour() {
+    const fullName = prompt("Задача 4. Введите ФИО", "").trim();
+    alert("Результат задачи №4: ФИО " + (checkFullName(fullName) ? "валидно" : "невалидно"));
 }
 
 /**
@@ -98,12 +99,12 @@ function checkFullName(fullName) {
 }
 
 /************
- * Задача 6 *
+ * Задача 5 *
  ************/
 
-taskSix();
+taskFive();
 
-function taskSix() {
+function taskFive() {
     let pascalCase = prompt("Задача 5. Введите строку в PascalCase").trim();
     alert(pascalToSnakeCase(pascalCase));
 }
@@ -111,3 +112,8 @@ function taskSix() {
 function pascalToSnakeCase(pascalCase) {
     return pascalCase.split(/(?=[A-Z])/).join("_").toLowerCase();
 }
+
+/************
+ * Задача 6 *
+ ************/
+
