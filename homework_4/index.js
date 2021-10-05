@@ -157,3 +157,35 @@ function taskSeven() {
 function getNumbers(str) {
     return str.match(/[+-]?\d+(\.?\d+)?/g);
 }
+
+
+/************
+ * Задача 8 *
+ ************/
+
+taskEight();
+
+function taskEight() {
+    const idDocument =
+        prompt(
+            "Задача 8. Введите номер документа в формате XXXX XXXX XXXX XXXX или XXXX-XXXX-XXXX-XXXX",
+            ""
+        );
+
+    if(checkIdDocument(idDocument)) {
+        alert("Ведётся поиск");
+    } else {
+        alert("Неверный идентификатор");
+        taskEight();
+    }
+}
+
+/**
+ * Проверяет идентификатор документа в формате XXXX XXXX XXXX XXXX или XXXX-XXXX-XXXX-XXXX
+ * @param idDocument {string} идентификатор документа
+ * @returns {boolean} True - верный идентификатор, иначе - неверный
+ */
+function checkIdDocument(idDocument) {
+    //Или /^(([0-9A-z]{4})[- ]){3}([0-9A-z]{4})$/ если нужно комбинировать [- ]
+    return /^((([0-9A-z]{4}) ){3}([0-9A-z]{4}))|((([0-9A-z]{4})-){3}([0-9A-z]{4}))$/.test(idDocument);
+}
