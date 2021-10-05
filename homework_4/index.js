@@ -106,7 +106,7 @@ taskFive();
 
 function taskFive() {
     let pascalCase = prompt("Задача 5. Введите строку в PascalCase").trim();
-    alert(pascalToSnakeCase(pascalCase));
+    alert("Результат задачи №5: " + pascalToSnakeCase(pascalCase));
 }
 
 function pascalToSnakeCase(pascalCase) {
@@ -117,3 +117,24 @@ function pascalToSnakeCase(pascalCase) {
  * Задача 6 *
  ************/
 
+taskSix();
+
+function taskSix() {
+    let html = prompt("Задание 6. Введите HTML c комментариями", "");
+
+    alert("Результат задачи №6: " + getHTMLComments(html));
+}
+
+/**
+ * Получает массив комментариев и убирает с каждого элемента массива спецсимволы
+ * @param html {string} html разметка
+ * @returns {object} массив комментариев, если есть, иначе null
+ */
+function getHTMLComments(html) {
+    const htmlComments = html.match(/(<!--[\S\s]+?-->)/g);
+    return (htmlComments != null) ?
+        htmlComments.map(value => {
+            return value.replace(/^<!--/, "").replace(/-->$/, "")
+        })
+        : null;
+}
