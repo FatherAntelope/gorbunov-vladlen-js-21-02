@@ -1,0 +1,441 @@
+@import "nullstyle.scss";
+
+$color-green: #009a58;
+$color-white: #fff;
+$color-gray-dark: #75777d;
+$color-gray: #c2c2c2;
+$color-gray-light: #f2f2f2;
+$color-blue: #51a7d0;
+$color-dark: #35393b;
+$color-green-dark: #006439;
+$color-blue-light: #91c4ec;
+
+/*****
+Тело
+******/
+.body {
+    font-family: "Arial", sans-serif;
+    &_theme_dark {
+        background-color: $color-dark;
+    }
+}
+
+/*****
+Обертка (для размещения сетки)
+******/
+.wrapper {
+    height: 100%;
+
+    &__container {
+        margin: 0 auto;
+        max-width: 1230px;
+        padding: 0 15px;
+        height: 100%;
+    }
+
+    &__grid {
+        display: grid;
+        min-height: 100%;
+        grid-template-columns: [col-1] 240px [col-2] 1fr;
+        grid-template-rows: [row-1] minmax(20px, auto) [row-2] 1fr [row-3] minmax(20px, auto);
+        grid-row-gap: 10px;
+        grid-column-gap: 10px;
+        grid-template-areas:
+            'header header'
+            'sidebar main'
+            'footer footer';
+    }
+}
+
+
+/*****
+Шапка - элемент сетки
+******/
+.header {
+    grid-area: header;
+    background-color: $color-green;
+
+    &_theme_dark {
+        background-color: $color-green-dark;
+    }
+
+    &__body {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 15px 20px;
+    }
+
+    &__text {
+        color: $color-white;
+        font-weight: 700;
+        font-size: 28px;
+
+        &_theme_dark {
+            color: $color-gray;
+        }
+    }
+}
+
+.spinner {
+    position: relative;
+    height: 40px;
+    width: 40px;
+
+    &_size_big {
+        height: 60px;
+        width: 60px;
+    }
+
+    &_size_small {
+        height: 25px;
+        width: 25px;
+    }
+
+    &, &:before {
+        animation: rotate 1.5s linear infinite;
+        border-radius: 50%;
+        border: 4px solid transparent;
+        border-top-color: $color-gray;
+        border-bottom-color: $color-gray;
+    }
+
+    &:before {
+        content: '';
+        position: absolute;
+        top: -10px;
+        bottom: -10px;
+        left: -10px;
+        right: -10px;
+    }
+
+    @keyframes rotate {
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+}
+
+/*****
+Сайдбар (область фильтра продукции) - элемент сетки
+******/
+.sidebar {
+    grid-area: sidebar;
+    background-color: $color-gray-light;
+
+    &_theme_dark {
+        background-color: $color-gray-dark;
+    }
+
+    &__body {
+        height: 100%;
+        padding: 15px 20px;
+    }
+
+    &__form-filter {
+        flex-direction: column;
+    }
+}
+
+/* (Можно сделать отдельный блок в виде горизонтального (flexbox row) фильтра) */
+.form-filter {
+    display: flex;
+
+    &__group {
+        margin-bottom: 10px;
+    }
+
+    &__title {
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 1.5;
+        margin-bottom: 5px;
+
+        &_theme_dark {
+            color: $color-gray-light;
+        }
+    }
+
+    &__list-check {
+        flex-direction: column;
+        margin-left: 15px;
+    }
+}
+
+.list-check {
+    display: flex;
+
+    &__item {
+        font-size: 16px;
+        user-select: none;
+
+        &:not(:last-child) {
+            margin-bottom: 5px;
+        }
+
+        &_theme_dark {
+            color: $color-gray;
+        }
+    }
+}
+
+/*****
+Основная область - элемент сетки
+******/
+.main {
+    grid-area: main;
+}
+
+.section {
+    width: 100%;
+    padding: 2px 0;
+    &__heading {
+        padding: 15px 20px;
+        margin-bottom: 20px;
+    }
+
+    &__title {
+        font-size: 36px;
+        font-weight: 600;
+        line-height: 1.5;
+
+        &_theme_dark {
+            color: $color-gray;
+        }
+    }
+
+    &__subtitle {
+        font-size: 18px;
+        line-height: 1.5;
+
+        &_theme_dark {
+            color: $color-gray;
+        }
+
+        &_size_mini {
+            margin-top: 20px;
+            font-weight: 600;
+            font-size: 28px;
+        }
+    }
+
+    /********
+    Flex сетка (строка - колонки)
+    *********/
+    &__row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    &__col-4 {
+        display: flex; /*Для идентичной высоты элементов с соседними*/
+        flex: 0 1 calc((100% / 12 * 4) - 7px);
+    }
+
+    &__col-6 {
+        display: flex;
+        flex: 0 1 calc((100% / 12 * 6) - 5px);
+    }
+}
+
+/********
+Карточка
+*********/
+.card {
+    background-color: $color-gray-light;
+    padding: 10px 15px;
+    display: flex;
+    width: 100%;
+    cursor: pointer;
+    transition: background-color 0.3s ease-out, box-shadow 0.3s ease-out;
+
+    &:hover {
+        background-color: $color-green;
+        box-shadow: 0 0 10px $color-green;
+    }
+
+    &_theme_dark {
+        background-color: $color-gray-dark;
+        &:hover {
+            background-color: $color-green-dark;
+            box-shadow: 0 0 10px $color-green-dark;
+        }
+    }
+
+    &__image {
+        height: 60px;
+        width: 60px;
+        background-color: $color-gray;
+        margin-right: 10px;
+    }
+
+    &__body {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    &__link {
+        color: $color-blue;
+        text-decoration: underline;
+        font-size: 16px;
+        line-height: 1.5;
+
+        &_theme_dark {
+            color: $color-blue-light;
+        }
+    }
+
+    &__description {
+        color: $color-gray-dark;
+        font-size: 16px;
+        line-height: 1.5;
+
+        &_theme_dark {
+            color: $color-gray-light;
+        }
+    }
+
+    &__button {
+        border: none;
+        background-color: $color-gray;
+        text-align: center;
+        padding: 5px 10px;
+        font-size: 16px;
+
+        &_theme_dark {
+            color: $color-dark;
+        }
+    }
+}
+
+/*****
+Подвал - элемент сетки
+******/
+.footer {
+    grid-area: footer;
+    background-color: $color-gray-light;
+
+    &_theme_dark {
+        background-color: $color-gray-dark;
+    }
+
+    &__body {
+        display: flex;
+        height: 100%;
+        align-items: center;
+        justify-content: space-between;
+        padding: 15px 20px;
+    }
+
+    &__text {
+        font-size: 16px;
+        color: $color-gray-dark;
+
+        &_theme_dark {
+            color: $color-gray;
+        }
+    }
+}
+
+@media (max-width: 900px) {
+    .section__col-6 {
+        flex: 0 1 100%;
+    }
+
+    .section__col-4 {
+        flex: 0 1 calc((100% / 2) - 5px);;
+    }
+}
+
+@media (max-width: 768px) {
+    .header__text {
+        font-size: 20px;
+    }
+
+    .form-filter__title {
+        font-size: 14px;
+    }
+
+    .list-check__item {
+        font-size: 14px;
+    }
+
+    .section__title {
+        font-size: 28px;
+    }
+
+    .section__subtitle {
+        font-size: 16px;
+    }
+
+    .section__title_size_mini {
+        font-size: 20px;
+    }
+
+    .section__col-4 {
+        flex: 0 1 100%;
+    }
+}
+
+@media (max-width: 520px) {
+    .main {
+        grid-column-start: span 2;
+    }
+
+    .sidebar {
+        display: none;
+    }
+
+    .footer__text {
+        font-size: 14px
+    }
+
+    .section__heading {
+        margin-bottom: 10px;
+    }
+
+    .section__title_size_mini {
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header__text {
+        font-size: 16px;
+    }
+
+    .footer__body {
+        flex-direction: column;
+    }
+
+    .footer__text:not(:last-child) {
+        padding-bottom: 10px;
+    }
+
+    .section__title {
+        font-size: 18px;
+    }
+
+    .section__subtitle {
+        font-size: 14px;
+    }
+
+    .section__title_size_mini {
+        font-size: 16px;
+    }
+
+    .card__link {
+        font-size: 14px;
+    }
+
+    .card__description {
+        font-size: 14px;
+    }
+
+    .card__button {
+        font-size: 14px;
+    }
+}
