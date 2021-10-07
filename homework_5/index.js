@@ -151,3 +151,33 @@ function Calculator(value = 0) {
     this.performDivision = (divVal) => this.value /= divVal;
     this.resetValue = () => this.value = 0;
 }
+
+/************
+ * Задача 7 *
+ ************/
+
+taskSeven();
+
+function taskSeven() {
+    const arr = [-1, "name", 1.23, "strOne", {count: 5}, "strTwo", 230, {name: "Иван", age: 21}];
+
+    console.group("Результат задачи 7:");
+    console.log(getObjGroupValuesArr(arr));
+    console.groupEnd();
+}
+
+function getObjGroupValuesArr(arr) {
+    let resObj = {numbers: [], strings: [], objects: []};
+
+    arr.forEach(item => {
+        if (typeof item == "number") {
+            resObj["numbers"].push(item);
+        } else if (typeof item == "string") {
+            resObj["strings"].push(item);
+        } else if (typeof item === "object" && item !== null && !Array.isArray(item)) {
+            resObj["objects"].push(item);
+        }
+    });
+
+    return resObj;
+}
