@@ -245,3 +245,42 @@ function isAnagrams(strFirst, strSecond) {
 
     return true;
 }
+
+/*************
+ * Задача 10 *
+ *************/
+
+taskTen();
+
+function taskTen() {
+    let userObj = {
+        name: "Иван",
+        age: 25,
+        weight: 55.5,
+        city: "Казань",
+        cars: ["BMW", "AUDI"],
+        animals: ["cat", "dog", {}],
+        skills: null,
+        0: {
+            test: "Текст"
+        },
+        isSinger: false,
+        printEntries: function() {
+            for(let [key, value] of Object.entries(this)) {
+                if (Array.isArray(value)) {
+                    if(value.filter(item => item.constructor.name === "Object").length === 0) {
+                        console.log(`${key}: ${value}`);
+                    }
+                    continue;
+                }
+                if(typeof value !== 'function' && (typeof value !== 'object' || value == null)) {
+                    console.log(`${key}: ${value}`);
+                }
+            }
+        }
+    };
+
+    console.group("Результат задачи 10:");
+    userObj.printEntries();
+    console.groupEnd();
+}
