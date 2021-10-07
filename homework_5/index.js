@@ -7,12 +7,30 @@ taskOne();
 function taskOne() {
     const arr = [1, 3, 5, 4, 3, 2, 4, 5, -2, "string", 5, "string", "apple", -1, -2];
     console.group("Результат задачи 1:");
-    console.table(getNonUniqueArrValue(arr));
+    console.table(getArrWithoutDuplicatesAll(arr));
     console.groupEnd();
 }
 
-function getNonUniqueArrValue(arr) {
+/**
+ * @description Получает массив с уникальными значениями без дубликатов
+ * @param arr {object} фильтрируемый массив от дубликатов
+ * @returns {object} массив уникальных значений
+ */
+function getArrWithoutDuplicates(arr) {
     return [...new Set(arr)];
+}
+
+/**
+ * @description Получает массив без дубликатов (в том числе и сам элемент у которого есть дубликат)
+ * @param arr {object} фильтрируемый массив от дубликатов
+ * @returns {object} массив уникальных значений
+ */
+function getArrWithoutDuplicatesAll(arr) {
+    let duplicateArr = arr.reduce(function (acc, item, index, curArr) {
+        return (acc.includes(item) === false && curArr.indexOf(item) !== index) ? acc.concat(item) : acc
+    }, []);
+
+    return duplicateArr.length > 0 ? arr.filter(item => !duplicateArr.includes(item)) : arr;
 }
 
 /************
