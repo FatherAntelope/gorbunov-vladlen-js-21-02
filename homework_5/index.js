@@ -30,3 +30,27 @@ function reverseArr(arr) {
     return arr.map((item, index, curArr) => curArr[curArr.length - index - 1]);
 }
 
+/************
+ * Задача 3 *
+ ************/
+
+taskThree();
+
+function taskThree() {
+    let arrMap = [
+        ["name", "Иван"],
+        ["age", 35],
+        [0, "value"]
+    ];
+    console.log("Результат задачи 3:");
+    console.log(arrMapToObjMap(arrMap));
+}
+
+function arrMapToObjMap(arrMap) {
+    let resultObj = {};
+    arrMap.forEach(([key, value]) => {
+        resultObj[key] = value;
+    });
+    return resultObj;
+    //return Object.fromEntries(new Map(arrMap)); //доп.вариант
+}
