@@ -5,7 +5,7 @@
 taskOne();
 
 function taskOne() {
-    let arr = [1, 3, 5, 4, 3, 2, 4, 5, -2, "string", 5, "string", "apple", -1, -2];
+    const arr = [1, 3, 5, 4, 3, 2, 4, 5, -2, "string", 5, "string", "apple", -1, -2];
     console.group("Результат задачи 1:");
     console.table(getNonUniqueArrValue(arr));
     console.groupEnd();
@@ -22,7 +22,7 @@ function getNonUniqueArrValue(arr) {
 taskTwo();
 
 function taskTwo() {
-    let arr = [1, 3, 5, 4, 3, 2, 4, "0"];
+    const arr = [1, 3, 5, 4, 3, 2, 4, "0"];
     console.group("Результат задачи 2:");
     console.table(reverseArr(arr));
     console.groupEnd();
@@ -45,7 +45,7 @@ function reverseArr(arr) {
 taskThree();
 
 function taskThree() {
-    let arrMap = [
+    const arrMap = [
         ["name", "Иван"],
         ["age", 35],
         [0, "value"]
@@ -71,7 +71,7 @@ function arrMapToObjMap(arrMap) {
 taskFour();
 
 function taskFour() {
-    let obj = {
+    const obj = {
         name: "floor",
         height: 50,
         width: 100,
@@ -105,7 +105,7 @@ function getSumNumericValuesObject(obj) {
 taskFive();
 
 function taskFive() {
-    let arr = [1, 3, 5, 4, 3, 2, 4, -2];
+    const arr = [1, 3, 5, 4, 3, 2, 4, -2];
     console.group("Результат задачи 5:");
     console.log(getAverageArr(arr));
     console.groupEnd();
@@ -113,4 +113,41 @@ function taskFive() {
 
 function getAverageArr(arr) {
     return arr.reduce((prev, curr) => prev + curr, 0) / arr.length;
+}
+
+/************
+ * Задача 6 *
+ ************/
+
+taskSix();
+
+function taskSix() {
+    const calculator = new Calculator(10);
+
+    console.group("Результат задачи 6:");
+    console.log(
+        "Исходное значение: " + calculator.value +
+        "\nПосле деления: " + calculator.performDivision(5) +
+        "\nПосле умножения: " + calculator.performMultiplication(3) +
+        "\nПосле сложения: " + calculator.performAddition(2) +
+        "\nПосле вычитания: " + calculator.performSubtraction(4) +
+        "\nИсходное значение: " + calculator.value
+    );
+    calculator.resetValue();
+    console.log("Исходное значение: " + calculator.value);
+    console.groupEnd();
+}
+
+/**
+ * @description Функция-конструктор "Калькулятор"
+ * @param value {number} исходное значение, по умолчанию - 0
+ * @constructor
+ */
+function Calculator(value = 0) {
+    this.value = value;
+    this.performAddition = (addVal) => this.value += addVal;
+    this.performSubtraction = (subVal) => this.value -= subVal;
+    this.performMultiplication = (mulVal) => this.value *= mulVal;
+    this.performDivision = (divVal) => this.value /= divVal;
+    this.resetValue = () => this.value = 0;
 }
