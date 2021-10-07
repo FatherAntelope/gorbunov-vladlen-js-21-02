@@ -26,7 +26,7 @@ function getArrWithoutDuplicates(arr) {
  * @returns {object} массив уникальных значений
  */
 function getArrWithoutDuplicatesAll(arr) {
-    let duplicateArr = arr.reduce(function (acc, item, index, curArr) {
+    let duplicateArr = arr.reduce((acc, item, index, curArr) => {
         return (acc.includes(item) === false && curArr.indexOf(item) !== index) ? acc.concat(item) : acc
     }, []);
 
@@ -230,7 +230,7 @@ function taskNine() {
 }
 
 function isAnagrams(strFirst, strSecond) {
-    if(strFirst.length !== strSecond.length) {
+    if (strFirst.length !== strSecond.length) {
         return false;
     }
 
@@ -238,7 +238,7 @@ function isAnagrams(strFirst, strSecond) {
         secondStrArr = [...strSecond.toLowerCase()].sort();
 
     for (let i = 0; i < firstStrArr.length; i++) {
-        if(firstStrArr[i] !== secondStrArr[i]) {
+        if (firstStrArr[i] !== secondStrArr[i]) {
             return false;
         }
     }
@@ -265,15 +265,15 @@ function taskTen() {
             test: "Текст"
         },
         isSinger: false,
-        printEntries: function() {
-            for(let [key, value] of Object.entries(this)) {
+        printEntries: function () {
+            for (let [key, value] of Object.entries(this)) {
                 if (Array.isArray(value)) {
-                    if(value.filter(item => item.constructor.name === "Object").length === 0) {
+                    if (value.filter(item => item.constructor.name === "Object").length === 0) {
                         console.log(`${key}: ${value}`);
                     }
                     continue;
                 }
-                if(typeof value !== 'function' && (typeof value !== 'object' || value == null)) {
+                if (typeof value !== 'function' && (typeof value !== 'object' || value == null)) {
                     console.log(`${key}: ${value}`);
                 }
             }
@@ -283,4 +283,51 @@ function taskTen() {
     console.group("Результат задачи 10:");
     userObj.printEntries();
     console.groupEnd();
+}
+
+/*************
+ * Задача 11 *
+ *************/
+
+taskEleven();
+
+function taskEleven() {
+    let functionProps = new FunctionProps();
+    functionProps.setProp("name", "Иван", {writable: false});
+    functionProps.setProp("age", 27);
+    functionProps.setProp("cars", ["audi", "bmw"], {enumerable: false, configurable: false});
+    functionProps.setProp("height");
+    functionProps.setProp("obj", {key: "value"});
+    functionProps.setProp("getTestText", () => {
+        return "Что-то есть"
+    });
+
+    console.group("Результат задачи 11:");
+    console.table(Object.getOwnPropertyDescriptors(functionProps));
+    console.log(functionProps.name);
+    console.groupEnd();
+}
+
+/**
+ * @description Функция-конструктор, хранящая свойства с дескрипторами
+ * @constructor
+ */
+function FunctionProps() {
+    /**
+     * @description Создает новое свойство в текущем объекте
+     * @param key {string} ключ свойства
+     * @param value {*} значение свойства
+     * @param descriptorsProp {object:{writable, configurable, enumerable}} дескрипторы свойств
+     * @method
+     */
+    this.setProp = (key, value = null, descriptorsProp = {}) => {
+        if (!this.hasOwnProperty(key)) {
+            Object.defineProperty(this, key, {
+                value: value,
+                writable: (typeof descriptorsProp.writable == 'boolean') ? descriptorsProp.writable : true,
+                configurable: (typeof descriptorsProp.configurable == 'boolean') ? descriptorsProp.configurable : true,
+                enumerable: (typeof descriptorsProp.enumerable == 'boolean') ? descriptorsProp.enumerable : true
+            });
+        }
+    }
 }
