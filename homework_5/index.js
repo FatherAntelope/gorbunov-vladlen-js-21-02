@@ -216,3 +216,32 @@ function taskEight() {
 function sliceArr(arr, start, end) {
     return (start > end) ? arr.slice(end, start) : arr.slice(start, end);
 }
+
+/************
+ * Задача 9 *
+ ************/
+
+taskNine();
+
+function taskNine() {
+    console.group("Результат задачи 9:");
+    console.log(isAnagrams("сосна", "насос"));
+    console.groupEnd();
+}
+
+function isAnagrams(strFirst, strSecond) {
+    if(strFirst.length !== strSecond.length) {
+        return false;
+    }
+
+    let firstStrArr = [...strFirst.toLowerCase()].sort(),
+        secondStrArr = [...strSecond.toLowerCase()].sort();
+
+    for (let i = 0; i < firstStrArr.length; i++) {
+        if(firstStrArr[i] !== secondStrArr[i]) {
+            return false;
+        }
+    }
+
+    return true;
+}
