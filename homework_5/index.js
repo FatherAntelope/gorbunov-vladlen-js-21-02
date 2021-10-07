@@ -199,3 +199,20 @@ function getObjGroupValuesArr(arr) {
 
     return resObj;
 }
+
+/************
+ * Задача 8 *
+ ************/
+
+taskEight();
+
+function taskEight() {
+    const arr = [1, 3, 5, 4, 3, 2, 4, -2];
+    console.group("Результат задачи 8:");
+    console.log(sliceArr(arr, 2, 7));
+    console.groupEnd();
+}
+
+function sliceArr(arr, start, end) {
+    return (start > end) ? arr.slice(end, start) : arr.slice(start, end);
+}
