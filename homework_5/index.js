@@ -97,3 +97,20 @@ function getSumNumericValuesObject(obj) {
     }
     return resultSum;
 }
+
+/************
+ * Задача 5 *
+ ************/
+
+taskFive();
+
+function taskFive() {
+    let arr = [1, 3, 5, 4, 3, 2, 4, -2];
+    console.group("Результат задачи 5:");
+    console.log(getAverageArr(arr));
+    console.groupEnd();
+}
+
+function getAverageArr(arr) {
+    return arr.reduce((prev, curr) => prev + curr, 0) / arr.length;
+}
