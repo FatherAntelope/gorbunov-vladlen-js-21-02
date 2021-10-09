@@ -11,7 +11,7 @@ function taskOne() {
 
 
 function getNumFibonacciFast(index) {
-    //Линейная рекурсия, возвращаются 2 соседних числа
+    //Линейная рекурсия, возвращаются 2 соседних числа O(N)
     const fibonacciFastRecursion = index => {
         if (index === 0) {
             return [0, 1];
@@ -24,7 +24,8 @@ function getNumFibonacciFast(index) {
     return fibonacciFastRecursion(index)[0];
 }
 
-//Медленная рекурсивная функция, поскольку получается дерево вложенностей из-за двух рекурсивных вызовов
+//Медленная рекурсивная функция, поскольку получается дерево вложенностей из-за двух рекурсивных вызовов O(2^N)
 function getNumFibonacciSlow(index) {
     return index > 1 ? getNumFibonacciSlow(index - 1) + getNumFibonacciSlow(index - 2) : index;
 }
+
