@@ -29,3 +29,30 @@ function getNumFibonacciSlow(index) {
     return index > 1 ? getNumFibonacciSlow(index - 1) + getNumFibonacciSlow(index - 2) : index;
 }
 
+/************
+ * Задача 2 *
+ ************/
+const getNumFibonacciCache = (() => {
+    const cacheObj = {};
+
+    function fibCacheRecursion (index) {
+        if(cacheObj[index] !== undefined) {
+            console.log("Возврат из кэша");
+            return cacheObj[index];
+        } else {
+            console.log("Запись в кэш");
+            return cacheObj[index] = index > 1 ?
+                fibCacheRecursion(index - 1) + fibCacheRecursion(index - 2) : index;
+        }
+    }
+
+    return fibCacheRecursion;
+})();
+
+taskTwo();
+
+function taskTwo() {
+    console.group("Результат задачи 2:");
+    console.log(getNumFibonacciCache(40));
+    console.groupEnd();
+}
