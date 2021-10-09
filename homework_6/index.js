@@ -5,8 +5,15 @@
 taskOne();
 
 function taskOne() {
-    console.log("Результат задачи 1 (fast): " + getNumFibonacciFast(40));
-    console.log("Результат задачи 1 (slow): " + getNumFibonacciSlow(40));
+    console.group("Результат задачи 1:");
+    console.time("Fast time");
+    console.log("Fast: " + getNumFibonacciFast(41));
+    console.timeEnd("Fast time");
+
+    console.time("Slow time");
+    console.log("Slow: " + getNumFibonacciSlow(41));
+    console.timeEnd("Slow time");
+    console.groupEnd();
 }
 
 
@@ -37,10 +44,10 @@ const getNumFibonacciCache = (() => {
 
     function fibCacheRecursion (index) {
         if(cacheObj[index] !== undefined) {
-            console.log("Возврат из кэша");
+            console.log("Возврат из кэша: " + index);
             return cacheObj[index];
         } else {
-            console.log("Запись в кэш");
+            console.log("Запись в кэш: " + index);
             return cacheObj[index] = index > 1 ?
                 fibCacheRecursion(index - 1) + fibCacheRecursion(index - 2) : index;
         }
@@ -53,6 +60,8 @@ taskTwo();
 
 function taskTwo() {
     console.group("Результат задачи 2:");
-    console.log(getNumFibonacciCache(40));
+    console.time("Cache time");
+    console.log("Cache: " + getNumFibonacciCache(40));
+    console.timeEnd("Cache time");
     console.groupEnd();
 }
