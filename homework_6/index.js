@@ -42,8 +42,8 @@ function getNumFibonacciSlow(index) {
 const getNumFibonacciCache = (() => {
     const cacheObj = {};
 
-    function fibCacheRecursion (index) {
-        if(cacheObj[index] !== undefined) {
+    function fibCacheRecursion(index) {
+        if (cacheObj[index] !== undefined) {
             console.log("Возврат из кэша: " + index);
             return cacheObj[index];
         } else {
@@ -64,4 +64,55 @@ function taskTwo() {
     console.log("Cache: " + getNumFibonacciCache(40));
     console.timeEnd("Cache time");
     console.groupEnd();
+}
+
+/************
+ * Задача 3 *
+ ************/
+
+taskThree();
+
+function taskThree() {
+    const arr = [
+        ["name", "Anna"],
+        ["age", 22],
+        [null, 5],
+        ["cars", {}],
+        ["pets",
+            [
+                ["dog", "Faust"],
+                ["cat", "Balthazar"],
+                ["items",
+                    [
+                        ["key", null],
+                        ["obj", {}],
+                        ["test", function () {
+                        }]
+                    ]
+                ]
+            ]
+        ]
+    ];
+
+    console.group("Результат задачи 3:");
+    console.log(arrToObj(arr));
+    console.groupEnd();
+}
+
+function arrToObj(arr) {
+    return arr.reduce((acc, item) => {
+        if (Array.isArray(item[1]) && typeof item[0] == "string") {
+            return {
+                ...acc,
+                [item[0]]: arrToObj(item[1])
+            };
+        } else if (typeof item[0] == "string") {
+            return {
+                ...acc,
+                [item[0]]: item[1]
+            };
+        } else {
+            return acc
+        }
+    }, {});
 }
