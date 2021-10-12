@@ -106,16 +106,18 @@ function AnimalFunc(name) {
     Object.defineProperties(this, {
         "_name": {configurable: false},
         "name": {
-            get() {
+            get: () => {
                 return this._name
             }, configurable: false, enumerable: false
         },
         "_say": {configurable: false, enumerable: false},
         "say": {
-            value: function () {
-                this._say();
+            get: () => {
+                return () => {
+                    this._say();
+                }
             },
-            configurable: false, enumerable: false, writable: false
+            configurable: false, enumerable: false
         },
         "eat": {configurable: false, writable: false, enumerable: false},
         "rename": {configurable: false, writable: false, enumerable: false}
@@ -168,8 +170,117 @@ console.log("---------------");
 
 parrotF.eat();
 parrotF.say();
+
+parrotF.rename("Кеша II");
+parrotF.eat();
 console.groupEnd();
 
 /**********
  * Классы *
  **********/
+
+class Animal {
+    constructor(name) {
+        this._name = name;
+    }
+
+    get name() {
+        return this._name;
+    }
+
+    _rename(name) {
+        this._name = name;
+    }
+
+    get rename () {
+        return (name) => {
+            this._rename(name);
+        }
+    }
+
+    _say() {
+        console.log("Неизвестное животное молчит");
+    }
+
+    get say () {
+        return () => {
+            this._say();
+        }
+    }
+
+    _eat() {
+        console.log(`${this._name} ест`);
+    }
+
+    get eat () {
+        return () => {
+            this._eat();
+        }
+    }
+}
+
+class Cat extends Animal {
+    constructor(name) {
+        super(name);
+    }
+
+    _say() {
+        console.log("Кот молчит");
+    }
+
+    _hunt() {
+        console.log(`${this.name} охотится`);
+    }
+
+    get hunt () {
+        return () => {
+            this._hunt();
+        }
+    }
+}
+
+class Dog extends Animal {
+    constructor(name) {
+        super(name);
+    }
+
+    _say() {
+        console.log("Собака молчит");
+    }
+}
+
+class Parrot extends Animal {
+    constructor(name) {
+        super(name);
+    }
+
+    _say() {
+        console.log("Попугай молчит");
+    }
+}
+
+const animal = new Animal("Животное"),
+    cat = new Cat("Барсик"),
+    dog = new Dog("Бобик"),
+    parrot = new Parrot("Гоша");
+
+console.group("Результат с классами:");
+animal.eat();
+animal.say();
+console.log("---------------");
+
+cat.eat();
+cat.hunt();
+cat.say();
+console.log("---------------");
+
+dog.eat();
+dog.say();
+console.log("---------------");
+
+parrot.eat();
+parrot.say();
+
+parrot.rename("Гоша II");
+parrot.eat();
+console.groupEnd();
