@@ -6,7 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="./scss/style.css">
-    <title>ДЗ№ 8</title>
+    <title>ДЗ №8</title>
 </head>
 <body>
 <main class="main">
@@ -16,8 +16,9 @@
                 <div class="col-3">
                     <div class="form__field">
                         <label class="form__label" for="user-name">Имя</label>
-                        <input type="text" class="form__input" id="user-name" placeholder="Введите имя">
-                        <div class="alert alert_color_danger">
+                        <input type="text" class="form__input" minlength="3" maxlength="16"
+                               name="user-name" id="user-name" placeholder="Введите имя">
+                        <div class="alert alert_color_danger alert_hidden" id="alert-danger-name">
                             <p>Имя должно состоять из латинских символов или кириллицы длиной от 3 до 16 символов</p>
                         </div>
                     </div>
@@ -25,8 +26,9 @@
                 <div class="col-3">
                     <div class="form__field">
                         <label class="form__label" for="user-phone">Телефон</label>
-                        <input type="tel" class="form__input" id="user-phone" placeholder="Введите № телефона">
-                        <div class="alert alert_color_danger">
+                        <input type="tel" class="form__input"
+                               name="user-phone" id="user-phone" placeholder="Введите № телефона">
+                        <div class="alert alert_color_danger alert_hidden" id="alert-danger-phone">
                             <p>Номер телефона должен быть в формате +7 (999) 999 99-99</p>
                         </div>
                     </div>
@@ -44,26 +46,28 @@
         <div class="row">
             <div class="col-6">
                 <div class="flex-end">
-                    <button type="button" class="button button_color_green button_active">Зеленый</button>
-                    <button type="button" class="button button_color_red">Красный</button>
-                    <button type="button" class="button button_color_cyan">Лазурный</button>
+                    <button type="button" class="button button_color_green" id="btn-to-green-table">
+                        Зеленый
+                    </button>
+                    <button type="button" class="button button_color_red" id="btn-to-red-table">Красный</button>
+                    <button type="button" class="button button_color_cyan" id="btn-to-cyan-table">Лазурный</button>
                 </div>
                 <table class="table">
-                    <thead class="table__head table__head_color_red">
+                    <thead class="table__head">
                         <tr>
                             <th>Имя</th>
                             <th>Номер телефона</th>
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody class="table__body table__body_color_red">
-                        <tr>
-                            <td>Имя</td>
-                            <td>Номер телефона</td>
-                            <td>
-                                <a href="#" class="table__del-link">Удалить</a>
-                            </td>
-                        </tr>
+                    <tbody class="table__body">
+<!--                        <tr>-->
+<!--                            <td>Имя</td>-->
+<!--                            <td>Номер телефона</td>-->
+<!--                            <td>-->
+<!--                                <a href="#" class="table__del-link">Удалить</a>-->
+<!--                            </td>-->
+<!--                        </tr>-->
                     </tbody>
                 </table>
             </div>
