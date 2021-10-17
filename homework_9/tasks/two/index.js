@@ -2,21 +2,24 @@ const seconds = document.getElementById("seconds");
 const secondsText = document.getElementById("text");
 let countdown = +seconds.dataset.value;
 
-seconds.innerText = countdown.toString();
+seconds.innerText = (countdown > 0) ? countdown.toString() : 0;
 secondsText.innerText = declensionTextSeconds(countdown);
 
 timerRedirection(countdown, seconds, secondsText, "https://maxima.life");
 
 function timerRedirection(countdown, secondsElement, secondsTextElement,  url) {
-    let interval = setInterval(() => {
-        countdown--;
-        if(countdown <= 0 ) {
-            clearInterval(interval);
-            location.href = url;
-        }
-        secondsElement.innerText = countdown.toString();
-        secondsTextElement.innerText = declensionTextSeconds(countdown);
-    }, 1000);
+    if(countdown > 0) {
+        let interval = setInterval(() => {
+            if(--countdown <= 0 ) {
+                clearInterval(interval);
+                location.href = url;
+            }
+            secondsElement.innerText = countdown.toString();
+            secondsTextElement.innerText = declensionTextSeconds(countdown);
+        }, 1000);
+    } else {
+        location.href = url;
+    }
 }
 
 function declensionTextSeconds(number) {
