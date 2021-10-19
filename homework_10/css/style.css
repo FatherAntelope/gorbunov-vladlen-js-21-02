@@ -9,6 +9,10 @@
     padding: 10px;
 }
 
+.form {
+    margin-bottom: 20px;
+}
+
 .form__file-input-wrapper {
     font-size: 0;
     display: flex;
@@ -86,3 +90,39 @@
 .spinner_hide {
     display: none;
 }
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.col {
+    flex: 0 1 calc(25% - 8px);
+}
+
+.image-card {
+    width: 100%;
+    background-color: coral;
+    padding: 10px;
+}
+
+.image-card__title {
+    color: white;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.image-card__body {
+    width: 100%;
+    height: 180px;
+}
+
+.image-card__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+

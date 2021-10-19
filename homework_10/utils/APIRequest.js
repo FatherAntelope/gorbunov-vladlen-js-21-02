@@ -1,26 +1,26 @@
 class APIRequest {
-    constructor(baseApiURL) {
-        this._baseApiURL = baseApiURL;
+    constructor(mainApiURL) {
+        this._mainApiURL = mainApiURL;
     }
 
-    get baseApiURL() {
-        return this._baseApiURL;
+    get mainApiURL() {
+        return this._mainApiURL;
     }
 
-    async getDataResponsePost(apiURL, body) {
-        return await this._getResponseFromPostRequest(apiURL, body)
+    async getDataResponsePost(apiPoint, body) {
+        return await this._getResponseFromPostRequest(apiPoint, body)
             .then(response => response.json())
             .then(json => json.data)
             .catch(console.log);
     }
 
-    async _getResponseFromPostRequest(apiURL, body) {
+    async _getResponseFromPostRequest(apiPoint, body) {
         const method = "POST";
         const options = {
             method,
             body
         };
-        const response = await fetch(this._baseApiURL + apiURL, options);
+        const response = await fetch(this._mainApiURL + apiPoint, options);
         if(response.ok) {
             return response;
         } else {
