@@ -1,0 +1,7 @@
+{
+  "files": ["./src/main.ts", "./src/constants/api.ts"],
+  "compilerOptions": {
+    "noImplicitAny": true,
+    "target": "ES2018"
+  }
+}
