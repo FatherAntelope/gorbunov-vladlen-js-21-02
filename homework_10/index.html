@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>ДЗ №10</title>
+</head>
+<body>
+<main class="main">
+    <span class="spinner spinner_hide" id="spinner"></span>
+    <form action="#" class="form" method="post" id="form-send-img">
+        <div class="form__file-input-wrapper">
+            <input type="file" class="form__file-input" name="user_img" id="file-input" accept="image/png, image/jpeg">
+            <label class="form__file-input-btn" for="file-input">
+                <span class="form__input-text">Выберите файл &#128206;</span>
+            </label>
+            <div class="form__file-name form__file-name_hide" id="file-name">
+                <span class="form__input-text">
+                    Выберите файл
+                </span>
+            </div>
+            <button type="submit" class="form__button" id="button">Отправить</button>
+        </div>
+    </form>
+    <div class="row" id="row-images"></div>
+</main>
+<script type="module" src="./index.js"></script>
+</body>
+</html>
