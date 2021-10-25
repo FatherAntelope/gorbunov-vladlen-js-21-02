@@ -7,7 +7,7 @@ class Header extends React.Component {
       <header className="header">
         <div className="header__body">
           <h2 className="header__text">
-            Интернет-магазин "Не только красивое"
+            {this.props.children}
           </h2>
         </div>
       </header>

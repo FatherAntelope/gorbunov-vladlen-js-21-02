@@ -7,10 +7,10 @@ class Footer extends React.Component {
       <footer className="footer">
         <div className="footer__body">
           <p className="footer__text">
-            Контакты
+            {this.props.info}
           </p>
           <p className="footer__text">
-            @ 2021. ИП Рыбаков О. А.
+            {this.props.copy}
           </p>
         </div>
       </footer>

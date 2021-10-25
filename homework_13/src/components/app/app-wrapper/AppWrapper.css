@@ -1,13 +1,13 @@
-.app-grid {
+.app-wrapper {
   height: 100vh;
 }
-.app-grid__container {
+.app-wrapper__container {
   margin: 0 auto;
   max-width: 1230px;
   padding: 0 15px;
   height: 100%;
 }
-.app-grid__grid {
+.app-wrapper__grid {
   display: grid;
   min-height: 100%;
   grid-template-columns: [col-1] 240px [col-2] 1fr;
@@ -17,4 +17,4 @@
   grid-template-areas: "header header" "sidebar main" "footer footer";
 }
 
-/*# sourceMappingURL=AppGrid.css.map */
+/*# sourceMappingURL=AppWrapper.css.map */

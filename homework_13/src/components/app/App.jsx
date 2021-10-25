@@ -1,25 +1,21 @@
 import React from "react";
 import './App.css';
-import './AppGrid.css';
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
 import Sidebar from "../sidebar/Sidebar";
 import Main from "../main/Main";
+import AppWrapper from "./app-wrapper/AppWrapper";
 
 class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <div className="app-grid">
-          <div className="app-grid__container">
-            <div className="app-grid__grid">
-              <Header/>
-              <Sidebar/>
-              <Main/>
-              <Footer/>
-            </div>
-          </div>
-        </div>
+        <AppWrapper>
+          <Header>Интернет-магазин "Не только красивое"</Header>
+          <Sidebar/>
+          <Main/>
+          <Footer info="Контакты" copy="@ 2021. ИП Рыбаков О. А."/>
+        </AppWrapper>
       </div>
     );
   }
