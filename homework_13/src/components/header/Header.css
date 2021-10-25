@@ -1,0 +1,18 @@
+.header {
+  grid-area: header;
+  background-color: #3B7A57FF;
+}
+.header__body {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 20px;
+}
+.header__text {
+  color: #FFF;
+  font-weight: 700;
+  font-size: 28px;
+}
+
+/*# sourceMappingURL=Header.css.map */
