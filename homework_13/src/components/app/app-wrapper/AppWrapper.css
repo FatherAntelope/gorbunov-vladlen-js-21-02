@@ -12,8 +12,7 @@
   min-height: 100%;
   grid-template-columns: [col-1] 240px [col-2] 1fr;
   grid-template-rows: [row-1] minmax(20px, auto) [row-2] 1fr [row-3] minmax(20px, auto);
-  grid-row-gap: 10px;
-  grid-column-gap: 10px;
+  grid-gap: 10px;
   grid-template-areas: "header header" "sidebar main" "footer footer";
 }
 

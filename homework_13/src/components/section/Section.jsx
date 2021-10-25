@@ -17,8 +17,8 @@ class Section extends React.Component {
           <p className="section__subtitle">
             {this.props.subtitle}
           </p>
-          {this.props.children}
         </div>
+        {this.props.children}
       </section>
     );
   }

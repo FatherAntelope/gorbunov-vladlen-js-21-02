@@ -1,5 +1,6 @@
 import React from "react";
 import './App.css';
+import './FlexGrid.css';
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
 import Sidebar from "../sidebar/Sidebar";
@@ -17,16 +18,25 @@ class App extends React.Component {
           <Sidebar/>
           <Main>
             <Section titleH1="Рыба на любой вкус" subtitle="Мы продаем рыбу, а не только показываем!">
-              <Card link="#" linkText="Замороженная рыба" description="Мы заморозили рыбу для вас"/>
-              <Card link="#" linkText="Живая рыба" description="На кухню или на разведение"/>
+              <div className="row">
+                <div className="col-6">
+                  <Card link="#" linkText="Замороженная рыба" description="Мы заморозили рыбу для вас"/>
+                </div>
+                <div className="col-6">
+                  <Card link="#" linkText="Живая рыба" description="На кухню или на разведение"/>
+                </div>
+              </div>
+
             </Section>
             <Section titleH2="Популярные">
-              <Card imgSrc="#" imgAlt="img" link="#" linkText="Палтус" buttonText="Купить"/>
-              <Card imgSrc="#" imgAlt="img" link="#" linkText="Сёмга" buttonText="Купить"/>
-              <Card imgSrc="#" imgAlt="img" link="#" linkText="Сом" buttonText="Купить"/>
-              <Card imgSrc="#" imgAlt="img" link="#" linkText="Мойва" buttonText="Купить"/>
-              <Card imgSrc="#" imgAlt="img" link="#" linkText="Сельдь" buttonText="Купить"/>
-              <Card imgSrc="#" imgAlt="img" link="#" linkText="Тунец" buttonText="Купить"/>
+              <div className="row">
+                <div className="col-4"><Card imgSrc="#" imgAlt="img" link="#" linkText="Палтус" buttonText="Купить"/></div>
+                <div className="col-4"><Card imgSrc="#" imgAlt="img" link="#" linkText="Сёмга" buttonText="Купить"/></div>
+                <div className="col-4"><Card imgSrc="#" imgAlt="img" link="#" linkText="Сом" buttonText="Купить"/></div>
+                <div className="col-4"><Card imgSrc="#" imgAlt="img" link="#" linkText="Мойва" buttonText="Купить"/></div>
+                <div className="col-4"><Card imgSrc="#" imgAlt="img" link="#" linkText="Сельдь" buttonText="Купить"/></div>
+                <div className="col-4"><Card imgSrc="#" imgAlt="img" link="#" linkText="Тунец" buttonText="Купить"/></div>
+              </div>
             </Section>
           </Main>
           <Footer info="Контакты" copy="@ 2021. ИП Рыбаков О. А."/>

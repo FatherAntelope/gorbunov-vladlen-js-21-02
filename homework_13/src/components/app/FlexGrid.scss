@@ -1,0 +1,15 @@
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.col {
+  display: flex;
+  &-4 {
+    flex: 0 1 calc(33.3333333333% - 7px);
+  }
+  &-6 {
+    flex: 0 1 calc(50% - 5px);
+  }
+}
