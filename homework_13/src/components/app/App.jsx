@@ -8,14 +8,39 @@ import Main from "../main/Main";
 import AppWrapper from "./app-wrapper/AppWrapper";
 import Section from "../section/Section";
 import Card from "../card/Card";
+import Filter from "../filter/Filter";
 
 class App extends React.Component {
   render() {
+    const dataFilter = [
+      {
+        title: "Морская рыба",
+        inputs: [
+          {id: 'product_shark', label: "Акула"},
+          {id: 'product_perch', label: "Окунь"},
+          {id: 'product_halibut', label: "Палтус"},
+          {id: 'product_cod', label: "Треска"}
+        ]
+      },
+      {
+        title: "Пресноводная рыба",
+        inputs: [
+          {id: 'product_beloglazka', label: "Белоглазка"},
+          {id: 'product_sturgeon', label: "Осётр"},
+          {id: 'product_eel', label: "Речной окунь"},
+          {id: 'product_burbot', label: "Налим"}
+        ]
+      }
+    ];
+
+
     return (
       <div className="App">
         <AppWrapper>
           <Header>Интернет-магазин "Не только красивое"</Header>
-          <Sidebar/>
+          <Sidebar>
+            <Filter dataGroup={dataFilter}/>
+          </Sidebar>
           <Main>
             <Section titleH1="Рыба на любой вкус" subtitle="Мы продаем рыбу, а не только показываем!">
               <div className="row">
@@ -26,7 +51,6 @@ class App extends React.Component {
                   <Card link="#" linkText="Живая рыба" description="На кухню или на разведение"/>
                 </div>
               </div>
-
             </Section>
             <Section titleH2="Популярные">
               <div className="row">

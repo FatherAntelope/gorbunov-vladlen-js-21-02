@@ -1,0 +1,14 @@
+.list-check {
+  display: flex;
+  flex-direction: column;
+}
+.list-check__item {
+  font-size: 16px;
+  user-select: none;
+  margin-left: 15px;
+}
+.list-check__item:not(:last-child) {
+  margin-bottom: 5px;
+}
+
+/*# sourceMappingURL=ListCheck.css.map */
