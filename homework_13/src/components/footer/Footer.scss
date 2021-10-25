@@ -1,0 +1,15 @@
+.footer {
+  grid-area: footer;
+  background-color: #F2F2F2FF;
+  &__body {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
+  }
+  &__text {
+    font-size: 16px;
+    color: var(--color-gray-dark);
+  }
+}
