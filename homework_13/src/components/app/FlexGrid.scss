@@ -8,8 +8,18 @@
   display: flex;
   &-4 {
     flex: 0 1 calc(33.3333333333% - 7px);
+
+    @media (max-width: 900px) {
+      flex: 0 1 calc((100% / 2) - 5px)
+    }
+    @media (max-width: 768px) {
+      flex: 0 1 100%;
+    }
   }
   &-6 {
     flex: 0 1 calc(50% - 5px);
+    @media (max-width: 900px) {
+      flex: 0 1 100%;
+    }
   }
 }

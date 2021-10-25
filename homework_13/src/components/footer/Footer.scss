@@ -13,3 +13,13 @@
     color: var(--color-gray-dark);
   }
 }
+
+@media (max-width: 520px) {
+  .footer__body {
+    flex-direction: column;
+  }
+
+  .footer__text:not(:last-child) {
+    padding-bottom: 10px;
+  }
+}

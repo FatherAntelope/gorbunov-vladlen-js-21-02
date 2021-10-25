@@ -1,5 +1,10 @@
 .main {
   grid-area: main;
 }
+@media (max-width: 520px) {
+  .main {
+    grid-column-start: span 2;
+  }
+}
 
 /*# sourceMappingURL=Main.css.map */

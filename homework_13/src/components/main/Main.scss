@@ -1,3 +1,6 @@
 .main {
   grid-area: main;
+  @media (max-width: 520px) {
+    grid-column-start: span 2;
+  }
 }
