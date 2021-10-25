@@ -1,0 +1,25 @@
+.section {
+  width: 100%;
+  padding: 2px 0;
+  &__heading {
+    padding: 15px 20px;
+    margin-bottom: 20px;
+  }
+
+  &__title {
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 1.5;
+
+    &_size_mini {
+      margin-top: 20px;
+      font-weight: 600;
+      font-size: 28px;
+    }
+  }
+
+  &__subtitle {
+    font-size: 18px;
+    line-height: 1.5;
+  }
+}

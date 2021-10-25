@@ -5,6 +5,7 @@ import Footer from "../footer/Footer";
 import Sidebar from "../sidebar/Sidebar";
 import Main from "../main/Main";
 import AppWrapper from "./app-wrapper/AppWrapper";
+import Section from "../section/Section";
 
 class App extends React.Component {
   render() {
@@ -13,7 +14,14 @@ class App extends React.Component {
         <AppWrapper>
           <Header>Интернет-магазин "Не только красивое"</Header>
           <Sidebar/>
-          <Main/>
+          <Main>
+            <Section titleH1="Рыба на любой вкус" subtitle="Мы продаем рыбу, а не только показываем!">
+
+            </Section>
+            <Section titleH2="Популярные">
+
+            </Section>
+          </Main>
           <Footer info="Контакты" copy="@ 2021. ИП Рыбаков О. А."/>
         </AppWrapper>
       </div>
