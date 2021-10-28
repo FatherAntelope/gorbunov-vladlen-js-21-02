@@ -1,0 +1,15 @@
+.sidebar {
+  grid-area: sidebar;
+  background-color: #F2F2F2FF;
+}
+.sidebar__body {
+  height: 100%;
+  padding: 15px 20px;
+}
+@media (max-width: 520px) {
+  .sidebar {
+    display: none;
+  }
+}
+
+/*# sourceMappingURL=Sidebar.css.map */

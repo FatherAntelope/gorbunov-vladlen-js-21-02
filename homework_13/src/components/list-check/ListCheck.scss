@@ -1,0 +1,13 @@
+.list-check {
+  display: flex;
+  flex-direction: column;
+  &__item {
+    font-size: 16px;
+    user-select: none;
+    margin-left: 15px;
+
+    &:not(:last-child) {
+      margin-bottom: 5px;
+    }
+  }
+}

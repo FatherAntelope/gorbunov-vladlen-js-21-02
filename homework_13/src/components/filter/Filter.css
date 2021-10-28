@@ -1,0 +1,15 @@
+.filter {
+  display: flex;
+  flex-direction: column;
+}
+.filter__group {
+  margin-bottom: 10px;
+}
+.filter__title {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.5;
+  margin-bottom: 5px;
+}
+
+/*# sourceMappingURL=Filter.css.map */
