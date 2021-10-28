@@ -24,8 +24,9 @@ class App extends React.Component<Props, State> {
     super(props);
     this.state = {
       tasks: [
-        { id: 0, text: 'Задача1', done: false },
-        { id: 1, text: 'Задача2', done: true }
+        { id: 0, text: 'Задача 1', done: false },
+        { id: 1, text: 'Задача 2', done: false },
+        { id: 2, text: 'Задача 3', done: false }
       ]
     };
   }
@@ -43,25 +44,14 @@ class App extends React.Component<Props, State> {
 
   removeTask = (id: number): void => {
     const index: number = this.state.tasks.map((item) => item.id).indexOf(id);
-
-    this.setState((state: any) => {
-      const { tasks } = state;
-      delete tasks[index];
-      return tasks;
-    });
+    delete this.state.tasks[index];
+    this.setState({ tasks: this.state.tasks });
   };
 
-  addTask = (task: Task[]) : void => {
-    this.setState((state: any) => {
-      const { tasks } = state;
-      return {
-        tasks: [...tasks, {
-          id: tasks.length !== 0 ? task.length : 0,
-          text: task,
-          done: false
-        }]
-      };
-    });
+  addTask = (task: string) : void => {
+    const { length } = this.state.tasks;
+    this.state.tasks.push({ id: length !== 0 ? length : 0, text: task, done: false });
+    this.setState({ tasks: this.state.tasks });
   };
 
   render() {

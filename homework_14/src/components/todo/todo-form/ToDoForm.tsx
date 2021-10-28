@@ -1,14 +1,8 @@
 import React from 'react';
 import './ToDoForm.css';
 
-type Task = {
-  id: number,
-  text: string,
-  done: boolean
-};
-
 interface Props {
-  addTask: (task: Task[]) => void;
+  addTask: (task: string) => void;
 }
 
 interface State {
