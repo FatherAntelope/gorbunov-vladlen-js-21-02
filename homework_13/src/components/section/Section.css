@@ -1,0 +1,24 @@
+.section {
+  width: 100%;
+  padding: 2px 0;
+}
+.section__heading {
+  padding: 15px 20px;
+  margin-bottom: 20px;
+}
+.section__title {
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+.section__title_size_mini {
+  margin-top: 20px;
+  font-weight: 600;
+  font-size: 28px;
+}
+.section__subtitle {
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+/*# sourceMappingURL=Section.css.map */

@@ -1,0 +1,27 @@
+.footer {
+  grid-area: footer;
+  background-color: #F2F2F2FF;
+}
+.footer__body {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 20px;
+}
+.footer__text {
+  font-size: 16px;
+  color: var(--color-gray-dark);
+}
+
+@media (max-width: 520px) {
+  .footer__body {
+    flex-direction: column;
+  }
+
+  .footer__text:not(:last-child) {
+    padding-bottom: 10px;
+  }
+}
+
+/*# sourceMappingURL=Footer.css.map */
