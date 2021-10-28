@@ -1,21 +1,33 @@
 import React from 'react';
 import './ToDoTask.css';
 
-class ToDoTask extends React.Component {
+type Task = {
+  text: string,
+  done: boolean
+};
+
+interface Props {
+  task: Task;
+  doneTask: () => void;
+  removeTask: () => void;
+}
+
+class ToDoTask extends React.Component<Props> {
   render() {
     return (
       <div className="todo-task">
         <div className="todo-task__info">
-          <div className="todo-task__check todo-task__check_active" />
-          <input
-            type="text"
-            className="todo-task__text todo-task__text_disabled todo-task__text_check_active"
-            defaultValue="Задача"
-            disabled
+          <div
+            onClick={this.props.doneTask}
+            className={`todo-task__check ${this.props.task.done && 'todo-task__check_active'} `}
           />
+          <span className={`todo-task__text ${this.props.task.done && 'todo-task__text_check_active'}`}>
+            {this.props.task.text}
+          </span>
         </div>
         <div className="todo-task__trash">
-          <a className="todo-task__link" href="/">Удалить</a>
+          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+          <span onClick={this.props.removeTask} className="todo-task__link">Удалить</span>
         </div>
       </div>
     );

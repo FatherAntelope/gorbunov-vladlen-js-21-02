@@ -35,25 +35,16 @@
     font-size: 20px;
     color: #fff;
     width: 100%;
-    background-color: transparent;
-    border: none;
-    outline: none;
-    cursor: text;
-    border-bottom: 2px solid #FD5F58;
 
 
     &_check_active {
       text-decoration: line-through;
-    }
-
-    &_disabled {
-      cursor: pointer;
-      border: none;
     }
   }
 
   &__link {
     color: #FD5F58;
     font-size: 16px;
+    cursor: pointer;
   }
 }
