@@ -5,53 +5,70 @@ import Segment from '../segment/Segment';
 import ToDoForm from '../todo/todo-form/ToDoForm';
 import ToDoTask from '../todo/todo-task/ToDoTask';
 
-interface Props {
+interface IProps {
   [key: string] : string
 }
 
-interface Task {
+interface ITask {
   id: number,
   text: string,
   done: boolean
 }
 
-interface State {
-  tasks: Task[];
+interface IState {
+  currentKey: number,
+  tasks: ITask[];
 }
 
-class App extends React.Component<Props, State> {
-  constructor(props: Props) {
+class App extends React.Component<IProps, IState> {
+  private static addDataInLocalStorage<T>(key: string, data: T): void {
+    const arrObj: T[] = JSON.parse(localStorage.getItem(key) || '[]');
+    arrObj.push(data);
+    localStorage.setItem(key, JSON.stringify(arrObj));
+  }
+
+  private static getDataOfLocalStorage<T>(key: string): T | null {
+    const storage: string | null = localStorage.getItem(key);
+    if (storage) {
+      return JSON.parse(storage);
+    }
+    return null;
+  }
+
+  private static setDataInLocalStorage<T>(key: string, data: T): void {
+    localStorage.setItem(key, JSON.stringify(data));
+  }
+
+  constructor(props: IProps) {
     super(props);
     this.state = {
-      tasks: [
-        { id: 0, text: 'Задача 1', done: false },
-        { id: 1, text: 'Задача 2', done: false },
-        { id: 2, text: 'Задача 3', done: false }
-      ]
+      currentKey: Number(App.getDataOfLocalStorage<string>('currentKey') || 0),
+      tasks: App.getDataOfLocalStorage<ITask[]>('tasks') || []
     };
   }
 
-  doneTask = (id: number): void => {
+  private doneTask = (id: number): void => {
     const index: number = this.state.tasks.map((item) => item.id).indexOf(id);
-    const status: boolean = !this.state.tasks[index].done;
-
-    this.setState((state: any) => {
-      const { tasks } = state;
-      tasks[index].done = status;
-      return tasks;
-    });
-  };
-
-  removeTask = (id: number): void => {
-    const index: number = this.state.tasks.map((item) => item.id).indexOf(id);
-    delete this.state.tasks[index];
+    this.state.tasks[index].done = !this.state.tasks[index].done;
+    App.setDataInLocalStorage<ITask[]>('tasks', this.state.tasks);
     this.setState({ tasks: this.state.tasks });
   };
 
-  addTask = (task: string) : void => {
-    const { length } = this.state.tasks;
-    this.state.tasks.push({ id: length !== 0 ? length : 0, text: task, done: false });
+  private removeTask = (id: number): void => {
+    const index: number = this.state.tasks.map((item) => item.id).indexOf(id);
+    this.state.tasks.splice(index, 1);
+    App.setDataInLocalStorage<ITask[]>('tasks', this.state.tasks);
     this.setState({ tasks: this.state.tasks });
+  };
+
+  private addTask = (taskName: string) : void => {
+    let key = this.state.currentKey;
+    const task: ITask = { id: key, text: taskName, done: false };
+    key += 1;
+    App.setDataInLocalStorage<number>('currentKey', key);
+    App.addDataInLocalStorage<ITask>('tasks', task);
+    this.state.tasks.push(task);
+    this.setState({ currentKey: key, tasks: this.state.tasks });
   };
 
   render() {

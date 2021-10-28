@@ -1,11 +1,11 @@
 import React from 'react';
 import './Segment.css';
 
-interface ISegment {
+interface IProps {
   children: React.ReactNode;
 }
 
-class Segment extends React.Component<ISegment> {
+class Segment extends React.Component<IProps> {
   render() {
     return (
       <div className="segment">

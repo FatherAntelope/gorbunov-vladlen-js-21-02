@@ -1,18 +1,18 @@
 import React from 'react';
 import './ToDoTask.css';
 
-type Task = {
+type ITask = {
   text: string,
   done: boolean
 };
 
-interface Props {
-  task: Task;
+interface IProps {
+  task: ITask;
   doneTask: () => void;
   removeTask: () => void;
 }
 
-class ToDoTask extends React.Component<Props> {
+class ToDoTask extends React.Component<IProps> {
   render() {
     return (
       <div className="todo-task">
@@ -26,7 +26,6 @@ class ToDoTask extends React.Component<Props> {
           </span>
         </div>
         <div className="todo-task__trash">
-          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
           <span onClick={this.props.removeTask} className="todo-task__link">Удалить</span>
         </div>
       </div>

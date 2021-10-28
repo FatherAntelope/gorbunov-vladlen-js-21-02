@@ -1,34 +1,31 @@
 import React from 'react';
 import './ToDoForm.css';
 
-interface Props {
+interface IProps {
   addTask: (task: string) => void;
 }
 
-interface State {
+interface IState {
   input: string
 }
 
-class ToDoForm extends React.Component<Props, State> {
-  constructor(props: Props) {
+class ToDoForm extends React.Component<IProps, IState> {
+  constructor(props: IProps) {
     super(props);
     this.state = { input: '' };
   }
 
-  // eslint-disable-next-line react/sort-comp
+  handlerChange = (e: any) => {
+    this.setState({ input: e.target.value });
+  };
+
   addTask = (e: any): void => {
-    // eslint-disable-next-line no-debugger
-    // debugger;
     const { input } : any = this.state;
     if (input) {
       this.props.addTask(input);
       this.setState({ input: '' });
     }
     e.preventDefault();
-  };
-
-  handlerChange = (e: any) => {
-    this.setState({ input: e.target.value });
   };
 
   render() {

@@ -1,0 +1,43 @@
+.todo-task {
+  border-left: 4px solid #DDA62F;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+.todo-task:not(:last-child) {
+  margin-bottom: 10px;
+}
+.todo-task__info {
+  display: flex;
+  align-items: center;
+}
+.todo-task__check {
+  padding: 7px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  margin-right: 10px;
+}
+.todo-task__check:hover {
+  cursor: pointer;
+}
+.todo-task__check_active {
+  background-color: #38661b;
+}
+.todo-task__text {
+  display: inline-block;
+  font-size: 20px;
+  color: #fff;
+  width: 100%;
+}
+.todo-task__text_check_active {
+  text-decoration: line-through;
+}
+.todo-task__link {
+  color: #FD5F58;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/*# sourceMappingURL=ToDoTask.css.map */

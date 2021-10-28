@@ -1,11 +1,11 @@
 import React from 'react';
 import './Wrapper.css';
 
-interface IWrapper {
+interface IProps {
   children: React.ReactNode;
 }
 
-class Wrapper extends React.Component<IWrapper> {
+class Wrapper extends React.Component<IProps> {
   render() {
     return (
       <div className="wrapper">
