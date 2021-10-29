@@ -1,0 +1,14 @@
+.main {
+  height: 100%;
+  width: 100%;
+  padding: 30px 0;
+
+  .main__header {
+    font-size: 38px;
+    line-height: 1.5;
+
+    &_theme_dark {
+      color: #FFF;
+    }
+  }
+}

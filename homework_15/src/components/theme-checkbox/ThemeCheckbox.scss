@@ -1,0 +1,16 @@
+.theme-checkbox {
+  font-size: 22px;
+
+  &_dark_theme {
+    color: #fff;
+  }
+
+  &__span {
+    margin-right: 10px;
+  }
+
+  &__input {
+    height: 16px;
+    width: 16px;
+  }
+}
