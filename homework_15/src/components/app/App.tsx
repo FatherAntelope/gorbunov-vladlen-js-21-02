@@ -6,27 +6,82 @@ import Card from '../card/Card';
 import Pagenator from '../pagenator/Pagenator';
 import ThemeCheckbox from '../theme-checkbox/ThemeCheckbox';
 import Tooltip from '../tooltip/Tooltip';
+import { fetchDumMyApiUsers, IUser } from '../../utils/fetchDumMyApi';
+import Spinner from '../spinner/Spinner';
+import {
+  IThemeState,
+  ThemeCheckboxContextConsumer,
+  ThemeCheckboxContextProvider
+} from '../../contexts/theme-checkbox/ThemeCheckboxContext';
 
-class App extends React.Component {
+interface IState {
+  users: Array<IUser>
+}
+
+const initialState = {
+  users: []
+};
+
+class App extends React.Component<{}, IState> {
+  constructor(props: {}) {
+    super(props);
+    this.state = initialState;
+    this.loadUsers = this.loadUsers.bind(this);
+  }
+
+  componentDidMount(): void {
+    this.loadUsers(0, 10);
+  }
+
+  loadUsers(page: number, limit: number) {
+    fetchDumMyApiUsers(
+      (response: Array<IUser>) => this.setState({ users: response }),
+      () => console.log('Ошибка выгрузки пользователей'),
+      page,
+      limit
+    );
+  }
+
   render() {
     return (
-      <div className="App">
-        <Wrapper>
-          <Main headerTitle="Пользователи">
-            <div className="row">
-              <div className="col-6">
-                <Tooltip textInfo="60d0fe4f5311236168a109cb">
-                  <Card />
-                </Tooltip>
+      <ThemeCheckboxContextProvider>
+        <ThemeCheckboxContextConsumer>
+          {
+            (context: Partial<IThemeState>) => (
+              <div className="App">
+                <Wrapper themeDark={context.themeDark}>
+                  <Main themeDark={context.themeDark} headerTitle="Пользователи">
+                    <div className="row">
+                      {
+                        this.state.users.length !== 0
+                          ? this.state.users.map((item: IUser) => (
+                            <div className="col-6" key={item.id}>
+                              <Tooltip themeDark={context.themeDark} textInfo={item.id}>
+                                <Card
+                                  themeDark={context.themeDark}
+                                  imgUrl={item.picture}
+                                  cardUserId={item.id}
+                                  cardUserTitle={item.title}
+                                  cardUserFirstName={item.firstName}
+                                  cardUserLastName={item.lastName}
+                                />
+                              </Tooltip>
+                            </div>
+                          ))
+                          : <Spinner themeDark={context.themeDark} />
+                      }
+                    </div>
+                    <div className="row row_space-between">
+                      <Pagenator themeDark={context.themeDark} />
+                      <ThemeCheckbox checkedCheck={context.themeDark} toggleTheme={context.toggleTheme} />
+                    </div>
+                  </Main>
+                </Wrapper>
               </div>
-            </div>
-            <div className="row row_space-between">
-              <Pagenator />
-              <ThemeCheckbox />
-            </div>
-          </Main>
-        </Wrapper>
-      </div>
+            )
+          }
+        </ThemeCheckboxContextConsumer>
+      </ThemeCheckboxContextProvider>
     );
   }
 }

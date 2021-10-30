@@ -4,6 +4,7 @@ import './Tooltip.css';
 interface IProps {
   children: React.ReactNode;
   textInfo: string;
+  themeDark?: boolean;
 }
 
 interface IState {
@@ -38,7 +39,7 @@ class Tooltip extends React.Component<IProps, IState> {
       <div className="tooltip" onMouseOver={this.mouseOver} onMouseOut={this.mouseOut}>
         {
           this.state.hovered && (
-            <div className="tooltip__info tooltip__info_theme_dark">
+            <div className={`tooltip__info ${this.props.themeDark ? 'tooltip__info_theme_dark' : ''}`}>
               {this.props.textInfo}
             </div>
           )
