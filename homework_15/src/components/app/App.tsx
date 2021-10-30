@@ -2,7 +2,7 @@ import './App.css';
 import React from 'react';
 import Wrapper from '../wrapper/Wrapper';
 import Main from '../main/Main';
-import Comment from '../comment/Comment';
+import Card from '../card/Card';
 import Pagenator from '../pagenator/Pagenator';
 import ThemeCheckbox from '../theme-checkbox/ThemeCheckbox';
 import Tooltip from '../tooltip/Tooltip';
@@ -16,7 +16,7 @@ class App extends React.Component {
             <div className="row">
               <div className="col-6">
                 <Tooltip textInfo="60d0fe4f5311236168a109cb">
-                  <Comment />
+                  <Card />
                 </Tooltip>
               </div>
             </div>
