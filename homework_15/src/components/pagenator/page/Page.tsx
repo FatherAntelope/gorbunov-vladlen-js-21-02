@@ -10,13 +10,15 @@ interface IProps {
 class Page extends React.Component<IProps> {
   render() {
     return (
-      <div className={`
+      <div
+        className={`
           page 
           ${this.props.themePageDark ? 'page_theme_dark' : ''} 
           ${this.props.isActive && 'page_active'}
-      `}
+        `}
+        data-page={this.props.pageNum}
       >
-        {this.props.pageNum}
+        {this.props.pageNum + 1}
       </div>
     );
   }

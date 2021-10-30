@@ -1,6 +1,6 @@
 import { API_KEY, USER_POINT_URL, FIELDS_HEAD_API } from '../constants/api/dummyapi';
 
-interface IListResponse<T> {
+export interface IListResponse<T> {
   data: Array<T>;
   page: number;
   limit: number;
@@ -15,8 +15,8 @@ export interface IUser {
   picture?: string;
 }
 
-const fetchDumMyApiUsers = (
-  resolve: (response: Array<IUser>) => void,
+const fetchDumMyApi = (
+  resolve: (response: IListResponse<IUser>) => void,
   reject: (response: any) => void,
   page: number,
   limit: number
@@ -27,7 +27,7 @@ const fetchDumMyApiUsers = (
   })
 })
   .then((response) => response.json())
-  .then((response: IListResponse<IUser>) => resolve(response.data))
+  .then((response: IListResponse<IUser>) => resolve(response))
   .catch(reject);
 
-export { fetchDumMyApiUsers };
+export { fetchDumMyApi };
