@@ -14,24 +14,43 @@ interface IState {
 }
 
 class Pagenator extends React.Component<IProps, IState> {
+  // eslint-disable-next-line react/sort-comp
+  private pagesArr: number[];
+
   constructor(props: IProps) {
     super(props);
-
-    const pages: number[] = [];
-    for (let i = 0; i < this.props.countPages; i += 1) {
-      pages.push(i);
-    }
-
+    this.pagesArr = [];
     this.state = {
       currentPage: 0,
-      pages
+      pages: []
     };
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick(e: React.BaseSyntheticEvent) {
-    this.setState({ currentPage: Number(e.target.dataset.page || this.state.currentPage) });
-    this.props.selectPage(e.target.dataset.page);
+  componentDidMount(): void {
+    for (let i = 0; i < this.props.countPages; i += 1) {
+      this.pagesArr.push(i);
+    }
+    this.setState({ pages: this.pagesArr });
+    this.pagesArr = [];
+  }
+
+  componentDidUpdate(prevProps: Readonly<IProps>): void {
+    if (prevProps.countPages !== this.props.countPages) {
+      for (let i = 0; i < this.props.countPages; i += 1) {
+        this.pagesArr.push(i);
+      }
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({ pages: this.pagesArr, currentPage: 0 });
+      this.pagesArr = [];
+    }
+  }
+
+  handleClick(e: React.BaseSyntheticEvent): void {
+    if (Number(e.target.dataset.page || this.state.currentPage) !== this.state.currentPage) {
+      this.setState({ currentPage: Number(e.target.dataset.page || this.state.currentPage) });
+      this.props.selectPage(e.target.dataset.page);
+    }
     e.preventDefault();
   }
 

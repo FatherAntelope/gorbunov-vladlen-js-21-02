@@ -13,21 +13,24 @@ import {
   ThemeCheckboxContextConsumer,
   ThemeCheckboxContextProvider
 } from '../../contexts/theme-checkbox/ThemeCheckboxContext';
+import Select from '../select/Select';
 
 // const COUNT_ITEMS: number = 99;
 
 interface IState {
-  users: Array<IUser>,
-  countUsers: number,
-  limit: number,
-  page: number
+  users: Array<IUser>;
+  countUsers: number;
+  limit: number;
+  page: number;
+  countPages: number;
 }
 
 const initialState = {
   users: [],
   countUsers: 0,
-  limit: 10,
-  page: 0
+  limit: 5,
+  page: 0,
+  countPages: 0
 };
 
 class App extends React.Component<{}, IState> {
@@ -36,22 +39,30 @@ class App extends React.Component<{}, IState> {
     this.state = initialState;
     this.loadUsers = this.loadUsers.bind(this);
     this.selectPage = this.selectPage.bind(this);
+    this.selectLimit = this.selectLimit.bind(this);
   }
 
   componentDidMount(): void {
-    this.loadUsers(this.state.page, this.state.limit);
+    (async () => {
+      await this.loadUsers(this.state.page, this.state.limit);
+      this.setState({ countPages: this.state.countUsers / this.state.limit });
+    })();
   }
 
   selectPage(currentPage: number): void {
-    this.setState({ users: [] });
+    this.setState({ users: [], page: currentPage });
     this.loadUsers(currentPage, this.state.limit);
-    this.setState({ page: currentPage });
+  }
+
+  selectLimit(currentLimit: number, countPages: number): void {
+    this.loadUsers(0, currentLimit);
+    this.setState({ users: [], limit: currentLimit, countPages });
   }
 
   loadUsers(page: number, limit: number) {
-    fetchDumMyApi(
+    return fetchDumMyApi(
       (response: IListResponse<IUser>) => this.setState({ users: response.data, countUsers: response.total }),
-      () => console.log('Ошибка выгрузки пользователей'),
+      () => { throw new Error('Ошибка загрузки данных из сервера'); },
       page,
       limit
     );
@@ -90,14 +101,22 @@ class App extends React.Component<{}, IState> {
                     }
                     <div className="row row_space-between">
                       {
-                        this.state.countUsers !== 0 && (
-                          <Pagenator
-                            selectPage={this.selectPage}
-                            countPages={this.state.countUsers / this.state.limit}
-                            themeDark={context.themeDark}
-                          />
+                        this.state.countPages !== 0 && (
+                          <>
+                            <Pagenator
+                              selectPage={this.selectPage}
+                              countPages={this.state.countPages}
+                              themeDark={context.themeDark}
+                            />
+                          </>
                         )
                       }
+                      <Select
+                        countUsers={this.state.countUsers}
+                        selectLimit={this.selectLimit}
+                        limit={this.state.limit}
+                        selectorValues={[5, 10, 20, 30, 40, 50]}
+                      />
                       <ThemeCheckbox checkedCheck={context.themeDark} toggleTheme={context.toggleTheme} />
                     </div>
                   </Main>
