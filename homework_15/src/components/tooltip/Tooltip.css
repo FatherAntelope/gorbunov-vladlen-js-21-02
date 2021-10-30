@@ -12,9 +12,10 @@
   border: 1px solid #35393b;
   padding: 5px 10px;
   border-radius: 5px;
-
-  &_theme_dark {
-    background-color: #35393b;
-    color: #fff;
-  }
 }
+.tooltip__info_theme_dark {
+  background-color: #35393b;
+  color: #fff;
+}
+
+/*# sourceMappingURL=Tooltip.css.map */

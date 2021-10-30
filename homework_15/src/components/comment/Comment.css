@@ -1,0 +1,38 @@
+.comment {
+  min-width: 100%;
+  background-color: #FFF;
+  border-radius: 6px;
+  padding: 16px;
+  display: flex;
+  gap: 16px;
+}
+.comment_theme_dark {
+  background-color: #35393b;
+}
+.comment__user-image {
+  width: 72px;
+  height: 72px;
+}
+.comment__user-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.comment__info {
+  color: #6b7280;
+  font-size: 16px;
+  line-height: 1.2;
+}
+.comment__info_theme_dark {
+  color: #fff;
+}
+.comment__user-id {
+  padding-bottom: 5px;
+}
+.comment__user-name {
+  font-weight: 700;
+}
+
+/*# sourceMappingURL=Comment.css.map */

@@ -15,8 +15,9 @@ class App extends React.Component {
           <Main headerTitle="Пользователи">
             <div className="row">
               <div className="col-6">
-                <Tooltip />
-                <Comment />
+                <Tooltip textInfo="60d0fe4f5311236168a109cb">
+                  <Comment />
+                </Tooltip>
               </div>
             </div>
             <div className="row row_space-between">

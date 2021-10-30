@@ -1,0 +1,21 @@
+.page {
+  height: 30px;
+  width: 25px;
+  border-radius: 5px;
+  background-color: #fff;
+  font-size: 22px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #000;
+  cursor: pointer;
+}
+.page_theme_dark {
+  background-color: #35393b;
+  color: #fff;
+}
+.page_active {
+  background-color: #acd7e5;
+}
+
+/*# sourceMappingURL=Page.css.map */
