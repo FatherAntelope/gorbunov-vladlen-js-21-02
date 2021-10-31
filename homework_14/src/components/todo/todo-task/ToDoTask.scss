@@ -1,0 +1,50 @@
+.todo-task {
+  border-left: 4px solid #DDA62F;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+
+  &:not(:last-child) {
+    margin-bottom: 10px;
+  }
+
+  &__info {
+    display: flex;
+    align-items: center;
+  }
+
+  &__check {
+    padding: 7px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    margin-right: 10px;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    &_active {
+      background-color: #38661b;
+    }
+  }
+
+  &__text {
+    display: inline-block;
+    font-size: 20px;
+    color: #fff;
+    width: 100%;
+
+
+    &_check_active {
+      text-decoration: line-through;
+    }
+  }
+
+  &__link {
+    color: #FD5F58;
+    font-size: 16px;
+    cursor: pointer;
+  }
+}
