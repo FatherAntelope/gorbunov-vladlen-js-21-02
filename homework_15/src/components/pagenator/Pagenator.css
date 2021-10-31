@@ -1,0 +1,8 @@
+.pagenator {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin: 10px 0;
+}
+
+/*# sourceMappingURL=Pagenator.css.map */

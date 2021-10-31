@@ -1,0 +1,43 @@
+.card {
+  min-width: 100%;
+  background-color: #FFF;
+  border-radius: 6px;
+  padding: 16px;
+  display: flex;
+  gap: 16px;
+
+  &_theme_dark {
+    background-color: #35393b;
+  }
+
+  &__user-image {
+    width: 72px;
+    height: 72px;
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+  }
+
+  &__info {
+    color: #6b7280;
+    font-size: 16px;
+    line-height: 1.2;
+
+    &_theme_dark {
+      color: #fff;
+    }
+  }
+
+  &__user-id {
+    padding-bottom: 5px;
+  }
+
+  &__user-name {
+    font-weight: 700;
+  }
+}
