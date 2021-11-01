@@ -1,5 +1,5 @@
 import './App.css';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Wrapper from '../wrapper/Wrapper';
 import Main from '../main/Main';
 import Card from '../card/Card';
@@ -15,119 +15,99 @@ import {
 } from '../../contexts/theme-checkbox/ThemeCheckboxContext';
 import Select from '../select/Select';
 
-// const COUNT_ITEMS: number = 99;
+const App = () => {
+  const [users, setUsers] = useState([] as Array<IUser>);
+  const [countUsers, setCountUsers] = useState(0 as number);
+  const [limit, setLimit] = useState(5 as number);
+  const [page, setPage] = useState(0 as number);
+  const [countPages, setCountPages] = useState(0 as number);
 
-interface IState {
-  users: Array<IUser>;
-  countUsers: number;
-  limit: number;
-  page: number;
-  countPages: number;
-}
+  const loadUsers = (pageApi: number, limitApi: number) => fetchDumMyApi(
+    (response: IListResponse<IUser>) => {
+      setUsers(response.data);
+      setCountUsers(response.total);
+    },
+    () => { throw new Error('Ошибка загрузки данных из сервера'); },
+    pageApi,
+    limitApi
+  );
 
-const initialState = {
-  users: [],
-  countUsers: 0,
-  limit: 5,
-  page: 0,
-  countPages: 0
-};
+  useEffect(() => {
+    loadUsers(page, limit);
+    setCountPages(countUsers / limit);
+  }, [countUsers]);
 
-class App extends React.Component<{}, IState> {
-  constructor(props: {}) {
-    super(props);
-    this.state = initialState;
-    this.loadUsers = this.loadUsers.bind(this);
-    this.selectPage = this.selectPage.bind(this);
-    this.selectLimit = this.selectLimit.bind(this);
-  }
+  const selectPage = (currentPage: number): void => {
+    setUsers([]); // Для запуска прелоадера
+    setPage(currentPage);
+    loadUsers(currentPage, limit);
+  };
 
-  componentDidMount(): void {
-    (async () => {
-      await this.loadUsers(this.state.page, this.state.limit);
-      this.setState({ countPages: this.state.countUsers / this.state.limit });
-    })();
-  }
+  const selectLimit = (currentLimit: number, currentCountPages: number): void => {
+    setUsers([]); // Для запуска прелоадера
+    loadUsers(0, currentLimit);
+    setLimit(currentLimit);
+    setCountPages(currentCountPages);
+  };
 
-  selectPage(currentPage: number): void {
-    this.setState({ users: [], page: currentPage });
-    this.loadUsers(currentPage, this.state.limit);
-  }
-
-  selectLimit(currentLimit: number, countPages: number): void {
-    this.loadUsers(0, currentLimit);
-    this.setState({ users: [], limit: currentLimit, countPages });
-  }
-
-  loadUsers(page: number, limit: number) {
-    return fetchDumMyApi(
-      (response: IListResponse<IUser>) => this.setState({ users: response.data, countUsers: response.total }),
-      () => { throw new Error('Ошибка загрузки данных из сервера'); },
-      page,
-      limit
-    );
-  }
-
-  render() {
-    return (
-      <ThemeCheckboxContextProvider>
-        <ThemeCheckboxContextConsumer>
-          {
-            (context: Partial<IThemeState>) => (
-              <div className="App">
-                <Wrapper themeDark={context.themeDark}>
-                  <Main themeDark={context.themeDark} headerTitle="Пользователи">
+  return (
+    <ThemeCheckboxContextProvider>
+      <ThemeCheckboxContextConsumer>
+        {
+          (context: Partial<IThemeState>) => (
+            <div className="App">
+              <Wrapper themeDark={context.themeDark}>
+                <Main themeDark={context.themeDark} headerTitle="Пользователи">
+                  {
+                    users.length !== 0
+                      ? (
+                        <div className="row">
+                          {users.map((item: IUser) => (
+                            <div className="col-6" key={item.id}>
+                              <Tooltip themeDark={context.themeDark} textInfo={item.id}>
+                                <Card
+                                  themeDark={context.themeDark}
+                                  imgUrl={item.picture}
+                                  cardUserId={item.id}
+                                  cardUserTitle={item.title}
+                                  cardUserFirstName={item.firstName}
+                                  cardUserLastName={item.lastName}
+                                />
+                              </Tooltip>
+                            </div>
+                          ))}
+                        </div>
+                      )
+                      : <Spinner themeDark={context.themeDark} />
+                  }
+                  <div className="row row_space-between">
                     {
-                      this.state.users.length !== 0
-                        ? (
-                          <div className="row">
-                            {this.state.users.map((item: IUser) => (
-                              <div className="col-6" key={item.id}>
-                                <Tooltip themeDark={context.themeDark} textInfo={item.id}>
-                                  <Card
-                                    themeDark={context.themeDark}
-                                    imgUrl={item.picture}
-                                    cardUserId={item.id}
-                                    cardUserTitle={item.title}
-                                    cardUserFirstName={item.firstName}
-                                    cardUserLastName={item.lastName}
-                                  />
-                                </Tooltip>
-                              </div>
-                            ))}
-                          </div>
-                        )
-                        : <Spinner themeDark={context.themeDark} />
+                      countPages !== 0 && (
+                        <>
+                          <Pagenator
+                            selectPage={selectPage}
+                            countPages={countPages}
+                            themeDark={context.themeDark}
+                          />
+                        </>
+                      )
                     }
-                    <div className="row row_space-between">
-                      {
-                        this.state.countPages !== 0 && (
-                          <>
-                            <Pagenator
-                              selectPage={this.selectPage}
-                              countPages={this.state.countPages}
-                              themeDark={context.themeDark}
-                            />
-                          </>
-                        )
-                      }
-                      <Select
-                        countUsers={this.state.countUsers}
-                        selectLimit={this.selectLimit}
-                        limit={this.state.limit}
-                        selectorValues={[5, 10, 20, 30, 40, 50]}
-                      />
-                      <ThemeCheckbox checkedCheck={context.themeDark} toggleTheme={context.toggleTheme} />
-                    </div>
-                  </Main>
-                </Wrapper>
-              </div>
-            )
-          }
-        </ThemeCheckboxContextConsumer>
-      </ThemeCheckboxContextProvider>
-    );
-  }
-}
+                    <Select
+                      countUsers={countUsers}
+                      selectLimit={selectLimit}
+                      limit={limit}
+                      selectorValues={[5, 10, 20, 30, 40, 50]}
+                    />
+                    <ThemeCheckbox checkedCheck={context.themeDark} toggleTheme={context.toggleTheme} />
+                  </div>
+                </Main>
+              </Wrapper>
+            </div>
+          )
+        }
+      </ThemeCheckboxContextConsumer>
+    </ThemeCheckboxContextProvider>
+  );
+};
 
 export default App;
