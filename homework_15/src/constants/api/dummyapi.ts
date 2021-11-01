@@ -5,7 +5,7 @@ interface IFieldsHeadApi {
 const BASE_URL: string = 'https://dummyapi.io/data/v1/';
 const USER_POINT_URL: string = `${BASE_URL}user`;
 
-const API_KEY: string = '617d424dbe5f9771bd07c1b0';
+const API_KEY: string = 'YOUR_API_KEY';
 
 const FIELDS_HEAD_API: IFieldsHeadApi = {
   API_KEY: 'app-id'
