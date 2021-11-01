@@ -6,16 +6,14 @@ interface IProps {
   themeDark?: boolean;
 }
 
-class Wrapper extends React.Component<IProps> {
-  render() {
-    return (
-      <div className={`wrapper ${this.props.themeDark ? 'wrapper_theme_dark' : ''}`}>
-        <div className="wrapper__container">
-          {this.props.children}
-        </div>
-      </div>
-    );
-  }
-}
+const Wrapper = ({ children, themeDark }: IProps) => (
+  <div className={`wrapper ${themeDark ? 'wrapper_theme_dark' : ''}`}>
+    <div className="wrapper__container">
+      {children}
+    </div>
+  </div>
+);
+
+Wrapper.defaultProps = { themeDark: false };
 
 export default Wrapper;

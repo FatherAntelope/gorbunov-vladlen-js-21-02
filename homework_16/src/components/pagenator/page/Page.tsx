@@ -7,21 +7,15 @@ interface IProps {
   themePageDark?: boolean;
 }
 
-class Page extends React.Component<IProps> {
-  render() {
-    return (
-      <div
-        className={`
-          page 
-          ${this.props.themePageDark ? 'page_theme_dark' : ''} 
-          ${this.props.isActive && 'page_active'}
-        `}
-        data-page={this.props.pageNum}
-      >
-        {this.props.pageNum + 1}
-      </div>
-    );
-  }
-}
+const Page = ({ pageNum, isActive, themePageDark }: IProps) => (
+  <div
+    className={`page ${themePageDark ? 'page_theme_dark' : ''} ${isActive && 'page_active'}`}
+    data-page={pageNum}
+  >
+    {pageNum + 1}
+  </div>
+);
+
+Page.defaultProps = { themePageDark: false };
 
 export default Page;

@@ -7,17 +7,15 @@ interface IProps {
   themeDark?: boolean;
 }
 
-class Main extends React.Component<IProps> {
-  render() {
-    return (
-      <main className="main">
-        <h2 className={`main__header ${this.props.themeDark ? 'main__header_theme_dark' : ''}`}>
-          {this.props.headerTitle}
-        </h2>
-        {this.props.children}
-      </main>
-    );
-  }
-}
+const Main = ({ headerTitle, children, themeDark } :IProps) => (
+  <main className="main">
+    <h2 className={`main__header ${themeDark ? 'main__header_theme_dark' : ''}`}>
+      {headerTitle}
+    </h2>
+    {children}
+  </main>
+);
+
+Main.defaultProps = { themeDark: false };
 
 export default Main;

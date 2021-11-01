@@ -10,24 +10,31 @@ interface IProps {
   themeDark?: boolean;
 }
 
-class Card extends React.Component<IProps> {
-  render() {
-    return (
-      <div className={`card  ${this.props.themeDark ? 'card_theme_dark' : ''}`}>
-        <div className="card__user-image">
-          <img src={this.props.imgUrl} alt="user-img" />
-        </div>
-        <div className={`card__info  ${this.props.themeDark ? 'card__info_theme_dark' : ''}`}>
-          <p className="card__user-id">
-            {this.props.cardUserId}
-          </p>
-          <p className="card__user-name">
-            {`${this.props.cardUserTitle}. ${this.props.cardUserFirstName} ${this.props.cardUserLastName}`}
-          </p>
-        </div>
-      </div>
-    );
-  }
-}
+const Card = ({
+  imgUrl, cardUserId, cardUserTitle, cardUserFirstName, cardUserLastName, themeDark
+}: IProps) => (
+  <div className={`card  ${themeDark ? 'card_theme_dark' : ''}`}>
+    <div className="card__user-image">
+      <img src={imgUrl} alt="user-img" />
+    </div>
+    <div className={`card__info  ${themeDark ? 'card__info_theme_dark' : ''}`}>
+      <p className="card__user-id">
+        {cardUserId}
+      </p>
+      <p className="card__user-name">
+        {`${cardUserTitle}. ${cardUserFirstName} ${cardUserLastName}`}
+      </p>
+    </div>
+  </div>
+);
+
+Card.defaultProps = {
+  imgUrl: '',
+  cardUserId: '',
+  cardUserTitle: '',
+  cardUserFirstName: '',
+  cardUserLastName: '',
+  themeDark: false
+};
 
 export default Card;
