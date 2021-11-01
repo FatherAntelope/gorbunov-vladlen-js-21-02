@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Tooltip.css';
 
 interface IProps {
@@ -7,47 +7,34 @@ interface IProps {
   themeDark?: boolean;
 }
 
-interface IState {
-  hovered: boolean;
-}
+const Tooltip = ({ children, textInfo, themeDark }: IProps) => {
+  const [hovered, setHovered] = useState(false as boolean);
 
-const initialState = {
-  hovered: false
+  const mouseOver = (e: React.SyntheticEvent): void => {
+    setHovered(true);
+    e.stopPropagation();
+  };
+
+  const mouseOut = (e: React.SyntheticEvent): void => {
+    setHovered(false);
+    e.stopPropagation();
+  };
+
+  return (
+  // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
+    <div className="tooltip" onMouseOver={mouseOver} onMouseOut={mouseOut}>
+      {
+        hovered && (
+          <div className={`tooltip__info ${themeDark ? 'tooltip__info_theme_dark' : ''}`}>
+            {textInfo}
+          </div>
+        )
+      }
+      {children}
+    </div>
+  );
 };
 
-class Tooltip extends React.Component<IProps, IState> {
-  constructor(props: IProps) {
-    super(props);
-    this.state = initialState;
-    this.mouseOver = this.mouseOver.bind(this);
-    this.mouseOut = this.mouseOut.bind(this);
-  }
-
-  mouseOver(e: React.SyntheticEvent) {
-    this.setState({ hovered: true });
-    e.stopPropagation();
-  }
-
-  mouseOut(e: React.SyntheticEvent) {
-    this.setState({ hovered: false });
-    e.stopPropagation();
-  }
-
-  render() {
-    return (
-      // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
-      <div className="tooltip" onMouseOver={this.mouseOver} onMouseOut={this.mouseOut}>
-        {
-          this.state.hovered && (
-            <div className={`tooltip__info ${this.props.themeDark ? 'tooltip__info_theme_dark' : ''}`}>
-              {this.props.textInfo}
-            </div>
-          )
-        }
-        {this.props.children}
-      </div>
-    );
-  }
-}
+Tooltip.defaultProps = { themeDark: false };
 
 export default Tooltip;
