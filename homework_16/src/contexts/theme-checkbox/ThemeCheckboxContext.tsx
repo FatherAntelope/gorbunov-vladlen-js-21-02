@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 interface IProps {
   children: React.ReactNode;
@@ -6,31 +6,23 @@ interface IProps {
 
 export interface IThemeState {
   themeDark: boolean;
-  toggleTheme: () => void;
+  toggleTheme: (value: boolean) => void;
 }
 
-const { Provider, Consumer } = React.createContext<Partial<IThemeState>>({});
+const ThemeDarkContext = React.createContext<Partial<IThemeState>>({ themeDark: false, toggleTheme: () => { } });
 
-class ThemeCheckboxContextProvider extends React.Component<IProps, IThemeState> {
-  constructor(props: IProps) {
-    super(props);
-    this.state = {
-      themeDark: false,
-      toggleTheme: this.toggleTheme.bind(this)
-    };
-  }
+const ThemeDarkContextProvider = ({ children }: IProps) => {
+  const [themeDark, setThemeDark] = useState(false as boolean);
 
-  toggleTheme() {
-    this.setState({ themeDark: !this.state.themeDark });
-  }
+  const toggleTheme = (value: boolean) => {
+    setThemeDark(value);
+  };
 
-  render(): React.ReactNode {
-    return (
-      <Provider value={{ themeDark: this.state.themeDark, toggleTheme: this.state.toggleTheme }}>
-        {this.props.children}
-      </Provider>
-    );
-  }
-}
+  return (
+    <ThemeDarkContext.Provider value={{ themeDark, toggleTheme }}>
+      {children}
+    </ThemeDarkContext.Provider>
+  );
+};
 
-export { ThemeCheckboxContextProvider, Consumer as ThemeCheckboxContextConsumer };
+export { ThemeDarkContextProvider, ThemeDarkContext };

@@ -8,11 +8,7 @@ import ThemeCheckbox from '../theme-checkbox/ThemeCheckbox';
 import Tooltip from '../tooltip/Tooltip';
 import { fetchDumMyApi, IListResponse, IUser } from '../../utils/fetchDumMyApi';
 import Spinner from '../spinner/Spinner';
-import {
-  IThemeState,
-  ThemeCheckboxContextConsumer,
-  ThemeCheckboxContextProvider
-} from '../../contexts/theme-checkbox/ThemeCheckboxContext';
+import { ThemeDarkContextProvider } from '../../contexts/theme-checkbox/ThemeCheckboxContext';
 import Select from '../select/Select';
 
 const App = () => {
@@ -38,75 +34,62 @@ const App = () => {
   }, [countUsers]);
 
   const selectPage = (currentPage: number): void => {
-    setUsers([]); // Для запуска прелоадера
+    setUsers([]); // Нужно для запуска прелоадера
     setPage(currentPage);
     loadUsers(currentPage, limit);
   };
 
   const selectLimit = (currentLimit: number, currentCountPages: number): void => {
-    setUsers([]); // Для запуска прелоадера
+    setUsers([]); // Нужно для запуска прелоадера
     loadUsers(0, currentLimit);
     setLimit(currentLimit);
     setCountPages(currentCountPages);
   };
 
   return (
-    <ThemeCheckboxContextProvider>
-      <ThemeCheckboxContextConsumer>
-        {
-          (context: Partial<IThemeState>) => (
-            <div className="App">
-              <Wrapper themeDark={context.themeDark}>
-                <Main themeDark={context.themeDark} headerTitle="Пользователи">
-                  {
-                    users.length !== 0
-                      ? (
-                        <div className="row">
-                          {users.map((item: IUser) => (
-                            <div className="col-6" key={item.id}>
-                              <Tooltip themeDark={context.themeDark} textInfo={item.id}>
-                                <Card
-                                  themeDark={context.themeDark}
-                                  imgUrl={item.picture}
-                                  cardUserId={item.id}
-                                  cardUserTitle={item.title}
-                                  cardUserFirstName={item.firstName}
-                                  cardUserLastName={item.lastName}
-                                />
-                              </Tooltip>
-                            </div>
-                          ))}
-                        </div>
-                      )
-                      : <Spinner themeDark={context.themeDark} />
-                  }
-                  <div className="row row_space-between">
-                    {
-                      countPages !== 0 && (
-                        <>
-                          <Pagenator
-                            selectPage={selectPage}
-                            countPages={countPages}
-                            themeDark={context.themeDark}
+    <ThemeDarkContextProvider>
+      <div className="App">
+        <Wrapper>
+          <Main headerTitle="Пользователи">
+            {
+              users.length !== 0
+                ? (
+                  <div className="row">
+                    {users.map((item: IUser) => (
+                      <div className="col-6" key={item.id}>
+                        <Tooltip textInfo={item.id}>
+                          <Card
+                            imgUrl={item.picture}
+                            cardUserId={item.id}
+                            cardUserTitle={item.title}
+                            cardUserFirstName={item.firstName}
+                            cardUserLastName={item.lastName}
                           />
-                        </>
-                      )
-                    }
-                    <Select
-                      countUsers={countUsers}
-                      selectLimit={selectLimit}
-                      limit={limit}
-                      selectorValues={[5, 10, 20, 30, 40, 50]}
-                    />
-                    <ThemeCheckbox checkedCheck={context.themeDark} toggleTheme={context.toggleTheme} />
+                        </Tooltip>
+                      </div>
+                    ))}
                   </div>
-                </Main>
-              </Wrapper>
+                )
+                : <Spinner />
+            }
+            <div className="row row_space-between">
+              {
+                countPages !== 0 && (
+                  <Pagenator selectPage={selectPage} countPages={countPages} />
+                )
+              }
+              <Select
+                countUsers={countUsers}
+                selectLimit={selectLimit}
+                limit={limit}
+                selectorValues={[5, 10, 20, 30, 40, 50]}
+              />
+              <ThemeCheckbox />
             </div>
-          )
-        }
-      </ThemeCheckboxContextConsumer>
-    </ThemeCheckboxContextProvider>
+          </Main>
+        </Wrapper>
+      </div>
+    </ThemeDarkContextProvider>
   );
 };
 
