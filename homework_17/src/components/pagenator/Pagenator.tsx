@@ -5,15 +5,13 @@ import { ThemeDarkContext } from '../../contexts/theme-checkbox/ThemeCheckboxCon
 
 interface IProps {
   countPages: number;
+  page: number
   selectPage: (currentPage: number) => void;
 }
 
-const Pagenator = ({ countPages, selectPage }: IProps) => {
+const Pagenator = ({ countPages, selectPage, page }: IProps) => {
   let pagesArr: number[] = [];
-
-  const [currentPage, setCurrentPage] = useState(Number(selectPage) as number);
   const [pages, setPages] = useState([] as number[]);
-
   const themeDarkContext = useContext(ThemeDarkContext);
 
   useEffect(() => {
@@ -22,16 +20,12 @@ const Pagenator = ({ countPages, selectPage }: IProps) => {
     }
     setPages(pagesArr);
     pagesArr = [];
-  }, [currentPage, countPages]);
-
-  useEffect(() => {
-    setCurrentPage(0);
   }, [countPages]);
 
   const handleClick = (e: React.BaseSyntheticEvent): void => {
-    if (Number(e.target.dataset.page || currentPage) !== currentPage) {
-      setCurrentPage(Number(e.target.dataset.page || currentPage));
-      selectPage(e.target.dataset.page);
+    if (Number(e.target.dataset.page || page) !== page) {
+      // setCurrentPage(Number(e.target.dataset.page || currentPage));
+      selectPage(Number(e.target.dataset.page));
     }
     e.preventDefault();
   };
@@ -43,7 +37,7 @@ const Pagenator = ({ countPages, selectPage }: IProps) => {
           <Page
             themePageDark={themeDarkContext.themeDark}
             pageNum={item}
-            isActive={item === currentPage}
+            isActive={item === page}
             key={item}
           />
         ))

@@ -80,7 +80,7 @@ const App = () => {
     <div className="row row_space-between">
       {
         countPages !== 0 && (
-          <Pagenator selectPage={selectPage} countPages={countPages} />
+          <Pagenator page={page} selectPage={selectPage} countPages={countPages} />
         )
       }
       <Select
