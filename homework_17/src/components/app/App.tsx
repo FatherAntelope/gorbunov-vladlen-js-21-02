@@ -6,7 +6,7 @@ import Card from '../card/Card';
 import Pagenator from '../pagenator/Pagenator';
 import ThemeCheckbox from '../theme-checkbox/ThemeCheckbox';
 import Tooltip from '../tooltip/Tooltip';
-import { fetchDumMyApi, IListResponse, IUser } from '../../utils/fetchDumMyApi';
+import { fetchAllUsers, IListResponse, IUser } from '../../utils/fetchDumMyApi';
 import Spinner from '../spinner/Spinner';
 import { ThemeDarkContextProvider } from '../../contexts/theme-checkbox/ThemeCheckboxContext';
 import Select from '../select/Select';
@@ -18,14 +18,15 @@ const App = () => {
   const [page, setPage] = useState(0 as number);
   const [countPages, setCountPages] = useState(0 as number);
 
-  const loadUsers = (pageApi: number, limitApi: number) => fetchDumMyApi(
+  const loadUsers = (pageApi: number, limitApi: number) => fetchAllUsers(
+    pageApi,
+    limitApi,
     (response: IListResponse<IUser>) => {
+      console.log(response.data);
       setUsers(response.data);
       setCountUsers(response.total);
     },
-    () => { throw new Error('Ошибка загрузки данных из сервера'); },
-    pageApi,
-    limitApi
+    () => { throw new Error('Ошибка загрузки данных из сервера'); }
   );
 
   useEffect(() => {

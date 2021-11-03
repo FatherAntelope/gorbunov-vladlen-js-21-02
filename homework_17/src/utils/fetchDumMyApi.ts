@@ -1,4 +1,6 @@
-import { API_KEY, USER_POINT_URL, FIELDS_HEAD_API } from '../constants/api/dummyapi';
+import {
+  API_KEY, FIELDS_HEAD_API, BASE_URL, USER_POINT_API
+} from '../constants/api/dummyapi';
 
 export interface IListResponse<T> {
   data: Array<T>;
@@ -15,19 +17,47 @@ export interface IUser {
   picture?: string;
 }
 
-const fetchDumMyApi = (
-  resolve: (response: IListResponse<IUser>) => void,
-  reject: (response: any) => void,
-  page: number,
-  limit: number
-) => fetch(`${USER_POINT_URL}?page=${page.toString()}&limit=${limit.toString()}`, {
-  method: 'GET',
-  headers: new Headers({
-    [FIELDS_HEAD_API.API_KEY]: API_KEY
-  })
-})
-  .then((response) => response.json())
-  .then((response: IListResponse<IUser>) => resolve(response))
-  .catch(reject);
+const fetchDumMyApi = <T>(
+  baseUrl: string,
+  path: string,
+  resolveCallback: (response: T) => void,
+  rejectCallback?: (response: string) => void,
+  finallyCallback?: () => void,
+  searchParams?: Record<string, any>
+) => {
+  const url = new URL(path, baseUrl);
 
-export { fetchDumMyApi };
+  searchParams && Object.entries(searchParams).forEach((param) => {
+    url.searchParams.append(param[0], param[1].toString());
+  });
+  fetch(url.toString(), {
+    method: 'GET',
+    headers: new Headers({
+      [FIELDS_HEAD_API.API_KEY]: API_KEY
+    }),
+  })
+    .then((response) => response.json())
+    .then(resolveCallback)
+    .catch(rejectCallback)
+    .finally(finallyCallback);
+};
+
+const fetchAllUsers = (
+  page: number,
+  limit: number,
+  resolveCallback: (response: IListResponse<IUser>) => void,
+  rejectCallback?: (response: any) => void,
+  finallyCallback?: () => void
+) => fetchDumMyApi(
+  BASE_URL,
+  USER_POINT_API,
+  ((response: IListResponse<IUser>) => resolveCallback(response)),
+  rejectCallback,
+  finallyCallback,
+  {
+    page,
+    limit
+  }
+);
+
+export { fetchAllUsers, fetchDumMyApi };
