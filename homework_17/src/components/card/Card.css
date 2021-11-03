@@ -1,6 +1,7 @@
 .card {
   min-width: 100%;
   background-color: #FFF;
+  color: #000;
   border-radius: 6px;
   padding: 16px;
   display: flex;
@@ -8,6 +9,7 @@
 }
 .card_theme_dark {
   background-color: #35393b;
+  color: #fff;
 }
 .card__user-image {
   width: 72px;
@@ -21,17 +23,14 @@
   object-position: center;
 }
 .card__info {
-  color: #6b7280;
+  color: inherit;
   font-size: 16px;
   line-height: 1.2;
-}
-.card__info_theme_dark {
-  color: #fff;
 }
 .card__user-id {
   padding-bottom: 5px;
 }
-.card__user-name {
+.card__user-info {
   font-weight: 700;
 }
 

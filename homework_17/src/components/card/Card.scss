@@ -1,6 +1,7 @@
 .card {
   min-width: 100%;
   background-color: #FFF;
+  color: #000;
   border-radius: 6px;
   padding: 16px;
   display: flex;
@@ -8,6 +9,7 @@
 
   &_theme_dark {
     background-color: #35393b;
+    color: #fff;
   }
 
   &__user-image {
@@ -24,20 +26,16 @@
   }
 
   &__info {
-    color: #6b7280;
+    color: inherit;
     font-size: 16px;
     line-height: 1.2;
-
-    &_theme_dark {
-      color: #fff;
-    }
   }
 
   &__user-id {
     padding-bottom: 5px;
   }
 
-  &__user-name {
+  &__user-info {
     font-weight: 700;
   }
 }

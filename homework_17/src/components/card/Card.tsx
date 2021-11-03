@@ -19,11 +19,11 @@ const Card = ({
       <div className="card__user-image">
         <img src={imgUrl} alt="user-img" />
       </div>
-      <div className={`card__info  ${themeDarkContext.themeDark ? 'card__info_theme_dark' : ''}`}>
+      <div className="card__info">
         <p className="card__user-id">
           {cardUserId}
         </p>
-        <p className="card__user-name">
+        <p className="card__user-info">
           {`${cardUserTitle}. ${cardUserFirstName} ${cardUserLastName}`}
         </p>
       </div>

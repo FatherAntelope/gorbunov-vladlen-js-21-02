@@ -17,6 +17,28 @@ export interface IUser {
   picture?: string;
 }
 
+interface IUserLocation {
+  street: string;
+  city: string;
+  state: string;
+  country: string;
+  timezone: string;
+}
+
+export interface IUserFull {
+  id: string;
+  title: string;
+  firstName: string;
+  lastName: string;
+  gender: string;
+  email: string;
+  dateOfBirth: string;
+  registerDate: string;
+  phone: string;
+  picture: string;
+  location: IUserLocation;
+}
+
 const fetchDumMyApi = <T>(
   baseUrl: string,
   path: string,
@@ -25,11 +47,12 @@ const fetchDumMyApi = <T>(
   finallyCallback?: () => void,
   searchParams?: Record<string, any>
 ) => {
-  const url = new URL(path, baseUrl);
+  let url = baseUrl + path;
 
-  searchParams && Object.entries(searchParams).forEach((param) => {
-    url.searchParams.append(param[0], param[1].toString());
-  });
+  if (searchParams) {
+    url += `?${new URLSearchParams(searchParams)}`;
+  }
+
   fetch(url.toString(), {
     method: 'GET',
     headers: new Headers({
@@ -42,7 +65,7 @@ const fetchDumMyApi = <T>(
     .finally(finallyCallback);
 };
 
-const fetchAllUsers = (
+const fetchUsersAll = (
   page: number,
   limit: number,
   resolveCallback: (response: IListResponse<IUser>) => void,
@@ -60,4 +83,17 @@ const fetchAllUsers = (
   }
 );
 
-export { fetchAllUsers, fetchDumMyApi };
+const fetchUserData = (
+  id: string,
+  resolveCallback: (response: IUserFull) => void,
+  rejectCallback?: (response: any) => void,
+  finallyCallback?: () => void
+) => fetchDumMyApi(
+  BASE_URL,
+  `${USER_POINT_API}/${id}`,
+  ((response: IUserFull) => resolveCallback(response)),
+  rejectCallback,
+  finallyCallback
+);
+
+export { fetchUsersAll, fetchUserData };
