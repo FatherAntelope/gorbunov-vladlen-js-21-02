@@ -1,0 +1,18 @@
+.theme-checkbox {
+  font-size: 22px;
+
+  &_theme_dark {
+    color: #fff;
+  }
+
+  &__span {
+    margin-right: 10px;
+    cursor: pointer;
+  }
+
+  &__input {
+    height: 16px;
+    width: 16px;
+    cursor: pointer;
+  }
+}

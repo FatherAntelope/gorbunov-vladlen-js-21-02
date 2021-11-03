@@ -1,0 +1,17 @@
+.theme-checkbox {
+  font-size: 22px;
+}
+.theme-checkbox_theme_dark {
+  color: #fff;
+}
+.theme-checkbox__span {
+  margin-right: 10px;
+  cursor: pointer;
+}
+.theme-checkbox__input {
+  height: 16px;
+  width: 16px;
+  cursor: pointer;
+}
+
+/*# sourceMappingURL=ThemeCheckbox.css.map */
