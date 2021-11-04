@@ -33,14 +33,30 @@ const Pagenator = ({ countPages, selectPage, page }: IProps) => {
   return (
     <div className="pagenator" onClick={handleClick}>
       {
-        pages.map((item) => (
-          <Page
-            themePageDark={themeDarkContext.themeDark}
-            pageNum={item}
-            isActive={item === page}
-            key={item}
-          />
-        ))
+        pages.map((item, index) => {
+          if (
+            (index >= 0 && index <= 2)
+            || (index >= page - 1 && index <= page + 1)
+            || (index >= Math.floor(countPages) - 2 && index <= Math.floor(countPages))
+          ) {
+            return (
+              <Page
+                themePageDark={themeDarkContext.themeDark}
+                pageNum={item}
+                isActive={item === page}
+                key={item}
+              />
+            );
+          }
+          if (
+            (index === page + 2 || index === page - 2)
+            || (page === 0 && index === page + 3)
+            || (page === Math.floor(countPages) && index === Math.floor(countPages) - 3)
+          ) {
+            return <span key={item} className="pagenator__dotes">&hellip;</span>;
+          }
+          return undefined;
+        })
       }
     </div>
   );

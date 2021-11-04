@@ -20,7 +20,7 @@ import CardUser from '../card-user/CardUser';
 const App = () => {
   const [users, setUsers] = useState([] as Array<IUser>);
   const [countUsers, setCountUsers] = useState(0 as number);
-  const [limit, setLimit] = useState(5 as number);
+  const [limit, setLimit] = useState(10 as number);
   const [page, setPage] = useState(0 as number);
   const [countPages, setCountPages] = useState(0 as number);
 
@@ -85,6 +85,7 @@ const App = () => {
         )
       }
       <Select
+        limit={limit}
         countUsers={countUsers}
         selectLimit={selectLimit}
         selectorValues={[5, 10, 20, 30, 40, 50]}
