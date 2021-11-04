@@ -47,6 +47,7 @@ const App = () => {
 
   const selectLimit = (currentLimit: number, currentCountPages: number): void => {
     setUsers([]);
+    setPage(0);
     loadUsersAll(0, currentLimit);
     setLimit(currentLimit);
     setCountPages(currentCountPages);
@@ -86,7 +87,6 @@ const App = () => {
       <Select
         countUsers={countUsers}
         selectLimit={selectLimit}
-        limit={limit}
         selectorValues={[5, 10, 20, 30, 40, 50]}
       />
       <ThemeCheckbox />
