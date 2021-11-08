@@ -24,7 +24,7 @@ const Card = ({
           {cardUserId}
         </p>
         <p className="card__user-info">
-          {`${cardUserTitle}. ${cardUserFirstName} ${cardUserLastName}`}
+          {`${cardUserTitle ? `${cardUserTitle}.` : ''} ${cardUserFirstName} ${cardUserLastName}`}
         </p>
       </div>
     </div>

@@ -3,6 +3,13 @@ import React, { useEffect, useState } from 'react';
 import {
   HashRouter, Link, Route, Switch
 } from 'react-router-dom';
+import {
+  Button,
+  Col,
+  DatePicker,
+  Form, Input, Menu, Radio, Row, Select
+} from 'antd';
+
 import Wrapper from '../wrapper/Wrapper';
 import Main from '../main/Main';
 import Card from '../card/Card';
@@ -10,12 +17,15 @@ import Pagenator from '../pagenator/Pagenator';
 import ThemeCheckbox from '../theme-checkbox/ThemeCheckbox';
 import Tooltip from '../tooltip/Tooltip';
 import {
-  fetchUsersAll, IListResponse, IUser
+  fetchCreateUser,
+  fetchUsersAll, IListResponse, IUser, IUserFull
 } from '../../utils/fetchDumMyApi';
 import Spinner from '../spinner/Spinner';
 import { ThemeDarkContextProvider } from '../../contexts/theme-checkbox/ThemeCheckboxContext';
-import Select from '../select/Select';
+import Selector from '../selector/Selector';
 import CardUser from '../card-user/CardUser';
+
+const { Option } = Select;
 
 const App = () => {
   const [users, setUsers] = useState([] as Array<IUser>);
@@ -36,6 +46,9 @@ const App = () => {
 
   useEffect(() => {
     loadUsersAll(page, limit);
+  }, []);
+
+  useEffect(() => {
     setCountPages(countUsers / limit);
   }, [countUsers]);
 
@@ -84,7 +97,7 @@ const App = () => {
           <Pagenator page={page} selectPage={selectPage} countPages={countPages} />
         )
       }
-      <Select
+      <Selector
         limit={limit}
         countUsers={countUsers}
         selectLimit={selectLimit}
@@ -94,18 +107,177 @@ const App = () => {
     </div>
   );
 
+  const renderMenu = () => {
+    const urlPath: string[] = [global.location.hash];
+    return (
+      <Menu defaultSelectedKeys={urlPath} mode="horizontal" theme="dark">
+        <Menu.Item key="#/">
+          <Link to="/">Пользователи</Link>
+        </Menu.Item>
+        <Menu.Item key="#/registration">
+          <Link to="/registration">Регистрация</Link>
+        </Menu.Item>
+      </Menu>
+    );
+  };
+
+  const getJSONStringifyFromFormData = (formData: FormData): string => JSON.stringify({
+    firstName: formData.get('firstName'),
+    lastName: formData.get('lastName'),
+    email: formData.get('email'),
+    phone: formData.get('phone') || undefined,
+    picture: formData.get('picture') || undefined,
+    title: formData.get('userTitle') || undefined,
+    gender: formData.get('gender') || undefined,
+    dateOfBirth: formData.get('dateOfBirth') || undefined,
+    registerDate: new Date(),
+    location: (
+      formData.has('street')
+        || formData.has('city')
+        || formData.has('state')
+        || formData.has('country')
+        || formData.has('timezone')
+    ) ? (
+        {
+          street: formData.get('street') || undefined,
+          city: formData.get('city') || undefined,
+          state: formData.get('state') || undefined,
+          country: formData.get('country') || undefined,
+          timezone: formData.get('timezone') || undefined
+        }
+      ) : undefined
+  });
+
+  const renderFormRegistration = () => {
+    const selectTitle: string[] = ['mr', 'ms', 'mrs', 'miss', 'dr'];
+    const rules = [{ required: true, message: 'Данное поле обязательно для ввода!' }];
+
+    const handleSendForm = (e: any) => {
+      const formData = new FormData(e.target);
+      if (formData.has('firstName') && formData.has('lastName') && formData.has('email')) {
+        const formBody = getJSONStringifyFromFormData(formData);
+        fetchCreateUser(
+          formBody,
+          (response: IUserFull) => {
+            global.location.hash = `#/user/${response.id}`;
+          },
+          () => { throw new Error('Ошибка загрузки данных из сервера'); }
+        );
+      }
+    };
+
+    return (
+      <div className="form-wrapper">
+        <Form name="formCreateUser" layout="vertical" onSubmitCapture={handleSendForm}>
+          <Row gutter={12}>
+            <Col span={12}>
+              <Form.Item name="userFirstName" label="First Name" rules={rules}>
+                <Input type="text" name="firstName" placeholder="First Name" />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item name="userLastName" label="Last Name" rules={rules}>
+                <Input type="text" name="lastName" placeholder="Last Name" />
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={12}>
+            <Col span={8}>
+              <Form.Item name="userEmail" label="Email" rules={rules}>
+                <Input type="email" name="email" placeholder="Email" />
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item name="userPhone" label="Phone">
+                <Input type="tel" name="phone" placeholder="Phone number" />
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item name="userPicture" label="Picture">
+                <Input type="text" name="picture" placeholder="Picture(URL)" />
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={12}>
+            <Col span={4}>
+              <Form.Item name="userTitle" label="Title">
+                <Select placeholder="Select title">
+                  {
+                    selectTitle.map((item, index) => (
+                      <Option key={index} value={item}>{item.toUpperCase()}</Option>
+                    ))
+                  }
+                </Select>
+              </Form.Item>
+            </Col>
+            <Col>
+              <Form.Item name="userDateOfBirth" label="Date of birth">
+                <DatePicker name="dateOfBirth" />
+              </Form.Item>
+            </Col>
+            <Col>
+              <Form.Item name="userGender" label="Gender">
+                <Radio.Group name="gender">
+                  <Radio value="male">Male</Radio>
+                  <Radio value="female">Female</Radio>
+                  <Radio value="other">Other</Radio>
+                </Radio.Group>
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={12}>
+            <Col span={6}>
+              <Form.Item name="userState" label="State">
+                <Input type="text" name="state" placeholder="State" />
+              </Form.Item>
+            </Col>
+            <Col span={6}>
+              <Form.Item name="userCountry" label="Country">
+                <Input type="text" name="country" placeholder="Country" />
+              </Form.Item>
+            </Col>
+            <Col span={6}>
+              <Form.Item name="userCity" label="City">
+                <Input type="text" name="city" placeholder="City" />
+              </Form.Item>
+            </Col>
+            <Col span={6}>
+              <Form.Item name="userStreet" label="Street">
+                <Input type="text" name="street" placeholder="Street" />
+              </Form.Item>
+            </Col>
+            <Col span={6}>
+              <Form.Item name="userTimezone" label="Timezone">
+                <Input type="text" name="timezone" placeholder="Timezone" />
+              </Form.Item>
+            </Col>
+          </Row>
+          <Button type="primary" htmlType="submit">
+            Зарегистрировать
+          </Button>
+        </Form>
+      </div>
+    );
+  };
+
   return (
     <ThemeDarkContextProvider>
       <div className="App">
         <Wrapper>
           <HashRouter>
+            {renderMenu()}
             <Switch>
-              <Route path="/user/:id">
+              <Route exact path="/registration">
+                <Main headerTitle="Регистрация пользователя">
+                  {renderFormRegistration()}
+                </Main>
+              </Route>
+              <Route exact path="/user/:id">
                 <Main headerTitle="Пользователь">
                   <CardUser />
                 </Main>
               </Route>
-              <Route path="/">
+              <Route exact path="/">
                 <Main headerTitle="Пользователи">
                   {renderCards()}
                   {renderPagenatorAndThemeCheck()}

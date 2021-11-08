@@ -53,29 +53,29 @@ const CardUser = () => {
             <div className={`card-user__info  ${themeDarkContext.themeDark ? 'card__info_theme_dark' : ''}`}>
               <div>
                 <p className="card-user__text card-user__text_bolder card-user__text_size_big">
-                  {`${user.title}. ${user.firstName} ${user.lastName}`}
+                  {`${user.title ? `${user.title}.` : ''} ${user.firstName} ${user.lastName}`}
                 </p>
                 <p className="card-user__text">
                   <span className="card-user__text card-user__text_bolder">Пол: </span>
-                  {`${user?.gender || '-'}`}
+                  {`${user.gender || '-'}`}
                 </p>
                 <p className="card-user__text">
                   <span className="card-user__text card-user__text_bolder">Дата рождения: </span>
-                  {`${new Date(user?.dateOfBirth).toDateString() || '-'}`}
+                  {`${user.dateOfBirth ? new Date(user?.dateOfBirth).toDateString() : '-'}`}
                 </p>
                 <p className="card-user__text">
                   <span className="card-user__text card-user__text_bolder">Дата регистрации: </span>
-                  {`${new Date(user?.registerDate).toDateString() || '-'}`}
+                  {`${user.registerDate ? new Date(user?.registerDate).toDateString() : '-'}`}
                 </p>
                 <br />
                 <br />
                 <p className="card-user__text">
                   <span className="card-user__text card-user__text_bolder">Почта: </span>
-                  {`${user?.email || '-'}`}
+                  {`${user.email || '-'}`}
                 </p>
                 <p className="card-user__text">
                   <span className="card-user__text card-user__text_bolder">Телефон: </span>
-                  {`${user?.phone || '-'}`}
+                  {`${user.phone || '-'}`}
                 </p>
               </div>
               <div>

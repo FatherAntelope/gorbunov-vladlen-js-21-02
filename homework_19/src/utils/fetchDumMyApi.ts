@@ -1,5 +1,5 @@
 import {
-  API_KEY, FIELDS_HEAD_API, BASE_URL, USER_POINT_API
+  API_KEY, FIELDS_HEAD_API, BASE_URL, USER_POINT_API, USER_CREATE_POINT_API
 } from '../constants/api/dummyapi';
 
 export interface IListResponse<T> {
@@ -45,7 +45,7 @@ const fetchDumMyApi = <T>(
   resolveCallback: (response: T) => void,
   rejectCallback?: (response: string) => void,
   finallyCallback?: () => void,
-  searchParams?: Record<string, any>
+  searchParams?: Record<string, any>,
 ) => {
   let url = baseUrl + path;
 
@@ -57,7 +57,30 @@ const fetchDumMyApi = <T>(
     method: 'GET',
     headers: new Headers({
       [FIELDS_HEAD_API.API_KEY]: API_KEY
+    })
+  })
+    .then((response) => response.json())
+    .then(resolveCallback)
+    .catch(rejectCallback)
+    .finally(finallyCallback);
+};
+
+const fetchDumMyApiPost = <T>(
+  baseUrl: string,
+  path: string,
+  resolveCallback: (response: T) => void,
+  rejectCallback?: (response: string) => void,
+  finallyCallback?: () => void,
+  body?: string,
+) => {
+  const url = baseUrl + path;
+  fetch(url.toString(), {
+    method: 'POST',
+    headers: new Headers({
+      [FIELDS_HEAD_API.API_KEY]: API_KEY,
+      'Content-Type': 'application/json;charset=utf-8'
     }),
+    body
   })
     .then((response) => response.json())
     .then(resolveCallback)
@@ -96,4 +119,20 @@ const fetchUserData = (
   finallyCallback
 );
 
-export { fetchUsersAll, fetchUserData };
+const fetchCreateUser = (
+  body: string,
+  resolveCallback: (response: IUserFull) => void,
+  rejectCallback?: (response: any) => void,
+  finallyCallback?: () => void
+) => {
+  fetchDumMyApiPost(
+    BASE_URL,
+    USER_CREATE_POINT_API,
+    ((response: IUserFull) => resolveCallback(response)),
+    rejectCallback,
+    finallyCallback,
+    body
+  );
+};
+
+export { fetchUsersAll, fetchUserData, fetchCreateUser };

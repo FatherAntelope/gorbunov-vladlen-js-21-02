@@ -1,5 +1,5 @@
 import React from 'react';
-import './Select.css';
+import './Selector.css';
 
 interface IProps {
   limit: number
@@ -8,7 +8,7 @@ interface IProps {
   selectLimit: (currentPage: number, countPages: number) => void;
 }
 
-const Select = ({
+const Selector = ({
   limit, selectorValues, countUsers, selectLimit
 }: IProps) => {
   const handleChange = (e: React.BaseSyntheticEvent) => {
@@ -29,4 +29,4 @@ const Select = ({
   );
 };
 
-export default Select;
+export default Selector;
