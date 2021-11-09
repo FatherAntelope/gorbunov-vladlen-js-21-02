@@ -7,7 +7,7 @@ import {
   Button,
   Col,
   DatePicker,
-  Form, Input, Menu, Radio, Row, Select
+  Form, Input, Radio, Row, Select
 } from 'antd';
 
 import Wrapper from '../wrapper/Wrapper';
@@ -24,6 +24,7 @@ import Spinner from '../spinner/Spinner';
 import { ThemeDarkContextProvider } from '../../contexts/theme-checkbox/ThemeCheckboxContext';
 import Selector from '../selector/Selector';
 import CardUser from '../card-user/CardUser';
+import MyMenu from '../my-menu/MyMenu';
 
 const { Option } = Select;
 
@@ -107,20 +108,6 @@ const App = () => {
     </div>
   );
 
-  const renderMenu = () => {
-    const urlPath: string[] = [global.location.hash];
-    return (
-      <Menu defaultSelectedKeys={urlPath} mode="horizontal" theme="dark">
-        <Menu.Item key="#/">
-          <Link to="/">Пользователи</Link>
-        </Menu.Item>
-        <Menu.Item key="#/registration">
-          <Link to="/registration">Регистрация</Link>
-        </Menu.Item>
-      </Menu>
-    );
-  };
-
   const getJSONStringifyFromFormData = (formData: FormData): string => JSON.stringify({
     firstName: formData.get('firstName'),
     lastName: formData.get('lastName'),
@@ -152,14 +139,15 @@ const App = () => {
     const selectTitle: string[] = ['mr', 'ms', 'mrs', 'miss', 'dr'];
     const rules = [{ required: true, message: 'Данное поле обязательно для ввода!' }];
 
-    const handleSendForm = (e: any) => {
+    const handleSendForm = (e: React.BaseSyntheticEvent) => {
       const formData = new FormData(e.target);
       if (formData.has('firstName') && formData.has('lastName') && formData.has('email')) {
         const formBody = getJSONStringifyFromFormData(formData);
         fetchCreateUser(
           formBody,
           (response: IUserFull) => {
-            global.location.hash = `#/user/${response.id}`;
+            // global.location.hash = `#/user/${response.id}`;
+            console.log(response);
           },
           () => { throw new Error('Ошибка загрузки данных из сервера'); }
         );
@@ -265,7 +253,7 @@ const App = () => {
       <div className="App">
         <Wrapper>
           <HashRouter>
-            {renderMenu()}
+            <MyMenu />
             <Switch>
               <Route exact path="/registration">
                 <Main headerTitle="Регистрация пользователя">
