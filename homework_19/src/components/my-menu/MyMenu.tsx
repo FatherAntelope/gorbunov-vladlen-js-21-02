@@ -1,12 +1,12 @@
 import { Menu } from 'antd';
 import { Link, useLocation } from 'react-router-dom';
-import React, { useEffect } from 'react';
+import React from 'react';
 
 const MyMenu = () => {
   const locationMenu = useLocation();
   const urlPath: string[] = [`#${locationMenu.pathname}`];
 
-  useEffect(() => {}, [locationMenu]);
+  // useEffect(() => {}, [locationMenu]);
 
   return (
     <Menu defaultSelectedKeys={urlPath} mode="horizontal" theme="dark">
