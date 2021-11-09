@@ -17,8 +17,7 @@ import Pagenator from '../pagenator/Pagenator';
 import ThemeCheckbox from '../theme-checkbox/ThemeCheckbox';
 import Tooltip from '../tooltip/Tooltip';
 import {
-  fetchCreateUser,
-  fetchUsersAll, IListResponse, IUser, IUserFull
+  fetchUsersAll, IListResponse, IUser, IUserCreate
 } from '../../utils/fetchDumMyApi';
 import Spinner from '../spinner/Spinner';
 import { ThemeDarkContextProvider } from '../../contexts/theme-checkbox/ThemeCheckboxContext';
@@ -108,55 +107,32 @@ const App = () => {
     </div>
   );
 
-  const getJSONStringifyFromFormData = (formData: FormData): string => JSON.stringify({
-    firstName: formData.get('firstName'),
-    lastName: formData.get('lastName'),
-    email: formData.get('email'),
-    phone: formData.get('phone') || undefined,
-    picture: formData.get('picture') || undefined,
-    title: formData.get('userTitle') || undefined,
-    gender: formData.get('gender') || undefined,
-    dateOfBirth: formData.get('dateOfBirth') || undefined,
-    registerDate: new Date(),
-    location: (
-      formData.has('street')
-        || formData.has('city')
-        || formData.has('state')
-        || formData.has('country')
-        || formData.has('timezone')
-    ) ? (
-        {
-          street: formData.get('street') || undefined,
-          city: formData.get('city') || undefined,
-          state: formData.get('state') || undefined,
-          country: formData.get('country') || undefined,
-          timezone: formData.get('timezone') || undefined
-        }
-      ) : undefined
-  });
+  const [form] = Form.useForm();
 
   const renderFormRegistration = () => {
     const selectTitle: string[] = ['mr', 'ms', 'mrs', 'miss', 'dr'];
     const rules = [{ required: true, message: 'Данное поле обязательно для ввода!' }];
 
-    const handleSendForm = (e: React.BaseSyntheticEvent) => {
-      const formData = new FormData(e.target);
-      if (formData.has('firstName') && formData.has('lastName') && formData.has('email')) {
-        const formBody = getJSONStringifyFromFormData(formData);
-        fetchCreateUser(
-          formBody,
-          (response: IUserFull) => {
-            // global.location.hash = `#/user/${response.id}`;
-            console.log(response);
-          },
-          () => { throw new Error('Ошибка загрузки данных из сервера'); }
-        );
-      }
+    const handleSendForm = () => {
+      const formData: IUserCreate = form.getFieldsValue();
+      console.log(formData);
+      // form.validateFields(['userFirstName']).then(console.log);
+      // if (formData.has('firstName') && formData.has('lastName') && formData.has('email')) {
+      //   const formBody = getJSONStringifyFromFormData(formData);
+      //   fetchCreateUser(
+      //     formBody,
+      //     (response: IUserFull) => {
+      //       // global.location.hash = `#/user/${response.id}`;
+      //       console.log(response);
+      //     },
+      //     () => { throw new Error('Ошибка загрузки данных из сервера'); }
+      //   );
+      // }
     };
 
     return (
       <div className="form-wrapper">
-        <Form name="formCreateUser" layout="vertical" onSubmitCapture={handleSendForm}>
+        <Form form={form} name="formCreateUser" layout="vertical" onSubmitCapture={handleSendForm}>
           <Row gutter={12}>
             <Col span={12}>
               <Form.Item name="userFirstName" label="First Name" rules={rules}>

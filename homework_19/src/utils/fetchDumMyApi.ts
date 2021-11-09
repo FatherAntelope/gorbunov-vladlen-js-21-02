@@ -135,4 +135,50 @@ const fetchCreateUser = (
   );
 };
 
-export { fetchUsersAll, fetchUserData, fetchCreateUser };
+export interface IUserCreate {
+  userFirstName: string;
+  userLastName: string;
+  userEmail: string;
+  userTitle?: string;
+  userGender?: string;
+  userDateOfBirth?: string;
+  registerDate?: string;
+  userPhone?: string;
+  userPicture?: string;
+  userStreet?: string;
+  userCity?: string;
+  userState?: string;
+  userCountry?: string;
+  userTimezone?: string;
+}
+
+const getJSONStringifyFromFormData = (formData: IUserCreate): string => JSON.stringify({
+  firstName: formData.userFirstName,
+  lastName: formData.userLastName,
+  email: formData.userEmail,
+  phone: formData.userPhone,
+  picture: formData.userPicture,
+  title: formData.userTitle,
+  gender: formData.userGender,
+  dateOfBirth: formData.userDateOfBirth,
+  registerDate: new Date(),
+  location: (
+    formData.userStreet
+    || formData.userCity
+    || formData.userState
+    || formData.userCountry
+    || formData.userTimezone
+  ) ? (
+      {
+        street: formData.userStreet,
+        city: formData.userCity,
+        state: formData.userState,
+        country: formData.userCountry,
+        timezone: formData.userTimezone
+      }
+    ) : undefined
+});
+
+export {
+  fetchUsersAll, fetchUserData, fetchCreateUser, getJSONStringifyFromFormData
+};
