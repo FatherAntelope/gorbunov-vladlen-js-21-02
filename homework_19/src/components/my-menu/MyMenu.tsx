@@ -1,15 +1,32 @@
 import { Menu } from 'antd';
 import { Link, useLocation } from 'react-router-dom';
-import React from 'react';
+import React, { useEffect } from 'react';
 
-const MyMenu = () => {
-  const locationMenu = useLocation();
-  const urlPath: string[] = [`#${locationMenu.pathname}`];
+interface IProps {
+  setCurrPath: (arg: string) => void;
+  currPath: string;
+}
 
-  // useEffect(() => {}, [locationMenu]);
+const MyMenu = ({ currPath, setCurrPath }: IProps) => {
+  // const [currPath, setCurrPath] = useState('#/' as string);
+  const currLocation = useLocation();
+
+  useEffect(() => {
+    setCurrPath(`#${currLocation.pathname}`);
+  }, []);
+
+  const handleClick = (e: any) => {
+    setCurrPath(e.key);
+  };
 
   return (
-    <Menu defaultSelectedKeys={urlPath} mode="horizontal" theme="dark">
+    <Menu
+      defaultSelectedKeys={[`${currPath}`]}
+      selectedKeys={[`${currPath}`]}
+      onClick={handleClick}
+      mode="horizontal"
+      theme="dark"
+    >
       <Menu.Item key="#/">
         <Link to="/">Пользователи</Link>
       </Menu.Item>

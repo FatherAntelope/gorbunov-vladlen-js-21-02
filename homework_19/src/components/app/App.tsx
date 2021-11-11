@@ -34,6 +34,7 @@ const App = () => {
   const [limit, setLimit] = useState(10 as number);
   const [page, setPage] = useState(0 as number);
   const [countPages, setCountPages] = useState(0 as number);
+  const [currPath, setCurrPath] = useState('#/' as string);
   const [form] = Form.useForm();
 
   const loadUsersAll = (pageApi: number, limitApi: number) => fetchUsersAll(
@@ -360,7 +361,7 @@ const App = () => {
       <div className="App">
         <Wrapper>
           <HashRouter>
-            <MyMenu />
+            <MyMenu currPath={currPath} setCurrPath={setCurrPath} />
             <Switch>
               <Route exact path="/registration">
                 <Main headerTitle="Регистрация пользователя">
