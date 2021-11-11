@@ -1,0 +1,15 @@
+.wrapper {
+  min-height: 100vh;
+  width: 100%;
+  background-color: #e6e7e5;
+}
+.wrapper_theme_dark {
+  background-color: #23242B;
+}
+.wrapper__container {
+  width: 930px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+/*# sourceMappingURL=Wrapper.css.map */
