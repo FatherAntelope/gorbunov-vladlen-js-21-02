@@ -3,17 +3,10 @@ import React, { useEffect, useState } from 'react';
 import {
   HashRouter, Link, Route, Switch
 } from 'react-router-dom';
+
 import {
   Button, Col, DatePicker, Form, Input, Radio, Row, Select
 } from 'antd';
-import {
-  fetchCreateUser, getJSONStringifyFromFormData
-} from '../../utils/fetchDumMyApi';
-import {
-  IUser, IUserCreate, IUserFull
-} from '../../types/api/dymMyApi';
-import { IUsersState } from '../../types/state';
-
 import { ThemeDarkContextProvider } from '../../contexts/theme-checkbox/ThemeCheckboxContext';
 import Wrapper from '../wrapper/Wrapper';
 import MyMenu from '../my-menu/MyMenu';
@@ -25,8 +18,14 @@ import Pagenator from '../pagenator/Pagenator';
 import Selector from '../selector/Selector';
 import ThemeCheckbox from '../theme-checkbox/ThemeCheckbox';
 import Spinner from '../spinner/Spinner';
+
+import { getJSONStringifyFromFormData } from '../../utils/fetchDumMyApi';
+import { IUser, IUserCreate } from '../../types/api/dymMyApi';
+import { IUsersState } from '../../types/state';
 import usersStore from '../../stores/users';
+import userStore from '../../stores/user';
 import { loadUsersAC } from '../../actions/users';
+import { registerUserAC } from '../../actions/user';
 
 const { Option } = Select;
 
@@ -113,21 +112,19 @@ const App = () => {
 
   const renderFormRegistration = () => {
     const selectTitle: string[] = ['mr', 'ms', 'mrs', 'miss', 'dr'];
-    const handleSendForm = () => {
+    const handleFinishForm = () => {
       const formData: IUserCreate = form.getFieldsValue();
       const formBody = getJSONStringifyFromFormData(formData);
-      fetchCreateUser(
-        formBody,
-        (response: IUserFull) => {
-          global.location.hash = `#/user/${response.id}`;
-        },
-        () => { throw new Error('Ошибка загрузки данных из сервера'); }
-      );
+      userStore.on('submit', () => {
+        const store: string = userStore.getStateUserCreateID();
+        global.location.hash = `#/user/${store}`;
+      });
+      registerUserAC(formBody);
     };
 
     return (
       <div className="form-wrapper">
-        <Form autoComplete="off" form={form} name="formCreateUser" layout="vertical" onFinish={handleSendForm}>
+        <Form autoComplete="off" form={form} name="formCreateUser" layout="vertical" onFinish={handleFinishForm}>
           <Row gutter={12}>
             <Col span={12}>
               <Form.Item

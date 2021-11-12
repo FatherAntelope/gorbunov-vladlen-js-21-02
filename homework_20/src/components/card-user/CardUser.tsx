@@ -22,7 +22,7 @@ const CardUser = () => {
 
   useEffect(() => {
     userStore.on('load', () => {
-      const store: IUserState = userStore.getState();
+      const store: IUserState = userStore.getStateUser();
       setUser(store.userData);
       setIsLoadingUser(store.isLoading);
     });

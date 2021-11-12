@@ -1,36 +1,56 @@
 import { EventEmitter } from 'events';
 import { IUserFull } from '../types/api/dymMyApi';
-import { ILoadUserAction } from '../types/actions';
-import { DEFAULT_FUNCTION, LOAD_USER, LOAD_USER_SUCCESS } from '../constants/actions';
+import { ILoadUserAction, IRegisterUserAction } from '../types/actions';
+import {
+  DEFAULT_FUNCTION, LOAD_USER, LOAD_USER_SUCCESS, REGISTER_USER
+} from '../constants/actions';
 import dispatcher from '../dispatcher';
 import { IUserState } from '../types/state';
 
 class UserStore extends EventEmitter {
-  private state;
+  private stateUser;
+
+  private stateUserCreateID;
 
   constructor() {
     super();
-    this.state = {} as IUserState;
-    this.getState = this.getState.bind(this);
+    this.stateUser = {} as IUserState;
+    this.stateUserCreateID = '' as string;
+    this.getStateUser = this.getStateUser.bind(this);
+    this.getStateUserCreateID = this.getStateUserCreateID.bind(this);
   }
 
-  getState = () => this.state;
+  public readonly getStateUser = () => this.stateUser;
 
-  loadUserSuccess = (user: IUserFull) => {
-    this.state = {
+  public readonly getStateUserCreateID = () => this.stateUserCreateID;
+
+  private readonly loadUserSuccess = (user: IUserFull) => {
+    this.stateUser = {
       userData: user,
       isLoading: false
     };
     this.emit('load');
   };
 
-  handleAction(action: ILoadUserAction) {
+  public handleActionLoad(action: ILoadUserAction) {
     switch (action.type) {
       case LOAD_USER:
-        this.state = { ...this.state, isLoading: true };
+        this.stateUser = { ...this.stateUser, isLoading: true };
+        this.emit('load');
         break;
       case LOAD_USER_SUCCESS:
         this.loadUserSuccess(action.payload);
+        break;
+      case REGISTER_USER:
+      default: DEFAULT_FUNCTION();
+    }
+  }
+
+  public handleActionSubmit(action: IRegisterUserAction) {
+    switch (action.type) {
+      case REGISTER_USER:
+        this.stateUserCreateID = action.payload;
+        this.emit('submit');
         break;
       default: DEFAULT_FUNCTION();
     }
@@ -38,6 +58,7 @@ class UserStore extends EventEmitter {
 }
 
 const userStore = new UserStore();
-dispatcher.register(userStore.handleAction.bind(userStore));
+dispatcher.register(userStore.handleActionLoad.bind(userStore));
+dispatcher.register(userStore.handleActionSubmit.bind(userStore));
 
 export default userStore;

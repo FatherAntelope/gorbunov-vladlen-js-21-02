@@ -11,3 +11,7 @@ export interface ILoadUsersAction extends IAction {
 export interface ILoadUserAction extends IAction {
   payload: IUserFull;
 }
+
+export interface IRegisterUserAction extends IAction {
+  payload: string;
+}
