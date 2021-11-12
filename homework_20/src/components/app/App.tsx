@@ -42,7 +42,7 @@ const App = () => {
 
   const loadUsers = (newPage: number, newLimit: number) => {
     usersStore.on('change', () => {
-      const store = usersStore.getState() as IUsersState;
+      const store: IUsersState = usersStore.getState();
       setUsers(store.usersList);
       setCountUsers(store.usersTotal);
       setIsLoadingUsers(store.isLoading);

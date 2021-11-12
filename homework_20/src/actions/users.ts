@@ -10,7 +10,9 @@ const loadUsersAC = (page: number, limit: number): void => {
     type: LOAD_USERS_SUCCESS,
     payload: { data: response.data, total: response.total }
   })),
-  () => { throw new Error('Ошибка загрузки данных из сервера'); });
+  () => {
+    throw new Error('Ошибка загрузки данных из сервера');
+  });
 };
 
 export { loadUsersAC };

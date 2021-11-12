@@ -1,15 +1,16 @@
 import { EventEmitter } from 'events';
-import { LOAD_USERS, LOAD_USERS_SUCCESS } from '../constants/actions';
+import { DEFAULT_FUNCTION, LOAD_USERS, LOAD_USERS_SUCCESS } from '../constants/actions';
 import dispatcher from '../dispatcher';
 import { IListResponse, IUser } from '../types/api/dymMyApi';
 import { ILoadUsersAction } from '../types/actions';
+import { IUsersState } from '../types/state';
 
 class UsersStore extends EventEmitter {
   private state;
 
   constructor() {
     super();
-    this.state = {};
+    this.state = {} as IUsersState;
     this.getState = this.getState.bind(this);
     this.loadUsersSuccess = this.loadUsersSuccess.bind(this);
   }
@@ -34,7 +35,7 @@ class UsersStore extends EventEmitter {
       case LOAD_USERS_SUCCESS:
         this.loadUsersSuccess(action.payload);
         break;
-      default: () => {};
+      default: DEFAULT_FUNCTION();
     }
   }
 }

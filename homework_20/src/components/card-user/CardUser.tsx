@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import { fetchUserData } from '../../utils/fetchDumMyApi';
 import './CardUser.css';
 import { ThemeDarkContext } from '../../contexts/theme-checkbox/ThemeCheckboxContext';
 import Spinner from '../spinner/Spinner';
 import { IUserFull } from '../../types/api/dymMyApi';
+import userStore from '../../stores/user';
+import { IUserState } from '../../types/state';
+import { loadUserAC } from '../../actions/user';
 
 interface IParams {
   id: string;
@@ -14,28 +16,22 @@ const CardUser = () => {
   const themeDarkContext = useContext(ThemeDarkContext);
   const params = useParams<IParams>();
   const [user, setUser] = useState({} as IUserFull);
-  const [loading, setLoading] = useState(true as boolean);
+  const [isLoadingUser, setIsLoadingUser] = useState(true as boolean);
 
   const history = useHistory();
 
-  const loadUserData = (id: string) => fetchUserData(
-    id,
-    setUser,
-    () => { throw new Error('Ошибка загрузки пользователя'); },
-    () => setLoading(false)
-  );
-
   useEffect(() => {
-    loadUserData(params.id);
-    setLoading(true);
+    userStore.on('load', () => {
+      const store: IUserState = userStore.getState();
+      setUser(store.userData);
+      setIsLoadingUser(store.isLoading);
+    });
+    loadUserAC(params.id);
   }, []);
 
   return (
-    loading
+    !isLoadingUser
       ? (
-        <Spinner />
-      )
-      : (
         <div className={`card-user  ${themeDarkContext.themeDark ? 'card-user_theme_dark' : ''}`}>
           <button
             type="button"
@@ -107,6 +103,9 @@ const CardUser = () => {
             </div>
           </div>
         </div>
+      )
+      : (
+        <Spinner />
       )
   );
 };
