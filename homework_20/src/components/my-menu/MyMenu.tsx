@@ -5,9 +5,10 @@ import React, { useEffect } from 'react';
 interface IProps {
   setCurrPath: (arg: string) => void;
   currPath: string;
+  themeDark?: boolean;
 }
 
-const MyMenu = ({ currPath, setCurrPath }: IProps) => {
+const MyMenu = ({ currPath, setCurrPath, themeDark }: IProps) => {
   // const [currPath, setCurrPath] = useState('#/' as string);
   const currLocation = useLocation();
 
@@ -25,7 +26,7 @@ const MyMenu = ({ currPath, setCurrPath }: IProps) => {
       selectedKeys={[`${currPath}`]}
       onClick={handleClick}
       mode="horizontal"
-      theme="dark"
+      theme={themeDark ? 'dark' : 'light'}
     >
       <Menu.Item key="#/">
         <Link to="/">Пользователи</Link>
@@ -35,6 +36,10 @@ const MyMenu = ({ currPath, setCurrPath }: IProps) => {
       </Menu.Item>
     </Menu>
   );
+};
+
+MyMenu.defaultProps = {
+  themeDark: false
 };
 
 export default MyMenu;

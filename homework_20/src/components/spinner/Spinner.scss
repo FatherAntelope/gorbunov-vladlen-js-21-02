@@ -7,6 +7,7 @@
   border-top-color: transparent;
   border-bottom-color: transparent;
   animation: rotate 1s linear infinite;
+  transition: border 0.3s ease, border-top-color 0.3s ease, border-bottom-color 0.3s ease;
 
   &_theme_dark {
     border: 5px solid #fff;

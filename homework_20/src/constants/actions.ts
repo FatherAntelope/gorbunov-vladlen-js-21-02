@@ -8,4 +8,6 @@ export const REGISTER_USER: string = 'USER/REGISTER_USER';
 export const SELECT_PAGE: string = 'PAGENATOR/SELECT_PAGE';
 export const SET_COUNT_PAGES: string = 'PAGENATOR/SET_COUNT_PAGES';
 
+export const TOGGLE_THEME: string = 'THEME_CHECKBOX_CONTEXT/TOGGLE_THEME';
+
 export const DEFAULT_FUNCTION: () => void = () => {};

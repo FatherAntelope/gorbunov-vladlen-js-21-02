@@ -6,6 +6,7 @@
   padding: 16px;
   display: flex;
   gap: 16px;
+  transition: background-color 0.3s ease, color 0.3s ease;
 
   &_theme_dark {
     background-color: #35393b;

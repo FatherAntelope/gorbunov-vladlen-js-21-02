@@ -1,7 +1,7 @@
 import { EventEmitter } from 'events';
 import { DEFAULT_FUNCTION, SELECT_PAGE, SET_COUNT_PAGES } from '../constants/actions';
 import dispatcher from '../dispatcher';
-import { ISelectPage, ISetCountPages } from '../types/actions';
+import { ISelectPageAction, ISetCountPagesAction } from '../types/actions';
 
 class PagenatorStore extends EventEmitter {
   private stateSelectPage;
@@ -19,7 +19,7 @@ class PagenatorStore extends EventEmitter {
 
   public readonly getStateCountPages = (): number => this.stateCountPages;
 
-  handleActionSelectPage(action: ISelectPage) {
+  public handleActionSelectPage(action: ISelectPageAction) {
     switch (action.type) {
       case SELECT_PAGE:
         this.stateSelectPage = action.payload;
@@ -29,7 +29,7 @@ class PagenatorStore extends EventEmitter {
     }
   }
 
-  handleActionSetCountPages(action: ISetCountPages) {
+  public handleActionSetCountPages(action: ISetCountPagesAction) {
     switch (action.type) {
       case SET_COUNT_PAGES:
         this.stateCountPages = action.payload;

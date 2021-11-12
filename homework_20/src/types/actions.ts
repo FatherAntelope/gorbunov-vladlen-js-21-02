@@ -16,10 +16,14 @@ export interface IRegisterUserAction extends IAction {
   payload: string;
 }
 
-export interface ISelectPage extends IAction {
+export interface ISelectPageAction extends IAction {
   payload: number;
 }
 
-export interface ISetCountPages extends IAction {
+export interface ISetCountPagesAction extends IAction {
   payload: number;
+}
+
+export interface IToggleThemeAction extends IAction {
+  payload: boolean;
 }

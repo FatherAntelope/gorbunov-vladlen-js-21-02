@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import themeCheckboxContextStore from '../../stores/themeCheckboxContext';
+import { toggleThemeAC } from '../../actions/themeCheckboxContext';
 
 interface IProps {
   children: React.ReactNode;
@@ -18,7 +20,8 @@ const ThemeDarkContextProvider = ({ children }: IProps) => {
   const [themeDark, setThemeDark] = useState(localStorage.getItem('themeDark') === 'true');
 
   const toggleTheme = (value: boolean) => {
-    setThemeDark(value);
+    themeCheckboxContextStore.on('change', () => setThemeDark(themeCheckboxContextStore.getStateIsDarkTheme()));
+    toggleThemeAC(value);
     localStorage.setItem('themeDark', value.toString());
   };
 

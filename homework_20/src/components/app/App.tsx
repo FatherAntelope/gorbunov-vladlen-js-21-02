@@ -378,7 +378,7 @@ const App = () => {
     <div className="App">
       <Wrapper themeDark={themeDarkContext.themeDark}>
         <HashRouter>
-          <MyMenu currPath={currPath} setCurrPath={setCurrPath} />
+          <MyMenu themeDark={themeDarkContext.themeDark} currPath={currPath} setCurrPath={setCurrPath} />
           <Switch>
             <Route exact path="/registration">
               <Main themeDark={themeDarkContext.themeDark} headerTitle="Регистрация пользователя">

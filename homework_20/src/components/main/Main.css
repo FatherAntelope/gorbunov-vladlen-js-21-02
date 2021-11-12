@@ -6,6 +6,7 @@
 .main .main__header {
   font-size: 38px;
   line-height: 1.5;
+  transition: color 0.3s ease;
 }
 .main .main__header_theme_dark {
   color: #FFF;

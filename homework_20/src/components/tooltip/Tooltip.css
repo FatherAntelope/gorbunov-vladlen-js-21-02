@@ -12,6 +12,7 @@
   border: 1px solid #35393b;
   padding: 5px 10px;
   border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 .tooltip__info_theme_dark {
   background-color: #35393b;
