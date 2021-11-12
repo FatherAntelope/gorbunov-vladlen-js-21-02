@@ -15,3 +15,11 @@ export interface ILoadUserAction extends IAction {
 export interface IRegisterUserAction extends IAction {
   payload: string;
 }
+
+export interface ISelectPage extends IAction {
+  payload: number;
+}
+
+export interface ISetCountPages extends IAction {
+  payload: number;
+}

@@ -15,9 +15,9 @@ class UsersStore extends EventEmitter {
     this.loadUsersSuccess = this.loadUsersSuccess.bind(this);
   }
 
-  public readonly getState = () => this.state;
+  public readonly getState = (): IUsersState => this.state;
 
-  private readonly loadUsersSuccess = (users: IListResponse<IUser>) => {
+  private readonly loadUsersSuccess = (users: IListResponse<IUser>): void => {
     this.state = {
       usersList: users.data,
       usersTotal: users.total,
@@ -26,7 +26,7 @@ class UsersStore extends EventEmitter {
     this.emit('change');
   };
 
-  public handleAction(action: ILoadUsersAction) {
+  public handleAction(action: ILoadUsersAction): void {
     switch (action.type) {
       case LOAD_USERS:
         this.state = { ...this.state, isLoading: true };

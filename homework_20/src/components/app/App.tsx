@@ -7,6 +7,7 @@ import {
 import {
   Button, Col, DatePicker, Form, Input, Radio, Row, Select
 } from 'antd';
+import { ThemeDarkContext } from '../../contexts/theme-checkbox/ThemeCheckboxContext';
 import Wrapper from '../wrapper/Wrapper';
 import MyMenu from '../my-menu/MyMenu';
 import Main from '../main/Main';
@@ -23,9 +24,10 @@ import { IUser, IUserCreate } from '../../types/api/dymMyApi';
 import { IUsersState } from '../../types/state';
 import usersStore from '../../stores/users';
 import userStore from '../../stores/user';
+import pagenatorStore from '../../stores/pagenator';
 import { loadUsersAC } from '../../actions/users';
 import { registerUserAC } from '../../actions/user';
-import { ThemeDarkContext } from '../../contexts/theme-checkbox/ThemeCheckboxContext';
+import { selectPageAC, setCountPagesAC } from '../../actions/pagenator';
 
 const { Option } = Select;
 
@@ -40,7 +42,7 @@ const App = () => {
   const [form] = Form.useForm();
   const themeDarkContext = useContext(ThemeDarkContext);
 
-  const loadUsers = (newPage: number, newLimit: number) => {
+  const loadUsersFLUX = (newPage: number, newLimit: number): void => {
     usersStore.on('change', () => {
       const store: IUsersState = usersStore.getState();
       setUsers(store.usersList);
@@ -50,24 +52,35 @@ const App = () => {
     loadUsersAC(newPage, newLimit);
   };
 
+  const selectPageFLUX = (newSelectPage: number): void => {
+    pagenatorStore.on('change', () => setPage(pagenatorStore.getStateSelectPage()));
+    selectPageAC(newSelectPage);
+  };
+
+  const setCountPagesFLUX = (newCountPages: number): void => {
+    pagenatorStore.on('change', () => setCountPages(pagenatorStore.getStateCountPages()));
+    setCountPagesAC(newCountPages);
+  };
+
   useEffect(() => {
-    loadUsers(page, limit);
+    loadUsersFLUX(page, limit);
   }, []);
 
   useEffect(() => {
-    setCountPages(countUsers / limit);
+    // Вызвал таймаут, поскольку, как я понял, здесь конфликтует dispatch, когда одновременно вызывается loadUsersFLUX
+    setTimeout(() => setCountPagesFLUX(countUsers / limit));
   }, [countUsers]);
 
   const selectPage = (currentPage: number): void => {
-    setPage(currentPage);
-    loadUsers(currentPage, limit);
+    selectPageFLUX(currentPage);
+    loadUsersFLUX(currentPage, limit);
   };
 
   const selectLimit = (currentLimit: number, currentCountPages: number): void => {
-    setPage(0);
+    selectPageFLUX(0);
     setLimit(currentLimit);
-    setCountPages(currentCountPages);
-    loadUsers(0, limit);
+    setCountPagesFLUX(currentCountPages);
+    loadUsersFLUX(0, limit);
   };
 
   const renderCards = () => (

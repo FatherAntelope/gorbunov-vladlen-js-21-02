@@ -20,11 +20,11 @@ class UserStore extends EventEmitter {
     this.getStateUserCreateID = this.getStateUserCreateID.bind(this);
   }
 
-  public readonly getStateUser = () => this.stateUser;
+  public readonly getStateUser = (): IUserState => this.stateUser;
 
-  public readonly getStateUserCreateID = () => this.stateUserCreateID;
+  public readonly getStateUserCreateID = (): string => this.stateUserCreateID;
 
-  private readonly loadUserSuccess = (user: IUserFull) => {
+  private readonly loadUserSuccess = (user: IUserFull): void => {
     this.stateUser = {
       userData: user,
       isLoading: false
@@ -32,7 +32,7 @@ class UserStore extends EventEmitter {
     this.emit('load');
   };
 
-  public handleActionLoad(action: ILoadUserAction) {
+  public handleActionLoad(action: ILoadUserAction): void {
     switch (action.type) {
       case LOAD_USER:
         this.stateUser = { ...this.stateUser, isLoading: true };
