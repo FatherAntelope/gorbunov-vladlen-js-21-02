@@ -4,18 +4,15 @@ import {
   HashRouter, Link, Route, Switch
 } from 'react-router-dom';
 import {
-  Button,
-  Col,
-  DatePicker,
-  Form, Input, Radio, Row, Select
+  Button, Col, DatePicker, Form, Input, Radio, Row, Select
 } from 'antd';
 import {
-  fetchCreateUser,
-  fetchUsersAll, getJSONStringifyFromFormData
+  fetchCreateUser, getJSONStringifyFromFormData
 } from '../../utils/fetchDumMyApi';
 import {
-  IListResponse, IUser, IUserCreate, IUserFull
+  IUser, IUserCreate, IUserFull
 } from '../../types/api/dymMyApi';
+import { IUsersState } from '../../types/state';
 
 import { ThemeDarkContextProvider } from '../../contexts/theme-checkbox/ThemeCheckboxContext';
 import Wrapper from '../wrapper/Wrapper';
@@ -28,11 +25,14 @@ import Pagenator from '../pagenator/Pagenator';
 import Selector from '../selector/Selector';
 import ThemeCheckbox from '../theme-checkbox/ThemeCheckbox';
 import Spinner from '../spinner/Spinner';
+import usersStore from '../../stores/users';
+import { loadUsersAC } from '../../actions/users';
 
 const { Option } = Select;
 
 const App = () => {
   const [users, setUsers] = useState([] as Array<IUser>);
+  const [isLoadingUsers, setIsLoadingUsers] = useState(true as boolean);
   const [countUsers, setCountUsers] = useState(0 as number);
   const [limit, setLimit] = useState(10 as number);
   const [page, setPage] = useState(0 as number);
@@ -40,18 +40,18 @@ const App = () => {
   const [currPath, setCurrPath] = useState('#/' as string);
   const [form] = Form.useForm();
 
-  const loadUsersAll = (pageApi: number, limitApi: number) => fetchUsersAll(
-    pageApi,
-    limitApi,
-    (response: IListResponse<IUser>) => {
-      setUsers(response.data);
-      setCountUsers(response.total);
-    },
-    () => { throw new Error('Ошибка загрузки данных из сервера'); }
-  );
+  const loadUsers = (newPage: number, newLimit: number) => {
+    usersStore.on('change', () => {
+      const store = usersStore.getState() as IUsersState;
+      setUsers(store.usersList);
+      setCountUsers(store.usersTotal);
+      setIsLoadingUsers(store.isLoading);
+    });
+    loadUsersAC(newPage, newLimit);
+  };
 
   useEffect(() => {
-    loadUsersAll(page, limit);
+    loadUsers(page, limit);
   }, []);
 
   useEffect(() => {
@@ -59,21 +59,19 @@ const App = () => {
   }, [countUsers]);
 
   const selectPage = (currentPage: number): void => {
-    setUsers([]);
     setPage(currentPage);
-    loadUsersAll(currentPage, limit);
+    loadUsers(currentPage, limit);
   };
 
   const selectLimit = (currentLimit: number, currentCountPages: number): void => {
-    setUsers([]);
     setPage(0);
-    loadUsersAll(0, currentLimit);
     setLimit(currentLimit);
     setCountPages(currentCountPages);
+    loadUsers(0, limit);
   };
 
   const renderCards = () => (
-    users.length !== 0
+    !isLoadingUsers
       ? (
         <div className="row">
           {users.map((item: IUser) => (
