@@ -1,18 +1,19 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Pagenator.css';
 import Page from './page/Page';
-import { ThemeDarkContext } from '../../contexts/theme-checkbox/ThemeCheckboxContext';
 
 interface IProps {
   countPages: number;
   page: number
   selectPage: (currentPage: number) => void;
+  themeDark?: boolean;
 }
 
-const Pagenator = ({ countPages, selectPage, page }: IProps) => {
+const Pagenator = ({
+  countPages, selectPage, page, themeDark
+}: IProps) => {
   let pagesArr: number[] = [];
   const [pages, setPages] = useState([] as number[]);
-  const themeDarkContext = useContext(ThemeDarkContext);
 
   useEffect(() => {
     for (let i = 0; i < countPages; i += 1) {
@@ -41,7 +42,7 @@ const Pagenator = ({ countPages, selectPage, page }: IProps) => {
           ) {
             return (
               <Page
-                themePageDark={themeDarkContext.themeDark}
+                themePageDark={themeDark}
                 pageNum={item}
                 isActive={item === page}
                 key={item}
@@ -60,6 +61,10 @@ const Pagenator = ({ countPages, selectPage, page }: IProps) => {
       }
     </div>
   );
+};
+
+Pagenator.defaultProps = {
+  themeDark: false
 };
 
 export default Pagenator;

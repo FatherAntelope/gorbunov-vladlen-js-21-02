@@ -1,22 +1,23 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import './Main.css';
-import { ThemeDarkContext } from '../../contexts/theme-checkbox/ThemeCheckboxContext';
 
 interface IProps {
   headerTitle: string;
   children: React.ReactNode;
+  themeDark?: boolean;
 }
 
-const Main = ({ headerTitle, children } :IProps) => {
-  const themeDarkContext = useContext(ThemeDarkContext);
-  return (
-    <main className="main">
-      <h2 className={`main__header ${themeDarkContext.themeDark ? 'main__header_theme_dark' : ''}`}>
-        {headerTitle}
-      </h2>
-      {children}
-    </main>
-  );
+const Main = ({ headerTitle, children, themeDark }: IProps) => (
+  <main className="main">
+    <h2 className={`main__header ${themeDark ? 'main__header_theme_dark' : ''}`}>
+      {headerTitle}
+    </h2>
+    {children}
+  </main>
+);
+
+Main.defaultProps = {
+  themeDark: false
 };
 
 export default Main;

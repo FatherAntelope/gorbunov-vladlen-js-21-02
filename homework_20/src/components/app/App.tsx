@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   HashRouter, Link, Route, Switch
 } from 'react-router-dom';
@@ -7,7 +7,6 @@ import {
 import {
   Button, Col, DatePicker, Form, Input, Radio, Row, Select
 } from 'antd';
-import { ThemeDarkContextProvider } from '../../contexts/theme-checkbox/ThemeCheckboxContext';
 import Wrapper from '../wrapper/Wrapper';
 import MyMenu from '../my-menu/MyMenu';
 import Main from '../main/Main';
@@ -26,6 +25,7 @@ import usersStore from '../../stores/users';
 import userStore from '../../stores/user';
 import { loadUsersAC } from '../../actions/users';
 import { registerUserAC } from '../../actions/user';
+import { ThemeDarkContext } from '../../contexts/theme-checkbox/ThemeCheckboxContext';
 
 const { Option } = Select;
 
@@ -38,6 +38,7 @@ const App = () => {
   const [countPages, setCountPages] = useState(0 as number);
   const [currPath, setCurrPath] = useState('#/' as string);
   const [form] = Form.useForm();
+  const themeDarkContext = useContext(ThemeDarkContext);
 
   const loadUsers = (newPage: number, newLimit: number) => {
     usersStore.on('change', () => {
@@ -75,9 +76,10 @@ const App = () => {
         <div className="row">
           {users.map((item: IUser) => (
             <div className="col-6" key={item.id}>
-              <Tooltip textInfo={item.id}>
+              <Tooltip themeDark={themeDarkContext.themeDark} textInfo={item.id}>
                 <Link to={`/user/${item.id}`}>
                   <Card
+                    themeDark={themeDarkContext.themeDark}
                     imgUrl={item.picture}
                     cardUserId={item.id}
                     cardUserTitle={item.title}
@@ -90,14 +92,19 @@ const App = () => {
           ))}
         </div>
       )
-      : <Spinner />
+      : <Spinner themeDark={themeDarkContext.themeDark} />
   );
 
   const renderPagenatorAndThemeCheck = () => (
     <div className="row row_space-between">
       {
         countPages !== 0 && (
-          <Pagenator page={page} selectPage={selectPage} countPages={countPages} />
+          <Pagenator
+            themeDark={themeDarkContext.themeDark}
+            page={page}
+            selectPage={selectPage}
+            countPages={countPages}
+          />
         )
       }
       <Selector
@@ -106,7 +113,7 @@ const App = () => {
         selectLimit={selectLimit}
         selectorValues={[5, 10, 20, 30, 40, 50]}
       />
-      <ThemeCheckbox />
+      <ThemeCheckbox themeDark={themeDarkContext.themeDark} toggleTheme={themeDarkContext.toggleTheme} />
     </div>
   );
 
@@ -355,33 +362,31 @@ const App = () => {
   };
 
   return (
-    <ThemeDarkContextProvider>
-      <div className="App">
-        <Wrapper>
-          <HashRouter>
-            <MyMenu currPath={currPath} setCurrPath={setCurrPath} />
-            <Switch>
-              <Route exact path="/registration">
-                <Main headerTitle="Регистрация пользователя">
-                  {renderFormRegistration()}
-                </Main>
-              </Route>
-              <Route exact path="/user/:id">
-                <Main headerTitle="Пользователь">
-                  <CardUser />
-                </Main>
-              </Route>
-              <Route exact path="/">
-                <Main headerTitle="Пользователи">
-                  {renderCards()}
-                  {renderPagenatorAndThemeCheck()}
-                </Main>
-              </Route>
-            </Switch>
-          </HashRouter>
-        </Wrapper>
-      </div>
-    </ThemeDarkContextProvider>
+    <div className="App">
+      <Wrapper themeDark={themeDarkContext.themeDark}>
+        <HashRouter>
+          <MyMenu currPath={currPath} setCurrPath={setCurrPath} />
+          <Switch>
+            <Route exact path="/registration">
+              <Main themeDark={themeDarkContext.themeDark} headerTitle="Регистрация пользователя">
+                {renderFormRegistration()}
+              </Main>
+            </Route>
+            <Route exact path="/user/:id">
+              <Main themeDark={themeDarkContext.themeDark} headerTitle="Пользователь">
+                <CardUser themeDark={themeDarkContext.themeDark} />
+              </Main>
+            </Route>
+            <Route exact path="/">
+              <Main themeDark={themeDarkContext.themeDark} headerTitle="Пользователи">
+                {renderCards()}
+                {renderPagenatorAndThemeCheck()}
+              </Main>
+            </Route>
+          </Switch>
+        </HashRouter>
+      </Wrapper>
+    </div>
   );
 };
 

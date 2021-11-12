@@ -1,34 +1,30 @@
-import React, { useContext, ChangeEvent } from 'react';
+import React, { ChangeEvent } from 'react';
 import './ThemeCheckbox.css';
-import { ThemeDarkContext } from '../../contexts/theme-checkbox/ThemeCheckboxContext';
 
-// interface IProps {
-//   checkedCheck?: boolean,
-//   toggleTheme?: () => void;
-// }
+interface IProps {
+  themeDark?: boolean,
+  toggleTheme?: (value: boolean) => void;
+}
 
-const ThemeCheckbox = () => {
-  const themeContext = useContext(ThemeDarkContext);
-  return (
-    <div className={`theme-checkbox ${themeContext.themeDark ? 'theme-checkbox_theme_dark' : ''}`}>
-      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-      <label htmlFor="checkbox" className="theme-checkbox__span">Тёмная тема</label>
-      <input
-        type="checkbox"
-        checked={themeContext.themeDark}
-        onChange={
-          (e: ChangeEvent<HTMLInputElement>) => themeContext.toggleTheme && themeContext.toggleTheme(e.target.checked)
+const ThemeCheckbox = ({ themeDark, toggleTheme }: IProps) => (
+  <div className={`theme-checkbox ${themeDark ? 'theme-checkbox_theme_dark' : ''}`}>
+    {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+    <label htmlFor="checkbox" className="theme-checkbox__span">Тёмная тема</label>
+    <input
+      type="checkbox"
+      checked={themeDark}
+      onChange={
+          (e: ChangeEvent<HTMLInputElement>) => toggleTheme && toggleTheme(e.target.checked)
         }
-        readOnly
-        className="theme-checkbox__input"
-        id="checkbox"
-      />
-    </div>
-  );
-};
+      readOnly
+      className="theme-checkbox__input"
+      id="checkbox"
+    />
+  </div>
+);
 
 ThemeCheckbox.defaultProps = {
-  checkedCheck: false,
+  themeDark: false,
   toggleTheme: null
 };
 

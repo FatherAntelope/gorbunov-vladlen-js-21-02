@@ -1,15 +1,14 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import './Tooltip.css';
-import { ThemeDarkContext } from '../../contexts/theme-checkbox/ThemeCheckboxContext';
 
 interface IProps {
   children: React.ReactNode;
   textInfo: string;
+  themeDark?: boolean;
 }
 
-const Tooltip = ({ children, textInfo }: IProps) => {
+const Tooltip = ({ children, textInfo, themeDark }: IProps) => {
   const [hovered, setHovered] = useState(false as boolean);
-  const themeDarkContext = useContext(ThemeDarkContext);
 
   const mouseOver = (e: React.SyntheticEvent): void => {
     setHovered(true);
@@ -26,7 +25,7 @@ const Tooltip = ({ children, textInfo }: IProps) => {
     <div className="tooltip" onMouseOver={mouseOver} onMouseOut={mouseOut}>
       {
         hovered && (
-          <div className={`tooltip__info ${themeDarkContext.themeDark ? 'tooltip__info_theme_dark' : ''}`}>
+          <div className={`tooltip__info ${themeDark ? 'tooltip__info_theme_dark' : ''}`}>
             {textInfo}
           </div>
         )
@@ -34,6 +33,10 @@ const Tooltip = ({ children, textInfo }: IProps) => {
       {children}
     </div>
   );
+};
+
+Tooltip.defaultProps = {
+  themeDark: false
 };
 
 export default Tooltip;

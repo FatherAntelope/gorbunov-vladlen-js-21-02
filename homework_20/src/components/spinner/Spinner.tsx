@@ -1,10 +1,14 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import './Spinner.css';
-import { ThemeDarkContext } from '../../contexts/theme-checkbox/ThemeCheckboxContext';
 
-const Spinner = () => {
-  const themeDarkContext = useContext(ThemeDarkContext);
-  return <div className={`spinner  ${themeDarkContext.themeDark ? 'spinner_theme_dark' : ''}`} />;
+interface IProps {
+  themeDark?: boolean
+}
+
+const Spinner = ({ themeDark }: IProps) => <div className={`spinner  ${themeDark ? 'spinner_theme_dark' : ''}`} />;
+
+Spinner.defaultProps = {
+  themeDark: false
 };
 
 export default Spinner;

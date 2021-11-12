@@ -1,20 +1,21 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import './Wrapper.css';
-import { ThemeDarkContext } from '../../contexts/theme-checkbox/ThemeCheckboxContext';
 
 interface IProps {
   children: React.ReactNode;
+  themeDark?: boolean;
 }
 
-const Wrapper = ({ children }: IProps) => {
-  const themeDarkContext = useContext(ThemeDarkContext);
-  return (
-    <div className={`wrapper ${themeDarkContext.themeDark ? 'wrapper_theme_dark' : ''}`}>
-      <div className="wrapper__container">
-        {children}
-      </div>
+const Wrapper = ({ children, themeDark }: IProps) => (
+  <div className={`wrapper ${themeDark ? 'wrapper_theme_dark' : ''}`}>
+    <div className="wrapper__container">
+      {children}
     </div>
-  );
+  </div>
+);
+
+Wrapper.defaultProps = {
+  themeDark: false
 };
 
 export default Wrapper;

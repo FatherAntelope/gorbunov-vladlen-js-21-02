@@ -1,19 +1,21 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import './CardUser.css';
-import { ThemeDarkContext } from '../../contexts/theme-checkbox/ThemeCheckboxContext';
 import Spinner from '../spinner/Spinner';
 import { IUserFull } from '../../types/api/dymMyApi';
 import userStore from '../../stores/user';
 import { IUserState } from '../../types/state';
 import { loadUserAC } from '../../actions/user';
 
+interface IProps {
+  themeDark?: boolean;
+}
+
 interface IParams {
   id: string;
 }
 
-const CardUser = () => {
-  const themeDarkContext = useContext(ThemeDarkContext);
+const CardUser = ({ themeDark }: IProps) => {
   const params = useParams<IParams>();
   const [user, setUser] = useState({} as IUserFull);
   const [isLoadingUser, setIsLoadingUser] = useState(true as boolean);
@@ -32,10 +34,10 @@ const CardUser = () => {
   return (
     !isLoadingUser
       ? (
-        <div className={`card-user  ${themeDarkContext.themeDark ? 'card-user_theme_dark' : ''}`}>
+        <div className={`card-user  ${themeDark ? 'card-user_theme_dark' : ''}`}>
           <button
             type="button"
-            className={`card-user__button ${themeDarkContext.themeDark ? 'card-user__button_theme_dark' : ''}`}
+            className={`card-user__button ${themeDark ? 'card-user__button_theme_dark' : ''}`}
             onClick={history.goBack}
           >
             Назад
@@ -47,7 +49,7 @@ const CardUser = () => {
             <div className="card-user__image">
               <img src={user.picture} alt="user-img" />
             </div>
-            <div className={`card-user__info  ${themeDarkContext.themeDark ? 'card__info_theme_dark' : ''}`}>
+            <div className={`card-user__info  ${themeDark ? 'card__info_theme_dark' : ''}`}>
               <div>
                 <p className="card-user__text card-user__text_bolder card-user__text_size_big">
                   {`${user.title ? `${user.title}.` : ''} ${user.firstName} ${user.lastName}`}
@@ -105,9 +107,13 @@ const CardUser = () => {
         </div>
       )
       : (
-        <Spinner />
+        <Spinner themeDark={themeDark} />
       )
   );
+};
+
+CardUser.defaultProps = {
+  themeDark: false
 };
 
 export default CardUser;
