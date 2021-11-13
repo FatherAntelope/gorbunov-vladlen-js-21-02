@@ -1,0 +1,16 @@
+.row {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  &_space-between {
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.col-6 {
+  display: flex;
+  flex: 0 0 calc(50% - 5px);
+}
