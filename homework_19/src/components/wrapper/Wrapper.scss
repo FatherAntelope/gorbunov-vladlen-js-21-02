@@ -1,0 +1,15 @@
+.wrapper {
+  min-height: 100vh;
+  width: 100%;
+  background-color: #e6e7e5;
+
+  &_theme_dark {
+    background-color: #23242B;
+  }
+
+  &__container {
+    width: 930px;
+    margin: 0 auto;
+    padding: 0 15px;
+  }
+}

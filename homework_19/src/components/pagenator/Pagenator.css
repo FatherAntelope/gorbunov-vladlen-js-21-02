@@ -1,0 +1,13 @@
+.pagenator {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin: 10px 0;
+}
+.pagenator .pagenator__dotes {
+  color: #51a7d0;
+  font-size: 20px;
+  font-weight: 900;
+}
+
+/*# sourceMappingURL=Pagenator.css.map */
