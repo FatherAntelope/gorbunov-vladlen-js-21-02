@@ -1,15 +1,14 @@
 import './App.css';
 import React, { useContext, useEffect, useState } from 'react';
 import {
-  HashRouter, Link, Route, Switch
+  Link, Route, Switch, useHistory, useLocation
 } from 'react-router-dom';
 
 import {
-  Button, Col, DatePicker, Form, Input, Radio, Row, Select
+  Button, Col, DatePicker, Form, Input, Menu, Radio, Row, Select
 } from 'antd';
 import { ThemeDarkContext } from '../../contexts/theme-checkbox/ThemeCheckboxContext';
 import Wrapper from '../wrapper/Wrapper';
-import MyMenu from '../my-menu/MyMenu';
 import Main from '../main/Main';
 import Tooltip from '../tooltip/Tooltip';
 import Card from '../card/Card';
@@ -32,21 +31,22 @@ import { selectPageAC, setCountPagesAC } from '../../actions/pagenator';
 const { Option } = Select;
 
 const App = () => {
+  const locationHook = useLocation();
+  const locationHistoryHook = useHistory();
   const [users, setUsers] = useState([] as Array<IUser>);
   const [isLoadingUsers, setIsLoadingUsers] = useState(true as boolean);
   const [countUsers, setCountUsers] = useState(0 as number);
   const [limit, setLimit] = useState(10 as number);
   const [page, setPage] = useState(0 as number);
   const [countPages, setCountPages] = useState(0 as number);
-  const [currPath, setCurrPath] = useState('#/' as string);
   const [form] = Form.useForm();
   const themeDarkContext = useContext(ThemeDarkContext);
 
   const loadUsersFLUX = (newPage: number, newLimit: number): void => {
     usersStore.on('change', () => {
       const store: IUsersState = usersStore.getState();
-      setUsers(store.usersList);
       setCountUsers(store.usersTotal);
+      setUsers(store.usersList);
       setIsLoadingUsers(store.isLoading);
     });
     loadUsersAC(newPage, newLimit);
@@ -62,73 +62,76 @@ const App = () => {
     setCountPagesAC(newCountPages);
   };
 
-  useEffect(() => {
-    loadUsersFLUX(page, limit);
-  }, []);
-
-  useEffect(() => {
-    // Вызвал таймаут, поскольку, как я понял, здесь конфликтует dispatch, когда одновременно вызывается loadUsersFLUX
-    setTimeout(() => setCountPagesFLUX(countUsers / limit));
-  }, [countUsers]);
-
-  const selectPage = (currentPage: number): void => {
-    selectPageFLUX(currentPage);
-    loadUsersFLUX(currentPage, limit);
-  };
-
-  const selectLimit = (currentLimit: number, currentCountPages: number): void => {
-    selectPageFLUX(0);
-    setLimit(currentLimit);
-    setCountPagesFLUX(currentCountPages);
-    loadUsersFLUX(0, limit);
-  };
-
-  const renderCards = () => (
-    !isLoadingUsers
-      ? (
-        <div className="row">
-          {users.map((item: IUser) => (
-            <div className="col-6" key={item.id}>
-              <Tooltip themeDark={themeDarkContext.themeDark} textInfo={item.id}>
-                <Link to={`/user/${item.id}`}>
-                  <Card
-                    themeDark={themeDarkContext.themeDark}
-                    imgUrl={item.picture}
-                    cardUserId={item.id}
-                    cardUserTitle={item.title}
-                    cardUserFirstName={item.firstName}
-                    cardUserLastName={item.lastName}
-                  />
-                </Link>
-              </Tooltip>
-            </div>
-          ))}
-        </div>
-      )
-      : <Spinner themeDark={themeDarkContext.themeDark} />
-  );
-
-  const renderPagenatorAndThemeCheck = () => (
-    <div className="row row_space-between">
-      {
-        countPages !== 0 && (
-          <Pagenator
-            themeDark={themeDarkContext.themeDark}
-            page={page}
-            selectPage={selectPage}
-            countPages={countPages}
-          />
+  const renderCards = () => {
+    useEffect(() => {
+      loadUsersFLUX(page, limit);
+    }, []);
+    return (
+      !isLoadingUsers
+        ? (
+          <div className="row">
+            {users.map((item: IUser) => (
+              <div className="col-6" key={item.id}>
+                <Tooltip themeDark={themeDarkContext.themeDark} textInfo={item.id}>
+                  <Link to={`/user/${item.id}`}>
+                    <Card
+                      themeDark={themeDarkContext.themeDark}
+                      imgUrl={item.picture}
+                      cardUserId={item.id}
+                      cardUserTitle={item.title}
+                      cardUserFirstName={item.firstName}
+                      cardUserLastName={item.lastName}
+                    />
+                  </Link>
+                </Tooltip>
+              </div>
+            ))}
+          </div>
         )
-      }
-      <Selector
-        limit={limit}
-        countUsers={countUsers}
-        selectLimit={selectLimit}
-        selectorValues={[5, 10, 20, 30, 40, 50]}
-      />
-      <ThemeCheckbox themeDark={themeDarkContext.themeDark} toggleTheme={themeDarkContext.toggleTheme} />
-    </div>
-  );
+        : <Spinner themeDark={themeDarkContext.themeDark} />
+    );
+  };
+
+  const renderPagenatorAndThemeCheck = () => {
+    useEffect(() => {
+      // Вызвал таймаут, поскольку, как я понял, здесь конфликтует dispatch, когда одновременно вызывается loadUsersFLUX
+      setTimeout(() => setCountPagesFLUX(countUsers / limit));
+    }, [countUsers]);
+
+    const selectPage = (currentPage: number): void => {
+      selectPageFLUX(currentPage);
+      loadUsersFLUX(currentPage, limit);
+    };
+
+    const selectLimit = (currentLimit: number, currentCountPages: number): void => {
+      setLimit(currentLimit);
+      selectPageFLUX(0);
+      setCountPagesFLUX(currentCountPages);
+      loadUsersFLUX(0, currentLimit);
+    };
+
+    return (
+      <div className="row row_space-between">
+        {
+          countPages !== 0 && (
+            <Pagenator
+              themeDark={themeDarkContext.themeDark}
+              page={page}
+              selectPage={selectPage}
+              countPages={countPages}
+            />
+          )
+        }
+        <Selector
+          limit={limit}
+          countUsers={countUsers}
+          selectLimit={selectLimit}
+          selectorValues={[5, 10, 20, 30, 40, 50]}
+        />
+        <ThemeCheckbox themeDark={themeDarkContext.themeDark} toggleTheme={themeDarkContext.toggleTheme} />
+      </div>
+    );
+  };
 
   const renderFormRegistration = () => {
     const selectTitle: string[] = ['mr', 'ms', 'mrs', 'miss', 'dr'];
@@ -137,7 +140,7 @@ const App = () => {
       const formBody = getJSONStringifyFromFormData(formData);
       userStore.on('submit', () => {
         const store: string = userStore.getStateUserCreateID();
-        global.location.hash = `#/user/${store}`;
+        locationHistoryHook.push(`/user/${store}`);
       });
       registerUserAC(formBody);
     };
@@ -374,30 +377,57 @@ const App = () => {
     );
   };
 
+  const renderMenu = () => {
+    const itemsMenu: Array<any> = [
+      { label: 'Пользователи', path: '/' },
+      { label: 'Регистрация', path: '/registration' }
+    ];
+    const [currPath, setCurrPath] = useState(locationHook.pathname);
+
+    useEffect(() => {
+      setCurrPath(locationHook.pathname);
+    }, [locationHook]);
+
+    const handleClick = (e: any) => {
+      locationHistoryHook.push(e.key);
+    };
+
+    return (
+      <Menu
+        selectedKeys={[currPath]}
+        onClick={handleClick}
+        mode="horizontal"
+        theme={themeDarkContext.themeDark ? 'dark' : 'light'}
+      >
+        {itemsMenu.map((item) => (
+          <Menu.Item key={item.path}>{item.label}</Menu.Item>
+        ))}
+      </Menu>
+    );
+  };
+
   return (
     <div className="App">
       <Wrapper themeDark={themeDarkContext.themeDark}>
-        <HashRouter>
-          <MyMenu themeDark={themeDarkContext.themeDark} currPath={currPath} setCurrPath={setCurrPath} />
-          <Switch>
-            <Route exact path="/registration">
-              <Main themeDark={themeDarkContext.themeDark} headerTitle="Регистрация пользователя">
-                {renderFormRegistration()}
-              </Main>
-            </Route>
-            <Route exact path="/user/:id">
-              <Main themeDark={themeDarkContext.themeDark} headerTitle="Пользователь">
-                <CardUser themeDark={themeDarkContext.themeDark} />
-              </Main>
-            </Route>
-            <Route exact path="/">
-              <Main themeDark={themeDarkContext.themeDark} headerTitle="Пользователи">
-                {renderCards()}
-                {renderPagenatorAndThemeCheck()}
-              </Main>
-            </Route>
-          </Switch>
-        </HashRouter>
+        {renderMenu()}
+        <Switch>
+          <Route exact path="/registration">
+            <Main themeDark={themeDarkContext.themeDark} headerTitle="Регистрация пользователя">
+              {renderFormRegistration()}
+            </Main>
+          </Route>
+          <Route exact path="/user/:id">
+            <Main themeDark={themeDarkContext.themeDark} headerTitle="Пользователь">
+              <CardUser themeDark={themeDarkContext.themeDark} />
+            </Main>
+          </Route>
+          <Route exact path="/">
+            <Main themeDark={themeDarkContext.themeDark} headerTitle="Пользователи">
+              {renderCards()}
+              {renderPagenatorAndThemeCheck()}
+            </Main>
+          </Route>
+        </Switch>
       </Wrapper>
     </div>
   );
