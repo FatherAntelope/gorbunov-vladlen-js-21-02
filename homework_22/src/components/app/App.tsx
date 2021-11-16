@@ -23,10 +23,10 @@ import { useActions } from '../../hooks/useActions';
 
 const App = () => {
   const { countPages, currentPage } = useTypedSelector((state) => state.pagenator);
-  const { users } = useTypedSelector((state) => state.users);
+  const { users, isLoading } = useTypedSelector((state) => state.users);
   const { currentLimit } = useTypedSelector((state) => state.selector);
   const { userData } = useTypedSelector((state) => state.user);
-  const { loadUsersAC, setCountPagesAC, registerUserFullAC } = useActions();
+  const { setCountPagesAC, registerUserFullAC } = useActions();
 
   const locationHook = useLocation();
   const locationHistoryHook = useHistory();
@@ -35,13 +35,10 @@ const App = () => {
 
   const renderPagenatorAndThemeCheck = () => {
     useEffect(() => {
-      setCountPagesAC(Number(users.total / currentLimit));
-    }, [users.total]);
-
-    useEffect(() => {
-      loadUsersAC(currentPage, currentLimit);
-      setCountPagesAC(Number(users.total / currentLimit));
-    }, [currentLimit]);
+      if (users.total !== 0) {
+        setCountPagesAC(Number(users.total / currentLimit));
+      }
+    }, [isLoading, currentLimit]);
 
     return (
       <div className="row row_space-between">

@@ -18,7 +18,7 @@ const UsersForm = ({ selectPage, limit, themeDark } : IProps) => {
   const { loadUsersAC } = useActions();
   useEffect(() => {
     loadUsersAC(selectPage, limit);
-  }, [selectPage]);
+  }, [selectPage, limit]);
   return (
     !isLoading
       ? (
