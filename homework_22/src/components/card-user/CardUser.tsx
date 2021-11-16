@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import './CardUser.css';
 import Spinner from '../spinner/Spinner';
-import { IUserFull } from '../../types/api/dymMyApi';
+import { useActions } from '../../hooks/useActions';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
 
 interface IProps {
   themeDark?: boolean;
@@ -14,17 +15,17 @@ interface IParams {
 
 const CardUser = ({ themeDark }: IProps) => {
   const params = useParams<IParams>();
-  console.log(params);
-  const [user] = useState({} as IUserFull);
-  const [isLoadingUser] = useState(true as boolean);
+  const { userData, isLoading } = useTypedSelector((state) => state.user);
+  const { loadUserFullAC } = useActions();
 
   const history = useHistory();
 
   useEffect(() => {
+    loadUserFullAC(params.id);
   }, []);
 
   return (
-    !isLoadingUser
+    !isLoading
       ? (
         <div className={`card-user  ${themeDark ? 'card-user_theme_dark' : ''}`}>
           <button
@@ -35,38 +36,38 @@ const CardUser = ({ themeDark }: IProps) => {
             Назад
           </button>
           <p className="card-user__header">
-            {user.id}
+            {userData?.id}
           </p>
           <div className="card-user__body">
             <div className="card-user__image">
-              <img src={user.picture} alt="user-img" />
+              <img src={userData?.picture} alt="user-img" />
             </div>
             <div className={`card-user__info  ${themeDark ? 'card__info_theme_dark' : ''}`}>
               <div>
                 <p className="card-user__text card-user__text_bolder card-user__text_size_big">
-                  {`${user.title ? `${user.title}.` : ''} ${user.firstName} ${user.lastName}`}
+                  {`${userData?.title ? `${userData?.title}.` : ''} ${userData?.firstName} ${userData?.lastName}`}
                 </p>
                 <p className="card-user__text">
                   <span className="card-user__text card-user__text_bolder">Пол: </span>
-                  {`${user.gender || '-'}`}
+                  {`${userData?.gender || '-'}`}
                 </p>
                 <p className="card-user__text">
                   <span className="card-user__text card-user__text_bolder">Дата рождения: </span>
-                  {`${user.dateOfBirth ? new Date(user?.dateOfBirth).toDateString() : '-'}`}
+                  {`${userData?.dateOfBirth ? new Date(userData?.dateOfBirth).toDateString() : '-'}`}
                 </p>
                 <p className="card-user__text">
                   <span className="card-user__text card-user__text_bolder">Дата регистрации: </span>
-                  {`${user.registerDate ? new Date(user?.registerDate).toDateString() : '-'}`}
+                  {`${userData?.registerDate ? new Date(userData?.registerDate).toDateString() : '-'}`}
                 </p>
                 <br />
                 <br />
                 <p className="card-user__text">
                   <span className="card-user__text card-user__text_bolder">Почта: </span>
-                  {`${user.email || '-'}`}
+                  {`${userData?.email || '-'}`}
                 </p>
                 <p className="card-user__text">
                   <span className="card-user__text card-user__text_bolder">Телефон: </span>
-                  {`${user.phone || '-'}`}
+                  {`${userData?.phone || '-'}`}
                 </p>
               </div>
               <div>
@@ -75,23 +76,23 @@ const CardUser = ({ themeDark }: IProps) => {
                 </p>
                 <p className="card-user__text">
                   <span className="card-user__text card-user__text_bolder">Государство: </span>
-                  {`${user.location?.state || '-'}`}
+                  {`${userData?.location?.state || '-'}`}
                 </p>
                 <p className="card-user__text">
                   <span className="card-user__text card-user__text_bolder">Страна: </span>
-                  {`${user.location?.country || '-'}`}
+                  {`${userData?.location?.country || '-'}`}
                 </p>
                 <p className="card-user__text">
                   <span className="card-user__text card-user__text_bolder">Город: </span>
-                  {`${user.location?.city || '-'}`}
+                  {`${userData?.location?.city || '-'}`}
                 </p>
                 <p className="card-user__text">
                   <span className="card-user__text card-user__text_bolder">Улица: </span>
-                  {`${user.location?.street || '-'}`}
+                  {`${userData?.location?.street || '-'}`}
                 </p>
                 <p className="card-user__text">
                   <span className="card-user__text card-user__text_bolder">UTC: </span>
-                  {`${user.location?.timezone || '-'}`}
+                  {`${userData?.location?.timezone || '-'}`}
                 </p>
               </div>
             </div>

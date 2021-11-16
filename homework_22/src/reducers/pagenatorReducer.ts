@@ -5,7 +5,7 @@ const initialState: IPagenatorState = {
   countPages: 0
 };
 
-const pagenatorReducer = (state = initialState, action: PagenatorAC) => {
+const pagenatorReducer = (state = initialState, action: PagenatorAC): IPagenatorState => {
   switch (action.type) {
     case PagenatorACTypes.SELECT_PAGE:
       return { currentPage: action.payload, countPages: state.countPages };

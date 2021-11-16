@@ -6,13 +6,15 @@ const loadUsersAC = (page: number, limit: number) => (dispatch: Dispatch<UsersAC
   dispatch({
     type: UsersACTypes.LOAD_USERS,
   });
-  fetchUsersAll(page, limit, ((response) => dispatch({
-    type: UsersACTypes.LOAD_USERS_SUCCESS,
-    payload: { data: response.data, total: response.total }
-  })),
-  () => {
-    throw new Error('Ошибка загрузки данных из сервера');
-  });
+  setTimeout(() => {
+    fetchUsersAll(page, limit, ((response) => dispatch({
+      type: UsersACTypes.LOAD_USERS_SUCCESS,
+      payload: { data: response.data, total: response.total }
+    })),
+    () => {
+      throw new Error('Ошибка загрузки данных из сервера');
+    });
+  }, 500);
 };
 
 export { loadUsersAC };

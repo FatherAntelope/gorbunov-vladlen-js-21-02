@@ -1,8 +1,7 @@
-/* eslint-disable */
 import './App.css';
 import React, { useContext, useEffect, useState } from 'react';
 import {
-  Link, Route, Switch, useHistory, useLocation
+  Route, Switch, useHistory, useLocation
 } from 'react-router-dom';
 
 import {
@@ -17,18 +16,20 @@ import Selector from '../selector/Selector';
 import ThemeCheckbox from '../theme-checkbox/ThemeCheckbox';
 
 import { getJSONStringifyFromFormData } from '../../utils/fetchDumMyApi';
-import { IUser, IUserCreate } from '../../types/api/dymMyApi';
+import { IUserCreate } from '../../types/api/dymMyApi';
 import UsersForm from '../forms/UsersForm';
-import {useTypedSelector} from "../../hooks/useTypedSelector";
-import {useActions} from "../../hooks/useActions";
+import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { useActions } from '../../hooks/useActions';
 
 const App = () => {
-  const locationHook = useLocation();
-  const locationHistoryHook = useHistory();
   const { countPages, currentPage } = useTypedSelector((state) => state.pagenator);
   const { users } = useTypedSelector((state) => state.users);
-  const { loadUsersAC, setCountPagesAC } = useActions();
   const { currentLimit } = useTypedSelector((state) => state.selector);
+  const { userData } = useTypedSelector((state) => state.user);
+  const { loadUsersAC, setCountPagesAC, registerUserFullAC } = useActions();
+
+  const locationHook = useLocation();
+  const locationHistoryHook = useHistory();
   const [form] = Form.useForm();
   const themeDarkContext = useContext(ThemeDarkContext);
 
@@ -67,7 +68,14 @@ const App = () => {
     const handleFinishForm = () => {
       const formData: IUserCreate = form.getFieldsValue();
       const formBody = getJSONStringifyFromFormData(formData);
+      registerUserFullAC(formBody);
     };
+
+    useEffect(() => {
+      if (userData?.id !== undefined) {
+        locationHistoryHook.push(`/user/${userData?.id}`);
+      }
+    }, [userData?.id]);
 
     return (
       <div className="form-wrapper">

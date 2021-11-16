@@ -1,5 +1,5 @@
 export interface IThemeCheckboxState {
-  isDarkTheme: boolean
+  isDarkTheme: boolean;
 }
 
 export enum IThemeCheckBoxACTypes {
