@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import './Pagenator.css';
 import Page from './page/Page';
+import { useActions } from '../../hooks/useActions';
 
 interface IProps {
   countPages: number;
   page: number
-  selectPage: (currentPage: number) => void;
   themeDark?: boolean;
 }
 
 const Pagenator = ({
-  countPages, selectPage, page, themeDark
+  countPages, page, themeDark
 }: IProps) => {
+  const { selectPageAC } = useActions();
   let pagesArr: number[] = [];
   const [pages, setPages] = useState([] as number[]);
 
@@ -25,8 +26,7 @@ const Pagenator = ({
 
   const handleClick = (e: React.BaseSyntheticEvent): void => {
     if (Number(e.target.dataset.page || page) !== page) {
-      // setCurrentPage(Number(e.target.dataset.page || currentPage));
-      selectPage(Number(e.target.dataset.page));
+      selectPageAC(Number(e.target.dataset.page));
     }
     e.preventDefault();
   };

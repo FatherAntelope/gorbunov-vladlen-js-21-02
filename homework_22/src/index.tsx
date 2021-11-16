@@ -10,13 +10,13 @@ import { store } from './store';
 
 ReactDOM.render(
   <React.StrictMode>
-    <ThemeDarkContextProvider>
-      <HashRouter>
-        <Provider store={store}>
+    <Provider store={store}>
+      <ThemeDarkContextProvider>
+        <HashRouter>
           <App />
-        </Provider>
-      </HashRouter>
-    </ThemeDarkContextProvider>
+        </HashRouter>
+      </ThemeDarkContextProvider>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

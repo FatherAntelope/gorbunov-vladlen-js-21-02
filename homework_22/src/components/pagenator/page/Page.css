@@ -11,12 +11,16 @@
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
+.page:hover {
+  background-color: #acd7e5;
+}
 .page_theme_dark {
   background-color: #35393b;
   color: #fff;
 }
 .page_active {
   background-color: #acd7e5;
+  cursor: no-drop;
 }
 
 /*# sourceMappingURL=Page.css.map */

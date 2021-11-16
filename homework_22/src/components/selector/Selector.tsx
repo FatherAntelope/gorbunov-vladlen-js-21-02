@@ -1,18 +1,20 @@
 import React from 'react';
 import './Selector.css';
+import { useActions } from '../../hooks/useActions';
 
 interface IProps {
   limit: number
   selectorValues: number[];
-  countUsers: number;
-  selectLimit: (currentPage: number, countPages: number) => void;
 }
 
 const Selector = ({
-  limit, selectorValues, countUsers, selectLimit
+  limit, selectorValues
 }: IProps) => {
+  const { selectLimitAC, selectPageAC } = useActions();
+
   const handleChange = (e: React.BaseSyntheticEvent) => {
-    selectLimit(Number(e.target.value), countUsers / Number(e.target.value));
+    selectLimitAC(Number(e.target.value));
+    selectPageAC(0);
     e.preventDefault();
   };
 

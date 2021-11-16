@@ -7,12 +7,18 @@ import Card from '../card/Card';
 import Spinner from '../spinner/Spinner';
 import { useActions } from '../../hooks/useActions';
 
-const UsersForm: React.FC = () => {
+interface IProps {
+  selectPage: number,
+  limit: number,
+  themeDark?: boolean,
+}
+
+const UsersForm = ({ selectPage, limit, themeDark } : IProps) => {
   const { users, isLoading } = useTypedSelector((state) => state.users);
   const { loadUsersAC } = useActions();
   useEffect(() => {
-    loadUsersAC(0, 5);
-  }, []);
+    loadUsersAC(selectPage, limit);
+  }, [selectPage]);
   return (
     !isLoading
       ? (
@@ -22,7 +28,7 @@ const UsersForm: React.FC = () => {
               <Tooltip themeDark textInfo={item.id}>
                 <Link to={`/user/${item.id}`}>
                   <Card
-                    themeDark
+                    themeDark={themeDark}
                     imgUrl={item.picture}
                     cardUserId={item.id}
                     cardUserTitle={item.title}
@@ -35,8 +41,12 @@ const UsersForm: React.FC = () => {
           ))}
         </div>
       )
-      : <Spinner themeDark />
+      : <Spinner themeDark={themeDark} />
   );
+};
+
+UsersForm.defaultProps = {
+  themeDark: false
 };
 
 export default UsersForm;

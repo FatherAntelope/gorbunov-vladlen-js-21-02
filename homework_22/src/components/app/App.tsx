@@ -11,86 +11,53 @@ import {
 import { ThemeDarkContext } from '../../contexts/theme-checkbox/ThemeCheckboxContext';
 import Wrapper from '../wrapper/Wrapper';
 import Main from '../main/Main';
-import Tooltip from '../tooltip/Tooltip';
-import Card from '../card/Card';
 import CardUser from '../card-user/CardUser';
 import Pagenator from '../pagenator/Pagenator';
 import Selector from '../selector/Selector';
 import ThemeCheckbox from '../theme-checkbox/ThemeCheckbox';
-import Spinner from '../spinner/Spinner';
 
 import { getJSONStringifyFromFormData } from '../../utils/fetchDumMyApi';
 import { IUser, IUserCreate } from '../../types/api/dymMyApi';
 import UsersForm from '../forms/UsersForm';
-
-const { Option } = Select;
+import {useTypedSelector} from "../../hooks/useTypedSelector";
+import {useActions} from "../../hooks/useActions";
 
 const App = () => {
   const locationHook = useLocation();
   const locationHistoryHook = useHistory();
-  const [users, setUsers] = useState([] as Array<IUser>);
-  const [isLoadingUsers, setIsLoadingUsers] = useState(true as boolean);
-  const [countUsers, setCountUsers] = useState(0 as number);
-  const [limit, setLimit] = useState(10 as number);
-  const [page, setPage] = useState(0 as number);
-  const [countPages, setCountPages] = useState(0 as number);
+  const { countPages, currentPage } = useTypedSelector((state) => state.pagenator);
+  const { users } = useTypedSelector((state) => state.users);
+  const { loadUsersAC, setCountPagesAC } = useActions();
+  const { currentLimit } = useTypedSelector((state) => state.selector);
   const [form] = Form.useForm();
   const themeDarkContext = useContext(ThemeDarkContext);
 
-  const renderCards = () => {
-    return (
-      !isLoadingUsers
-        ? (
-          <div className="row">
-            {users.map((item: IUser) => (
-              <div className="col-6" key={item.id}>
-                <Tooltip themeDark={themeDarkContext.themeDark} textInfo={item.id}>
-                  <Link to={`/user/${item.id}`}>
-                    <Card
-                      themeDark={themeDarkContext.themeDark}
-                      imgUrl={item.picture}
-                      cardUserId={item.id}
-                      cardUserTitle={item.title}
-                      cardUserFirstName={item.firstName}
-                      cardUserLastName={item.lastName}
-                    />
-                  </Link>
-                </Tooltip>
-              </div>
-            ))}
-          </div>
-        )
-        : <Spinner themeDark={themeDarkContext.themeDark} />
-    );
-  };
-
   const renderPagenatorAndThemeCheck = () => {
+    useEffect(() => {
+      setCountPagesAC(Number(users.total / currentLimit));
+    }, [users.total]);
 
-    const selectPage = (currentPage: number): void => {
-    };
-
-    const selectLimit = (currentLimit: number, currentCountPages: number): void => {
-    };
+    useEffect(() => {
+      loadUsersAC(currentPage, currentLimit);
+      setCountPagesAC(Number(users.total / currentLimit));
+    }, [currentLimit]);
 
     return (
       <div className="row row_space-between">
         {
           countPages !== 0 && (
             <Pagenator
-              themeDark={themeDarkContext.themeDark}
-              page={page}
-              selectPage={selectPage}
+              themeDark={themeDarkContext.isDarkTheme}
+              page={currentPage}
               countPages={countPages}
             />
           )
         }
         <Selector
-          limit={limit}
-          countUsers={countUsers}
-          selectLimit={selectLimit}
+          limit={currentLimit}
           selectorValues={[5, 10, 20, 30, 40, 50]}
         />
-        <ThemeCheckbox themeDark={themeDarkContext.themeDark} toggleTheme={themeDarkContext.toggleTheme} />
+        <ThemeCheckbox themeDark={themeDarkContext.isDarkTheme} toggleTheme={themeDarkContext.toggleTheme} />
       </div>
     );
   };
@@ -216,7 +183,7 @@ const App = () => {
                 <Select placeholder="Select title">
                   {
                     selectTitle.map((item, index) => (
-                      <Option key={index} value={item}>{item.toUpperCase()}</Option>
+                      <Select.Option key={index} value={item}>{item.toUpperCase()}</Select.Option>
                     ))
                   }
                 </Select>
@@ -354,7 +321,7 @@ const App = () => {
         selectedKeys={[currPath]}
         onClick={handleClick}
         mode="horizontal"
-        theme={themeDarkContext.themeDark ? 'dark' : 'light'}
+        theme={themeDarkContext.isDarkTheme ? 'dark' : 'light'}
       >
         {itemsMenu.map((item) => (
           <Menu.Item key={item.path}>{item.label}</Menu.Item>
@@ -365,22 +332,22 @@ const App = () => {
 
   return (
     <div className="App">
-      <Wrapper themeDark={themeDarkContext.themeDark}>
+      <Wrapper themeDark={themeDarkContext.isDarkTheme}>
         {renderMenu()}
         <Switch>
           <Route exact path="/registration">
-            <Main themeDark={themeDarkContext.themeDark} headerTitle="Регистрация пользователя">
+            <Main themeDark={themeDarkContext.isDarkTheme} headerTitle="Регистрация пользователя">
               {renderFormRegistration()}
             </Main>
           </Route>
           <Route exact path="/user/:id">
-            <Main themeDark={themeDarkContext.themeDark} headerTitle="Пользователь">
-              <CardUser themeDark={themeDarkContext.themeDark} />
+            <Main themeDark={themeDarkContext.isDarkTheme} headerTitle="Пользователь">
+              <CardUser themeDark={themeDarkContext.isDarkTheme} />
             </Main>
           </Route>
           <Route exact path="/">
-            <Main themeDark={themeDarkContext.themeDark} headerTitle="Пользователи">
-              <UsersForm />
+            <Main themeDark={themeDarkContext.isDarkTheme} headerTitle="Пользователи">
+              <UsersForm selectPage={currentPage} limit={currentLimit} themeDark={themeDarkContext.isDarkTheme} />
               {renderPagenatorAndThemeCheck()}
             </Main>
           </Route>
