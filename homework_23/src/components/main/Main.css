@@ -1,0 +1,15 @@
+.main {
+  height: 100%;
+  width: 100%;
+  padding: 30px 0;
+}
+.main .main__header {
+  font-size: 38px;
+  line-height: 1.5;
+  transition: color 0.3s ease;
+}
+.main .main__header_theme_dark {
+  color: #FFF;
+}
+
+/*# sourceMappingURL=Main.css.map */
