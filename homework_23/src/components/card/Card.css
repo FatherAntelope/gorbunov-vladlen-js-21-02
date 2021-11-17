@@ -1,0 +1,38 @@
+.card {
+  min-width: 100%;
+  background-color: #FFF;
+  color: #000;
+  border-radius: 6px;
+  padding: 16px;
+  display: flex;
+  gap: 16px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+.card_theme_dark {
+  background-color: #35393b;
+  color: #fff;
+}
+.card__user-image {
+  width: 72px;
+  height: 72px;
+}
+.card__user-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.card__info {
+  color: inherit;
+  font-size: 16px;
+  line-height: 1.2;
+}
+.card__user-id {
+  padding-bottom: 5px;
+}
+.card__user-info {
+  font-weight: 700;
+}
+
+/*# sourceMappingURL=Card.css.map */
