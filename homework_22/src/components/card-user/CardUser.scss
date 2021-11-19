@@ -1,0 +1,74 @@
+.card-user {
+  min-width: 100%;
+  background-color: #FFF;
+  border-radius: 6px;
+  padding: 16px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+
+  &__header {
+    font-weight: 900;
+    font-size: 24px;
+    padding-bottom: 7px;
+  }
+
+  &__body {
+    display: flex;
+    gap: 16px;
+  }
+
+  &_theme_dark {
+    background-color: #35393b;
+    color: #fff;
+  }
+
+  &__image {
+    width: 100px;
+    height: 100px;
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+  }
+
+  &__info {
+    display: flex;
+    gap: 15px;
+  }
+
+  &__text {
+    color: inherit;
+    font-size: 16px;
+    line-height: 1.5;
+
+    &_size_big {
+      font-size: 20px;
+    }
+
+    &_bolder {
+      font-weight: 700;
+    }
+  }
+
+  &__button {
+    float: right;
+    border: none;
+    outline: none;
+    padding: 7px 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #000;
+    font-weight: 700;
+    background-color: #e6e7e5;
+    margin-bottom: 7px;
+    cursor: pointer;
+
+    &_theme_dark {
+      background-color: #23242b;
+      color: #fff;
+    }
+  }
+}
