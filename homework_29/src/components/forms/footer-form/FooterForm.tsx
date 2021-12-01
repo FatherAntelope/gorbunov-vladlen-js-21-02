@@ -32,10 +32,10 @@ const FooterForm = () => {
             ${APPLICATION_YEAR_FOUNDATION}-${APPLICATION_YEAR_CURRENT}
           `}
           </Footer.Copyright>
-          <div style={{ display: 'flex', gap: 10 }}>
+          <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
             <Select value={language} size="small" onChange={handleChangeLanguage}>
-              <Select.Option value="ru">RU</Select.Option>
-              <Select.Option value="en">EN</Select.Option>
+              <Select.Option value="ru">Руc.</Select.Option>
+              <Select.Option value="en">Eng.</Select.Option>
             </Select>
             <Switch
               checked={themeCheckboxContext.isDarkTheme}

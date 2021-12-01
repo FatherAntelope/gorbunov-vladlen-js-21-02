@@ -7,6 +7,7 @@ import {
 } from 'antd';
 import { Link, useHistory } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
+import { useTranslation } from 'react-i18next';
 import { ICreateUser } from '../../../types/api/dumMyApi';
 import { getJSONStringifyForRegisterUser } from '../../../utils/common';
 import { useActions } from '../../../hooks/useActions';
@@ -20,6 +21,7 @@ const RegisterForm = () => {
   const localeHistory = useHistory();
   const { sendUser, error, isLoading } = useTypedSelector((state) => state.sendUserForm);
   const { registerUserFormAction, loginUserSetValuesFormAC, clearSendDataUserFormAction } = useActions();
+  const { t } = useTranslation();
 
   const themeCheckboxContext = useContext(ThemeCheckboxContext);
 
@@ -54,58 +56,66 @@ const RegisterForm = () => {
     <div className="user-auth">
       <div className="user-auth__body">
         <h2 className={`user-auth__header ${themeCheckboxContext.isDarkTheme ? 'user-auth__header_theme_dark' : ''}`}>
-          Регистрация
+          {t('authorization.registration.title')}
         </h2>
         <Form form={form} name="formRegisterUser" layout="vertical" onFinish={handleFinishForm}>
           <Form.Item
             className={`user-auth__field ${themeCheckboxContext.isDarkTheme ? 'user-auth__field_theme_dark' : ''}`}
             name="firstName"
             hasFeedback
-            label={<b>Имя:</b>}
+            label={<b>{t('authorization.registration.formField.firstName.label')}</b>}
             rules={[
               {
                 required: true,
-                message: 'Необходимо заполнить данное поле'
+                message: t('authorization.registration.formField.firstName.error.required')
               },
               {
                 whitespace: true,
-                message: 'Поле не должно содержать лишние пробелы'
+                message: t('authorization.registration.formField.firstName.error.spacing')
               },
               {
-                pattern: new RegExp(/^[А-яA-z]+$/, 'g'),
-                message: 'Поле должно содержать символы латинского алфавита или кириллицы'
+                pattern: new RegExp(/^[А-яЁёA-z]+$/, 'g'),
+                message: t('authorization.registration.formField.firstName.error.symbols')
               },
               {
-                min: 2, max: 50, message: 'Поле должно содержать от 2 до 50 символов'
+                min: 2, max: 50, message: t('authorization.registration.formField.firstName.error.length')
               }
             ]}
           >
-            <Input type="text" placeholder="Введите свое имя" style={{ width: '100%' }} />
+            <Input
+              type="text"
+              placeholder={t('authorization.registration.formField.firstName.placeholder')}
+              style={{ width: '100%' }}
+            />
           </Form.Item>
           <Form.Item
             className={`user-auth__field ${themeCheckboxContext.isDarkTheme ? 'user-auth__field_theme_dark' : ''}`}
             name="lastName"
             hasFeedback
-            label={<b>Фамилия:</b>}
+            label={<b>{t('authorization.registration.formField.lastName.label')}</b>}
             rules={[
               {
                 required: true,
-                message: 'Необходимо заполнить данное поле'
+                message: t('authorization.registration.formField.lastName.error.required')
               },
               {
                 whitespace: true,
-                message: 'Поле не должно содержать лишние пробелы'
+                message: t('authorization.registration.formField.lastName.error.spacing')
               },
               {
-                pattern: new RegExp(/^[А-яA-z]+$/, 'g'),
-                message: 'Поле должно содержать символы латинского алфавита или кириллицы'
+                pattern: new RegExp(/^[А-яЁёA-z]+$/, 'g'),
+                message: t('authorization.registration.formField.lastName.error.symbols')
               },
               {
-                min: 2, max: 50, message: 'Поле должно содержать от 2 до 50 символов'
+                min: 2, max: 50, message: t('authorization.registration.formField.lastName.error.length')
               }
             ]}
           >
-            <Input type="text" placeholder="Введите свою фамилию" style={{ width: '100%' }} />
+            <Input
+              type="text"
+              placeholder={t('authorization.registration.formField.lastName.placeholder')}
+              style={{ width: '100%' }}
+            />
           </Form.Item>
           <Form.Item
             className={`
@@ -114,28 +124,28 @@ const RegisterForm = () => {
             `}
             name="gender"
             hasFeedback
-            label={<b>Пол:</b>}
+            label={<b>{t('authorization.registration.formField.gender.label')}</b>}
             rules={[
               {
                 required: true,
-                message: 'Необходимо заполнить данное поле'
+                message: t('authorization.registration.formField.gender.error.required')
               }
             ]}
           >
             <Radio.Group>
-              <Radio value="male">Мужской</Radio>
-              <Radio value="female">Женский</Radio>
+              <Radio value="male">{t('authorization.registration.formField.gender.radioText.male')}</Radio>
+              <Radio value="female">{t('authorization.registration.formField.gender.radioText.female')}</Radio>
             </Radio.Group>
           </Form.Item>
           <Form.Item
             className={`user-auth__field ${themeCheckboxContext.isDarkTheme ? 'user-auth__field_theme_dark' : ''}`}
             name="dateOfBirth"
             hasFeedback
-            label={<b>Дата рождения:</b>}
+            label={<b>{t('authorization.registration.formField.dateOfBirth.label')}</b>}
             rules={[
               {
                 required: true,
-                message: 'Необходимо заполнить данное поле'
+                message: t('authorization.registration.formField.dateOfBirth.error.required')
               },
             ]}
           >
@@ -143,7 +153,7 @@ const RegisterForm = () => {
               style={{ width: '100%' }}
               format="DD.MM.YYYY"
               picker="date"
-              placeholder="ДД.ММ.ГГГГ"
+              placeholder={t('authorization.registration.formField.dateOfBirth.placeholder')}
               disabledDate={(item) => !item || item.isAfter(MAXIMUM_DATE) || item.isSameOrBefore('1960-01-01')}
               defaultPickerValue={moment(MAXIMUM_DATE)}
             />
@@ -151,38 +161,44 @@ const RegisterForm = () => {
           <Form.Item
             className={`user-auth__field ${themeCheckboxContext.isDarkTheme ? 'user-auth__field_theme_dark' : ''}`}
             name="email"
-            label={<b>Email:</b>}
+            label={<b>{t('authorization.registration.formField.email.label')}</b>}
             hasFeedback
             rules={[
               {
                 required: true,
-                message: 'Необходимо заполнить данное поле'
+                message: t('authorization.registration.formField.email.error.required')
               },
               {
                 type: 'email',
-                message: 'Email введен некорректно'
+                message: t('authorization.registration.formField.email.error.type')
               }
             ]}
           >
-            <Input type="email" placeholder="example@mail.com" />
+            <Input
+              type="email"
+              placeholder={t('authorization.registration.formField.email.placeholder')}
+            />
           </Form.Item>
           <Form.Item
             className={`user-auth__field ${themeCheckboxContext.isDarkTheme ? 'user-auth__field_theme_dark' : ''}`}
             name="phone"
             hasFeedback
-            label={<b>Телефон:</b>}
+            label={<b>{t('authorization.registration.formField.phone.label')}</b>}
             rules={[
               {
                 required: true,
-                message: 'Необходимо заполнить данное поле'
+                message: t('authorization.registration.formField.phone.error.required')
               },
               {
                 pattern: new RegExp(/^(\+)?[0-9-()]+$/, 'g'),
-                message: 'Поле должно содержать цифры или символы -() и + в начале'
+                message: t('authorization.registration.formField.phone.error.symbols')
               }
             ]}
           >
-            <Input type="tel" placeholder="+79991234567" />
+            <Input
+              type="tel"
+              placeholder={t('authorization.registration.formField.phone.placeholder')}
+            />
           </Form.Item>
           <Form.Item>
             <Button
@@ -192,19 +208,19 @@ const RegisterForm = () => {
               htmlType="submit"
               className="user-auth__button"
             >
-              Зарегистрироваться
+              {t('authorization.registration.button')}
             </Button>
             <p
               className={`user-auth__info ${
                 themeCheckboxContext.isDarkTheme ? 'user-auth__info_theme_dark' : ''
               }`}
             >
-              Уже есть аккаунт?
+              {t('authorization.registration.info.text')}
               {' '}
-              <Link to="/login">Войти</Link>
+              <Link to="/login">{t('authorization.registration.info.link')}</Link>
             </p>
             {(error !== undefined && !sendUser.id) && (
-              <Alert message="Аккаунт с таким email уже существует" type="error" />
+              <Alert message={t('authorization.registration.error')} type="error" />
             )}
           </Form.Item>
         </Form>

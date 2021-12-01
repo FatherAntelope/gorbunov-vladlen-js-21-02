@@ -5,6 +5,7 @@ import {
 } from 'antd';
 import { Link, useHistory } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
+import { useTranslation } from 'react-i18next';
 import { useActions } from '../../../hooks/useActions';
 import { useTypedSelector } from '../../../hooks/useTypedSelector';
 import { COOKIE_LIFETIME } from '../../../constants/common';
@@ -16,6 +17,7 @@ const LoginForm = () => {
   const localeHistory = useHistory();
   const { loginUser, error, isLoading } = useTypedSelector((state) => state.loginUserForm);
   const { loginUserFormAC, clearLoginUserFormAC } = useActions();
+  const { t } = useTranslation();
 
   const themeCheckboxContext = useContext(ThemeCheckboxContext);
 
@@ -49,18 +51,18 @@ const LoginForm = () => {
     <div className="user-auth">
       <div className="user-auth__body">
         <h2 className={`user-auth__header ${themeCheckboxContext.isDarkTheme ? 'user-auth__header_theme_dark' : ''}`}>
-          Вход
+          {t('authorization.login.title')}
         </h2>
         <Form form={form} name="formAuthUser" layout="vertical" onFinish={handleFinishForm}>
           <Form.Item
             className={`user-auth__field ${themeCheckboxContext.isDarkTheme ? 'user-auth__field_theme_dark' : ''}`}
             name="userID"
-            label={<b>ID:</b>}
+            label={<b>{t('authorization.login.formField.id.label')}</b>}
             rules={[{
-              required: true, message: 'Заполните данное поле'
+              required: true, message: t('authorization.login.formField.id.error.required')
             }]}
           >
-            <Input type="text" placeholder="Введите свой ID" />
+            <Input type="text" placeholder={t('authorization.login.formField.id.placeholder')} />
           </Form.Item>
           <Form.Item>
             <Button
@@ -70,19 +72,19 @@ const LoginForm = () => {
               htmlType="submit"
               className="user-auth__button"
             >
-              Войти
+              {t('authorization.login.button')}
             </Button>
             <p
               className={`user-auth__info ${
                 themeCheckboxContext.isDarkTheme ? 'user-auth__info_theme_dark' : ''
               }`}
             >
-              Еще нет аккаунта?
+              {t('authorization.login.info.text')}
               {' '}
-              <Link to="/register">Зарегистрироваться</Link>
+              <Link to="/register">{t('authorization.login.info.link')}</Link>
             </p>
             {(error !== undefined && !loginUser.id) && (
-              <Alert message="Введен неверный ID, повторите авторизацию" type="error" />
+              <Alert message={t('authorization.login.error')} type="error" />
             )}
           </Form.Item>
         </Form>

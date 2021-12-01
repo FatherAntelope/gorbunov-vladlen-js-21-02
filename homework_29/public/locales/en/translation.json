@@ -15,5 +15,89 @@
       "lightTheme": "Light theme",
       "darkTheme": "Dark theme"
     }
+  },
+  "authorization": {
+    "login": {
+      "title": "Login",
+      "formField": {
+        "id": {
+          "label": "ID:",
+          "placeholder": "Enter your ID",
+          "error": {
+            "required": "Enter in this field"
+          }
+        }
+      },
+      "info": {
+        "text": "Don't have an account yet?",
+        "link": "Register"
+      },
+      "button": "Login",
+      "error": "Invalid ID entered. Repeat authorization"
+    },
+    "registration": {
+      "title": "Registration",
+      "formField": {
+        "firstName": {
+          "label": "Firstname:",
+          "placeholder": "Enter your firstname",
+          "error": {
+            "required": "Enter in this field",
+            "spacing": "The field should not contain extra spaces",
+            "symbols": "The field must contain characters of the Latin alphabet or Cyrillic alphabet",
+            "length": "The field must contain from 2 to 50 characters"
+          }
+        },
+        "lastName": {
+          "label": "Lastname:",
+          "placeholder": "Enter your lastname",
+          "error": {
+            "required": "Enter in this field",
+            "spacing": "The field should not contain extra spaces",
+            "symbols": "The field must contain characters of the Latin alphabet or Cyrillic alphabet",
+            "length": "The field must contain from 2 to 50 characters"
+          }
+        },
+        "gender": {
+          "label": "Gender:",
+          "error": {
+            "required": "Make a select"
+          },
+          "radioText": {
+            "male": "Male",
+            "female": "Female"
+          }
+        },
+        "dateOfBirth": {
+          "label": "Date of birth:",
+          "placeholder": "DD.MM.YYYY",
+          "error": {
+            "required": "Enter in this field"
+          }
+        },
+        "email": {
+          "label": "Email:",
+          "placeholder": "example@mail.com",
+          "error": {
+            "required": "Enter in this field",
+            "type": "Email entered incorrectly"
+          }
+        },
+        "phone": {
+          "label": "Phone:",
+          "placeholder": "+79991234567",
+          "error": {
+            "required": "Enter in this field",
+            "symbols": "The field must contain numbers or symbols -() and + at the beginning"
+          }
+        }
+      },
+      "info": {
+        "text": "Already have an account?",
+        "link": "Login"
+      },
+      "button": "Register",
+      "error": "An account with this email already exists"
+    }
   }
 }
