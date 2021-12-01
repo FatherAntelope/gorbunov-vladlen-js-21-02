@@ -1,0 +1,11 @@
+@import "../../constants/styles/colors";
+
+.main {
+  grid-area: main;
+  background-color: $colorGrayLight;
+  transition: 0.3s background-color ease-out;
+
+  &_theme_dark {
+    background-color: $colorBlueDark;
+  }
+}

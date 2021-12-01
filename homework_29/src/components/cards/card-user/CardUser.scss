@@ -1,0 +1,141 @@
+@import "src/constants/styles/colors";
+
+.card-user, .card-user-full {
+  height: 100%;
+  width: 100%;
+  border-radius: 20px;
+  background-color: $colorWhite;
+  color: $colorBlack;
+  border: 3px solid $colorShadow;
+  padding: 15px;
+  display: flex;
+  transition: 0.3s color ease-out, 0.3s background-color ease-out, 0.3s border ease-out;
+
+  &_theme_dark {
+    background-color: $colorBlue;
+    color: $colorWhite;
+    border: 3px solid $colorBlueLight;
+  }
+}
+
+.card-user {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__image {
+    width: 185px;
+    height: 185px;
+    margin-bottom: 20px;
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 20px;
+    }
+  }
+
+  &__text, &__text *, &__text *:hover {
+    font-size: 18px;
+    padding: 0;
+    margin: 0;
+    color: $colorBlack;
+    transition: 0.3s color ease-out;
+  }
+
+  &__text *:hover {
+    color: $colorShadow;
+  }
+
+  &__text_theme_dark, &__text_theme_dark * {
+    color: $colorWhite;
+  }
+}
+
+.card-user-full {
+  justify-content: space-between;
+
+  @media (max-width: 900px) {
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &__body {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+
+    @media (max-width: 900px) {
+      order: 1;
+      justify-content: space-around;
+    }
+  }
+
+  &__edit {
+    color: inherit;
+    font-size: 16px;
+    cursor: pointer;
+    align-self: flex-start;
+    transition: 0.3s color ease-out;
+
+    &:hover {
+      color: $colorShadow;
+    }
+
+    @media (max-width: 900px) {
+      order: 0;
+      align-self: flex-end;
+      margin-bottom: 10px;
+    }
+  }
+
+  &__image {
+    width: auto;
+    height: 280px;
+
+    @media (max-width: 400px) {
+      height: 200px;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 20px;
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  &__title {
+    font-size: 24px;
+    color: inherit;
+    font-weight: 700;
+    padding: 0;
+    margin-bottom: 10px;
+  }
+
+  &__info {
+    font-size: 16px;
+    color: inherit;
+  }
+
+  &__text {
+    padding: 0;
+    margin: 0;
+    color: inherit;
+
+    &:not(:last-child) {
+      margin-bottom: 5px;
+    }
+  }
+}

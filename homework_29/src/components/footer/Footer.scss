@@ -1,0 +1,36 @@
+@import "../../constants/styles/colors";
+
+.footer {
+  grid-area: footer;
+  background-color: $colorWhite;
+  border-top: 2px solid $colorShadow;
+  color: $colorBlack;
+  transition: 0.3s color ease-out, 0.3s background-color ease-out, 0.3s border-top-color ease-out;
+
+  &_theme_dark {
+    color: $colorWhite;
+    background-color: $colorBlue;
+    border-top: 2px solid $colorBlueLight;
+  }
+
+  &__body {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 0;
+
+    @media (max-width: 400px) {
+      flex-direction: column;
+    }
+  }
+
+  &__copyright {
+    font-size: 16px;
+    color: inherit;
+    margin: 0;
+
+    @media (max-width: 450px) {
+      margin-bottom: 7px;
+    }
+  }
+}
