@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import '../../flex-grid/FlexGrid.scss';
 import { Alert } from 'antd';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import CardPost from '../../cards/card-post/CardPost';
 import { useTypedSelector } from '../../../hooks/useTypedSelector';
 import { useActions } from '../../../hooks/useActions';
@@ -17,6 +18,7 @@ import PaginationWrapper from '../../PaginationWrapper/PaginationWrapper';
 const PostsForm = () => {
   const { posts, isLoading, error } = useTypedSelector((state) => state.postsForm);
   const { loadPostsFormAC, openModalsFormAC } = useActions();
+  const { t } = useTranslation();
 
   const themeCheckboxContext = useContext(ThemeCheckboxContext);
 
@@ -53,7 +55,11 @@ const PostsForm = () => {
               userFullName={(
                 <Tooltip isDarkTheme={themeCheckboxContext.isDarkTheme} textInfo={item.owner.id}>
                   <Link to={`/user/${item.owner.id}`}>
-                    {getUserFullName(item.owner.title, item.owner.firstName, item.owner.lastName)}
+                    {getUserFullName(
+                      t(`commons.userAppeal.${item.owner.title}`),
+                      item.owner.firstName,
+                      item.owner.lastName
+                    )}
                   </Link>
                 </Tooltip>
                 )}

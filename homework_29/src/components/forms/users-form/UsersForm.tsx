@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { Alert } from 'antd';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import CardUser from '../../cards/card-user/CardUser';
 import '../../flex-grid/FlexGrid.scss';
 import { useTypedSelector } from '../../../hooks/useTypedSelector';
@@ -16,6 +17,7 @@ import PaginationWrapper from '../../PaginationWrapper/PaginationWrapper';
 const UsersForm = () => {
   const { users, isLoading, error } = useTypedSelector((state) => state.usersForm);
   const { loadUsersFormAC } = useActions();
+  const { t } = useTranslation();
 
   const themeCheckboxContext = useContext(ThemeCheckboxContext);
 
@@ -46,7 +48,11 @@ const UsersForm = () => {
               fullName={(
                 <Tooltip isDarkTheme={themeCheckboxContext.isDarkTheme} textInfo={item.id}>
                   <Link to={`/user/${item.id}`}>
-                    {getUserFullName(item.title, item.firstName, item.lastName)}
+                    {getUserFullName(
+                      t(`commons.userAppeal.${item.title}`),
+                      item.firstName,
+                      item.lastName
+                    )}
                   </Link>
                 </Tooltip>
               )}

@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Alert } from 'antd';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import CardPost from '../../cards/card-post/CardPost';
 import { checkPictureAndGet, getDateTimePublication, getUserFullName } from '../../../utils/common';
 import { useTypedSelector } from '../../../hooks/useTypedSelector';
@@ -11,6 +12,7 @@ import { ThemeCheckboxContext } from '../../../contexts/theme-checkbox/ThemeChec
 const PostForm = () => {
   const { post, isLoading, error } = useTypedSelector((state) => state.postForm);
   const themeCheckboxContext = useContext(ThemeCheckboxContext);
+  const { t } = useTranslation();
 
   if (isLoading) {
     return <div style={{ height: 70 }}><Preloader isDarkTheme={themeCheckboxContext.isDarkTheme} /></div>;
@@ -32,7 +34,11 @@ const PostForm = () => {
         userFullName={(
           <Tooltip textInfo={post.owner.id} isDarkTheme={themeCheckboxContext.isDarkTheme}>
             <Link to={`/user/${post.owner.id}`}>
-              {getUserFullName(post.owner.title, post.owner.firstName, post.owner.lastName)}
+              {getUserFullName(
+                t(`commons.userAppeal.${post.owner.title}`),
+                post.owner.firstName,
+                post.owner.lastName
+              )}
             </Link>
           </Tooltip>
         )}

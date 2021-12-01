@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import '../../flex-grid/FlexGrid.scss';
 import { Alert } from 'antd';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useActions } from '../../../hooks/useActions';
 import CardComment from '../../cards/card-comment/CardComment';
 import { useTypedSelector } from '../../../hooks/useTypedSelector';
@@ -19,6 +20,7 @@ const CommentsForm = () => {
   const { postComments, isLoading, error } = useTypedSelector((state) => state.postCommentsForm);
   const { loadPostCommentsFormAC, closeModalsFormAC } = useActions();
   const themeCheckboxContext = useContext(ThemeCheckboxContext);
+  const { t } = useTranslation();
 
   const handlePaginationChange = (e: number) => {
     loadPostCommentsFormAC(modalPostUserStore?.modalData?.postID, e - 1, FORM_LIMIT_POST_COMMENTS);
@@ -45,7 +47,11 @@ const CommentsForm = () => {
                 <Tooltip textInfo={item.owner.id} isDarkTheme={themeCheckboxContext.isDarkTheme}>
                   <Link to={`/user/${item.owner.id}`}>
                     <span onClick={closeModalsFormAC}>
-                      {getUserFullName(item.owner.title, item.owner.firstName, item.owner.lastName)}
+                      {getUserFullName(
+                        t(`commons.userAppeal.${item.owner.title}`),
+                        item.owner.firstName,
+                        item.owner.lastName
+                      )}
                     </span>
                   </Link>
                 </Tooltip>

@@ -1,4 +1,20 @@
 {
+  "commons": {
+    "userAppeal": {
+      "ms": "г-жа",
+      "miss": "г-жа",
+      "mrs": "г-жа",
+      "mr": "г-н",
+      "dr": "г-н",
+      "undefined": ""
+    },
+    "userGender": {
+      "male": "Мужской",
+      "female": "Женский",
+      "other": "Другой",
+      "undefined": ""
+    }
+  },
   "header": {
     "menu": {
       "users": "Пользователи",

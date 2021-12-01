@@ -1,4 +1,20 @@
 {
+  "commons": {
+    "userAppeal": {
+      "ms": "ms",
+      "miss": "miss",
+      "mrs": "mrs",
+      "mr": "mr",
+      "dr": "dr",
+      "undefined": ""
+    },
+    "userGender": {
+      "male": "Male",
+      "female": "Female",
+      "other": "Other",
+      "undefined": ""
+    }
+  },
   "header": {
     "menu": {
       "users": "Users",
