@@ -99,5 +99,27 @@
       "button": "Register",
       "error": "An account with this email already exists"
     }
+  },
+  "cardUserProfile": {
+    "firstName": "Firstname:",
+    "lastName": "Lastname:",
+    "gender": "Gender:",
+    "id": "ID:",
+    "dateOfBirth": "Date of birth:",
+    "dateOfRegistration": "Date of registration:",
+    "email": "Email:",
+    "phone": "Phone:",
+    "edit": "Edit"
+  },
+  "cardUserEdit": {
+    "button": {
+      "updatePhoto": "Update photo",
+      "deletePhoto": "Delete photo",
+      "save": "Save"
+    },
+    "errorPhoto": {
+      "format": "The image is allowed only in JPG/PNG/JPEG format",
+      "size": "The image size should not exceed 2 MB"
+    }
   }
 }

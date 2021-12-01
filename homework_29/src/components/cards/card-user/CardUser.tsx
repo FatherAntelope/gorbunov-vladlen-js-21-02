@@ -1,6 +1,7 @@
 import React from 'react';
 import './CardUser.scss';
 import { EditOutlined } from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
 
 interface IPropsCardPreview {
   imageURL: string;
@@ -42,57 +43,65 @@ CardUser.Preview = ({ imageURL, fullName, isDarkTheme = false }: IPropsCardPrevi
   </div>
 );
 
-CardUser.Edit = ({ onClick }: IPropsEdit) => (
-  <div className="card-user-full__edit" onClick={onClick}>
-    <EditOutlined />
-    <span>Редактировать</span>
-  </div>
-);
+CardUser.Edit = ({ onClick }: IPropsEdit) => {
+  const { t } = useTranslation();
+
+  return (
+    <div className="card-user-full__edit" onClick={onClick}>
+      <EditOutlined />
+      <span>{t('cardUserProfile.edit')}</span>
+    </div>
+  );
+};
 
 CardUser.Full = ({
   id, imageURL, fullName, gender, dateOfRegister, dateOfBirth, email, phone, edit, isDarkTheme = false
-}: IPropsCardFull) => (
-  <div className={`card-user-full ${isDarkTheme ? 'card-user-full_theme_dark' : ''}`}>
-    <div className="card-user-full__body">
-      <div className="card-user-full__image">
-        <img src={imageURL} alt="img-user" />
-      </div>
-      <div className="card-user-full__content">
-        <div>
-          <h2 className="card-user-full__title">{fullName}</h2>
-          <div className="card-user-full__info">
+}: IPropsCardFull) => {
+  const { t } = useTranslation();
+
+  return (
+    <div className={`card-user-full ${isDarkTheme ? 'card-user-full_theme_dark' : ''}`}>
+      <div className="card-user-full__body">
+        <div className="card-user-full__image">
+          <img src={imageURL} alt="img-user" />
+        </div>
+        <div className="card-user-full__content">
+          <div>
+            <h2 className="card-user-full__title">{fullName}</h2>
+            <div className="card-user-full__info">
+              <p className="card-user-full__text">
+                <b>{`${t('cardUserProfile.gender')} `}</b>
+                {gender}
+              </p>
+              <p className="card-user-full__text">
+                <b>{`${t('cardUserProfile.dateOfBirth')} `}</b>
+                {dateOfBirth}
+              </p>
+              <p className="card-user-full__text">
+                <b>{`${t('cardUserProfile.dateOfRegistration')} `}</b>
+                {dateOfRegister}
+              </p>
+              <p className="card-user-full__text">
+                <b>{`${t('cardUserProfile.email')} `}</b>
+                {email}
+              </p>
+              <p className="card-user-full__text">
+                <b>{`${t('cardUserProfile.phone')} `}</b>
+                {phone}
+              </p>
+            </div>
+          </div>
+          <div>
             <p className="card-user-full__text">
-              <b>Пол: </b>
-              {gender}
-            </p>
-            <p className="card-user-full__text">
-              <b>Дата рождения: </b>
-              {dateOfBirth}
-            </p>
-            <p className="card-user-full__text">
-              <b>Дата регистрации: </b>
-              {dateOfRegister}
-            </p>
-            <p className="card-user-full__text">
-              <b>Email: </b>
-              {email}
-            </p>
-            <p className="card-user-full__text">
-              <b>Телефон: </b>
-              {phone}
+              <b>{`${t('cardUserProfile.id')} `}</b>
+              {id}
             </p>
           </div>
         </div>
-        <div>
-          <p className="card-user-full__text">
-            <b>ID: </b>
-            {id}
-          </p>
-        </div>
       </div>
+      {edit}
     </div>
-    {edit}
-  </div>
-);
+  );
+};
 
 export default CardUser;

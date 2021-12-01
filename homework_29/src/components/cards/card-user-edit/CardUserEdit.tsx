@@ -8,6 +8,7 @@ import {
 import moment from 'moment';
 import { UploadOutlined } from '@ant-design/icons';
 import { useCookies } from 'react-cookie';
+import { useTranslation } from 'react-i18next';
 import { COOKIE_LIFETIME, EMPTY_STRING, MAXIMUM_DATE } from '../../../constants/common';
 import { ThemeCheckboxContext } from '../../../contexts/theme-checkbox/ThemeCheckboxContext';
 import { checkPictureAndGet, getJSONStringifyForEditDataUser } from '../../../utils/common';
@@ -34,6 +35,7 @@ const CardUserEdit = ({
   const [cookies, setCookies] = useCookies();
   const sendData = useTypedSelector((state) => state.sendUserForm);
   const sendImage = useTypedSelector((state) => state.imageEditForm);
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (firstName && lastName) {
@@ -61,10 +63,10 @@ const CardUserEdit = ({
     const imgSize = file.size / 1024 / 1024 < 2;
 
     if (!imgType) {
-      message.error('Разрешено изображение только в формате JPG/PNG/JPEG');
+      message.error(t('cardUserEdit.errorPhoto.format'));
     }
     if (!imgSize) {
-      message.error('Размер изображения не должен превышать 2 МБ');
+      message.error(t('cardUserEdit.errorPhoto.size'));
     }
 
     return imgType && imgSize;
@@ -107,11 +109,15 @@ const CardUserEdit = ({
           }}
         >
           <Button loading={sendImage.isLoading} size="small" icon={<UploadOutlined />}>
-            Обновить фото
+            {t('cardUserEdit.button.updatePhoto')}
           </Button>
         </Upload>
 
-        {avatar && <Button size="small" onClick={handleClickDeleteImage}>Удалить фото</Button>}
+        {avatar && (
+          <Button size="small" onClick={handleClickDeleteImage}>
+            {t('cardUserEdit.button.deletePhoto')}
+          </Button>
+        )}
       </div>
       {(sendImage.error !== undefined && !sendImage.editImageURL) && (
         <Alert message={sendImage.error} type="error" />
@@ -121,50 +127,58 @@ const CardUserEdit = ({
         <Form.Item
           className={`user-auth__field ${themeCheckboxContext.isDarkTheme ? 'user-auth__field_theme_dark' : ''}`}
           name="firstName"
-          label={<b>Имя:</b>}
+          label={<b>{t('authorization.registration.formField.firstName.label')}</b>}
           rules={[
             {
               required: true,
-              message: 'Необходимо заполнить данное поле'
+              message: t('authorization.registration.formField.firstName.error.required')
             },
             {
               whitespace: true,
-              message: 'Поле не должно содержать лишние пробелы'
+              message: t('authorization.registration.formField.firstName.error.spacing')
             },
             {
-              pattern: new RegExp(/^[А-яA-z]+$/, 'g'),
-              message: 'Поле должно содержать символы латинского алфавита или кириллицы'
+              pattern: new RegExp(/^[А-яЁёA-z]+$/, 'g'),
+              message: t('authorization.registration.formField.firstName.error.symbols')
             },
             {
-              min: 2, max: 50, message: 'Поле должно содержать от 2 до 50 символов'
+              min: 2, max: 50, message: t('authorization.registration.formField.firstName.error.length')
             }
           ]}
         >
-          <Input type="text" placeholder="Введите свое имя" style={{ width: '100%' }} />
+          <Input
+            type="text"
+            placeholder={t('authorization.registration.formField.firstName.placeholder')}
+            style={{ width: '100%' }}
+          />
         </Form.Item>
         <Form.Item
           className={`user-auth__field ${themeCheckboxContext.isDarkTheme ? 'user-auth__field_theme_dark' : ''}`}
           name="lastName"
-          label={<b>Фамилия:</b>}
+          label={<b>{t('authorization.registration.formField.lastName.label')}</b>}
           rules={[
             {
               required: true,
-              message: 'Необходимо заполнить данное поле'
+              message: t('authorization.registration.formField.lastName.error.required')
             },
             {
               whitespace: true,
-              message: 'Поле не должно содержать лишние пробелы'
+              message: t('authorization.registration.formField.lastName.error.spacing')
             },
             {
-              pattern: new RegExp(/^[А-яA-z]+$/, 'g'),
-              message: 'Поле должно содержать символы латинского алфавита или кириллицы'
+              pattern: new RegExp(/^[А-яЁёA-z]+$/, 'g'),
+              message: t('authorization.registration.formField.lastName.error.symbols')
             },
             {
-              min: 2, max: 50, message: 'Поле должно содержать от 2 до 50 символов'
+              min: 2, max: 50, message: t('authorization.registration.formField.lastName.error.length')
             }
           ]}
         >
-          <Input type="text" placeholder="Введите свою фамилию" style={{ width: '100%' }} />
+          <Input
+            type="text"
+            placeholder={t('authorization.registration.formField.lastName.placeholder')}
+            style={{ width: '100%' }}
+          />
         </Form.Item>
         <Form.Item
           className={`
@@ -172,27 +186,27 @@ const CardUserEdit = ({
               ${themeCheckboxContext.isDarkTheme ? 'user-auth__field_theme_dark' : ''}
             `}
           name="gender"
-          label={<b>Пол:</b>}
+          label={<b>{t('authorization.registration.formField.gender.label')}</b>}
           rules={[
             {
               required: true,
-              message: 'Необходимо заполнить данное поле'
+              message: t('authorization.registration.formField.gender.error.required')
             }
           ]}
         >
           <Radio.Group>
-            <Radio value="male">Мужской</Radio>
-            <Radio value="female">Женский</Radio>
+            <Radio value="male">{t('authorization.registration.formField.gender.radioText.male')}</Radio>
+            <Radio value="female">{t('authorization.registration.formField.gender.radioText.female')}</Radio>
           </Radio.Group>
         </Form.Item>
         <Form.Item
           className={`user-auth__field ${themeCheckboxContext.isDarkTheme ? 'user-auth__field_theme_dark' : ''}`}
           name="dateOfBirth"
-          label={<b>Дата рождения:</b>}
+          label={<b>{t('authorization.registration.formField.dateOfBirth.label')}</b>}
           rules={[
             {
               required: true,
-              message: 'Необходимо заполнить данное поле'
+              message: t('authorization.registration.formField.dateOfBirth.error.required')
             },
           ]}
         >
@@ -200,7 +214,7 @@ const CardUserEdit = ({
             style={{ width: '100%' }}
             format="DD.MM.YYYY"
             picker="date"
-            placeholder="ДД.ММ.ГГГГ"
+            placeholder={t('authorization.registration.formField.dateOfBirth.placeholder')}
             disabledDate={(item) => !item || item.isAfter(MAXIMUM_DATE) || item.isSameOrBefore('1960-01-01')}
             defaultPickerValue={moment(MAXIMUM_DATE)}
           />
@@ -208,15 +222,15 @@ const CardUserEdit = ({
         <Form.Item
           className={`user-auth__field ${themeCheckboxContext.isDarkTheme ? 'user-auth__field_theme_dark' : ''}`}
           name="phone"
-          label={<b>Телефон:</b>}
+          label={<b>{t('authorization.registration.formField.phone.label')}</b>}
           rules={[
             {
               required: true,
-              message: 'Необходимо заполнить данное поле'
+              message: t('authorization.registration.formField.phone.error.required')
             },
             {
               pattern: new RegExp(/^(\+)?[0-9-()]+$/, 'g'),
-              message: 'Поле должно содержать цифры или символы -() и + в начале'
+              message: t('authorization.registration.formField.phone.error.symbols')
             }
           ]}
         >
@@ -230,7 +244,7 @@ const CardUserEdit = ({
             htmlType="submit"
             className="user-auth__button"
           >
-            Сохранить
+            {t('cardUserEdit.button.save')}
           </Button>
           {(sendData.error !== undefined && !sendData.sendUser.id) && (
             <Alert message={sendData.error} type="error" />

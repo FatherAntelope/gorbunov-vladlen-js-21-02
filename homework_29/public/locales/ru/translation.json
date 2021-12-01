@@ -99,5 +99,27 @@
       "button": "Зарегистрироваться",
       "error": "Аккаунт с таким email уже существует"
     }
+  },
+  "cardUserProfile": {
+    "firstName": "Имя:",
+    "lastName": "Фамилия:",
+    "gender": "Пол:",
+    "id": "ID:",
+    "dateOfBirth": "Дата рождения:",
+    "dateOfRegistration": "Дата регистрации:",
+    "email": "Email:",
+    "phone": "Телефон:",
+    "edit": "Редактировать"
+  },
+  "cardUserEdit": {
+    "button": {
+      "updatePhoto": "Обновить фото",
+      "deletePhoto": "Удалить фото",
+      "save": "Сохранить"
+    },
+    "errorPhoto": {
+      "format": "Разрешено изображение только в формате JPG/PNG/JPEG",
+      "size": "Размер изображения не должен превышать 2 МБ"
+    }
   }
 }
