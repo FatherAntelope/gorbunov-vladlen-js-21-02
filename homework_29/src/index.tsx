@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import { CookiesProvider } from 'react-cookie';
@@ -8,6 +8,7 @@ import { store } from './store';
 import 'antd/dist/antd.css';
 import App from './components/app/App';
 import { ThemeCheckboxContextProvider } from './contexts/theme-checkbox/ThemeCheckboxContext';
+import './i18next';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -15,7 +16,9 @@ ReactDOM.render(
       <Provider store={store}>
         <ThemeCheckboxContextProvider>
           <HashRouter>
-            <App />
+            <Suspense fallback="">
+              <App />
+            </Suspense>
           </HashRouter>
         </ThemeCheckboxContextProvider>
       </Provider>

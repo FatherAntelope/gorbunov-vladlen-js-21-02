@@ -1,0 +1,19 @@
+{
+  "header": {
+    "menu": {
+      "users": "Users",
+      "posts": "Posts"
+    },
+    "auth": {
+      "logout": "Logout",
+      "login": "Login",
+      "registration": "Registration"
+    }
+  },
+  "footer": {
+    "themeSwitcher": {
+      "lightTheme": "Light theme",
+      "darkTheme": "Dark theme"
+    }
+  }
+}

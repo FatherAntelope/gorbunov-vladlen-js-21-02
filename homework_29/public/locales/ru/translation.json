@@ -1,0 +1,19 @@
+{
+  "header": {
+    "menu": {
+      "users": "Пользователи",
+      "posts": "Посты"
+    },
+    "auth": {
+      "logout": "Выход",
+      "login": "Вход",
+      "registration": "Регистрация"
+    }
+  },
+  "footer": {
+    "themeSwitcher": {
+      "lightTheme": "Светлая тема",
+      "darkTheme": "Темная тема"
+    }
+  }
+}

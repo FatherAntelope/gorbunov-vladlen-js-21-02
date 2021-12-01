@@ -3,6 +3,7 @@ import './Header.scss';
 import { Avatar } from 'antd';
 import { Link, useHistory } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
+import { useTranslation } from 'react-i18next';
 import { EMPTY_STRING } from '../../constants/common';
 import { useActions } from '../../hooks/useActions';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
@@ -94,6 +95,7 @@ Header.Auth = ({ authData, isDarkTheme = false }: IPropsAuth) => {
   const localeHistory = useHistory();
   const { burgerHeaderSetNotActiveAC } = useActions();
   const burgerMenu = useTypedSelector((state) => state.burgerHeader);
+  const { t } = useTranslation();
 
   const burgerMenuSetNotActive = () => {
     if (burgerMenu.isActive) {
@@ -130,7 +132,9 @@ Header.Auth = ({ authData, isDarkTheme = false }: IPropsAuth) => {
         </div>
         <div className="header__auth-divider" />
         {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
-        <p className="header__auth-text header__auth-text_active" onClick={handleExitClick}>Выход</p>
+        <p className="header__auth-text header__auth-text_active" onClick={handleExitClick}>
+          {t('header.auth.logout')}
+        </p>
       </div>
     );
   }
@@ -142,7 +146,7 @@ Header.Auth = ({ authData, isDarkTheme = false }: IPropsAuth) => {
           onClick={burgerMenuSetNotActive}
           className={`header__auth-text ${isDarkTheme ? 'header__auth-text_theme_dark' : ''} `}
         >
-          Вход
+          {t('header.auth.login')}
         </p>
       </Link>
       <div className="header__auth-divider" />
@@ -152,7 +156,7 @@ Header.Auth = ({ authData, isDarkTheme = false }: IPropsAuth) => {
           onClick={burgerMenuSetNotActive}
           className={`header__auth-text ${isDarkTheme ? 'header__auth-text_theme_dark' : ''} `}
         >
-          Регистрация
+          {t('header.auth.registration')}
         </p>
       </Link>
     </div>

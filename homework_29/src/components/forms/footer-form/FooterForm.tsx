@@ -1,5 +1,6 @@
-import React, { useContext } from 'react';
-import { Switch } from 'antd';
+import React, { useContext, useState } from 'react';
+import { Select, Switch } from 'antd';
+import { useTranslation } from 'react-i18next';
 import Container from '../../container/Container';
 import Footer from '../../footer/Footer';
 import {
@@ -12,6 +13,13 @@ import { ThemeCheckboxContext } from '../../../contexts/theme-checkbox/ThemeChec
 
 const FooterForm = () => {
   const themeCheckboxContext = useContext(ThemeCheckboxContext);
+  const { t, i18n } = useTranslation();
+  const [language, setLanguage] = useState(i18n.language);
+
+  const handleChangeLanguage = (e: any) => {
+    setLanguage(e);
+    i18n.changeLanguage(e);
+  };
 
   return (
     <Footer isDarkTheme={themeCheckboxContext.isDarkTheme}>
@@ -24,15 +32,21 @@ const FooterForm = () => {
             ${APPLICATION_YEAR_FOUNDATION}-${APPLICATION_YEAR_CURRENT}
           `}
           </Footer.Copyright>
-          <Switch
-            checked={themeCheckboxContext.isDarkTheme}
-            onClick={themeCheckboxContext.handleSwitchTheme}
-            style={
-              themeCheckboxContext.isDarkTheme ? { backgroundColor: '#817D7DCC' } : { backgroundColor: '#15355C' }
-            }
-            checkedChildren="Темная тема"
-            unCheckedChildren="Светлая тема"
-          />
+          <div style={{ display: 'flex', gap: 10 }}>
+            <Select value={language} size="small" onChange={handleChangeLanguage}>
+              <Select.Option value="ru">RU</Select.Option>
+              <Select.Option value="en">EN</Select.Option>
+            </Select>
+            <Switch
+              checked={themeCheckboxContext.isDarkTheme}
+              onClick={themeCheckboxContext.handleSwitchTheme}
+              style={
+                themeCheckboxContext.isDarkTheme ? { backgroundColor: '#817D7DCC' } : { backgroundColor: '#15355C' }
+              }
+              checkedChildren={t('footer.themeSwitcher.darkTheme')}
+              unCheckedChildren={t('footer.themeSwitcher.lightTheme')}
+            />
+          </div>
         </Footer.Body>
       </Container>
     </Footer>
