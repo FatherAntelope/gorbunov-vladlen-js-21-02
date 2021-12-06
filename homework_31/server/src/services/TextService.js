@@ -1,12 +1,13 @@
 import fs from 'fs';
+import { FILE_NAME_TEXT, FILE_PATH_TEXT } from "../constants/api/files.js";
 
 class TextService {
   setText(data) {
     return new Promise((res, rej) => {
-      if (!fs.existsSync('./src/files')) {
-        fs.mkdirSync('./src/files');
+      if (!fs.existsSync(FILE_PATH_TEXT)) {
+        fs.mkdirSync(FILE_PATH_TEXT);
       }
-      fs.writeFile('./src/files/text.txt', data, 'utf8', (err) => {
+      fs.writeFile(FILE_PATH_TEXT + FILE_NAME_TEXT, data, 'utf8', (err) => {
         if (err) return rej(err);
         return res(data);
       });
@@ -14,8 +15,8 @@ class TextService {
   }
 
   getText() {
-    return Promise((res, rej) => {
-      fs.readFile('text.txt', 'utf8', (err) => {
+    return new Promise((res, rej) => {
+      fs.readFile(FILE_PATH_TEXT + FILE_NAME_TEXT, 'utf8', (err, data) => {
         if (err) return rej(err);
         return res(data);
       });
