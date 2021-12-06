@@ -7,7 +7,7 @@ class TextController {
     if (req.body.text) {
       try {
         const response = await TextService.setText(req.body.text);
-        fileLog.info(`OK. Body: ${JSON.stringify(req.body)}, status: ${httpStatuses.OK}`);
+        fileLog.info(`OK. Data: ${JSON.stringify(req.body)}, status: ${httpStatuses.OK}`);
         res.status(httpStatuses.OK).json({
           status: httpStatuses.OK,
           data: {
@@ -38,7 +38,7 @@ class TextController {
   async get(req, res) {
     try {
       const response = await TextService.getText();
-      fileLog.info(`OK. Body: ${JSON.stringify(req.body)}, status: ${httpStatuses.OK}`);
+      fileLog.info(`OK. Data: ${response}, status: ${httpStatuses.OK}`);
       res.status(httpStatuses.OK).json({
         status: httpStatuses.OK,
         data: {

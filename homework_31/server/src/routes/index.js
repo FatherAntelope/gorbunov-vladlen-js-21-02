@@ -6,7 +6,7 @@ const routes = new Router();
 routes.use('', textRouter);
 
 routes.all('*', (req, res) => {
-  res.json({
+  res.status(httpStatuses.NOT_FOUND).json({
     status: httpStatuses.NOT_FOUND,
     message: 'Not found'
   });
