@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { FILE_NAME_TEXT, FILE_PATH_TEXT } from "../constants/api/files.js";
+import { FILE_NAME_TEXT, FILE_PATH_TEXT } from "../constants/files.js";
 
 class TextService {
   setText(data) {

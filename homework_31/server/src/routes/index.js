@@ -1,7 +1,15 @@
 import Router from "express";
-import userRouter from "./textRouter.js";
+import textRouter from "./textRouter.js";
+import httpStatuses from "../constants/httpStatuses.js";
 
 const routes = new Router();
-routes.use('', userRouter);
+routes.use('', textRouter);
+
+routes.all('*', (req, res) => {
+  res.json({
+    status: httpStatuses.NOT_FOUND,
+    message: 'Not found'
+  });
+});
 
 export default routes;

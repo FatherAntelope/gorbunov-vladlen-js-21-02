@@ -1,8 +1,8 @@
 import Router from "express";
 import TextController from "../controllers/TextController.js";
-const userRouter = new Router();
+const textRouter = new Router();
 
-userRouter.get('/text', TextController.get);
-userRouter.post('/text', TextController.set);
+textRouter.get('/text', TextController.get);
+textRouter.post('/text', TextController.set);
 
-export default userRouter;
+export default textRouter;

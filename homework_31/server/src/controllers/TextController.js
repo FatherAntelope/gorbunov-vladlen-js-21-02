@@ -7,9 +7,9 @@ class TextController {
     if (req.body.text) {
       try {
         const response = await TextService.setText(req.body.text);
-        fileLog.info(`OK. Body: ${JSON.stringify(req.body)}, status: ${httpStatuses.SUCCESS}`);
-        res.status(httpStatuses.SUCCESS).json({
-          status: httpStatuses.SUCCESS,
+        fileLog.info(`OK. Body: ${JSON.stringify(req.body)}, status: ${httpStatuses.OK}`);
+        res.status(httpStatuses.OK).json({
+          status: httpStatuses.OK,
           data: {
             text: response
           }
@@ -18,7 +18,7 @@ class TextController {
         fileLog.error(`Internal server error. Status: ${httpStatuses.SERVER_ERROR}, message: ${e.message}`);
         res.status(httpStatuses.SERVER_ERROR).json({
           status: httpStatuses.SERVER_ERROR,
-          error: e.message
+          message: e.message
         });
       }
     } else {
@@ -30,7 +30,7 @@ class TextController {
       );
       res.status(httpStatuses.BAD_REQUEST).json({
         status: httpStatuses.BAD_REQUEST,
-        error: message
+        message: message
       });
     }
   }
@@ -38,9 +38,9 @@ class TextController {
   async get(req, res) {
     try {
       const response = await TextService.getText();
-      fileLog.info(`OK. Body: ${JSON.stringify(req.body)}, status: ${httpStatuses.SUCCESS}`);
-      res.status(httpStatuses.SUCCESS).json({
-        status: httpStatuses.SUCCESS,
+      fileLog.info(`OK. Body: ${JSON.stringify(req.body)}, status: ${httpStatuses.OK}`);
+      res.status(httpStatuses.OK).json({
+        status: httpStatuses.OK,
         data: {
           text: response
         }
@@ -49,7 +49,7 @@ class TextController {
       fileLog.error(`Internal server error. Status: ${httpStatuses.SERVER_ERROR}, message: ${e.message}`);
       res.status(httpStatuses.SERVER_ERROR).json({
         status: httpStatuses.SERVER_ERROR,
-        error: e.message
+        message: e.message
       });
     }
   }
