@@ -1,0 +1,141 @@
+{
+  "commons": {
+    "userAppeal": {
+      "ms": "ms",
+      "miss": "miss",
+      "mrs": "mrs",
+      "mr": "mr",
+      "dr": "dr",
+      "undefined": ""
+    },
+    "userGender": {
+      "male": "Male",
+      "female": "Female",
+      "other": "Other",
+      "undefined": ""
+    }
+  },
+  "header": {
+    "menu": {
+      "users": "Users",
+      "posts": "Posts"
+    },
+    "auth": {
+      "logout": "Logout",
+      "login": "Login",
+      "registration": "Registration"
+    }
+  },
+  "footer": {
+    "themeSwitcher": {
+      "lightTheme": "Light theme",
+      "darkTheme": "Dark theme"
+    }
+  },
+  "authorization": {
+    "login": {
+      "title": "Login",
+      "formField": {
+        "id": {
+          "label": "ID:",
+          "placeholder": "Enter your ID",
+          "error": {
+            "required": "Enter in this field"
+          }
+        }
+      },
+      "info": {
+        "text": "Don't have an account yet?",
+        "link": "Register"
+      },
+      "button": "Login",
+      "error": "Invalid ID entered. Repeat authorization"
+    },
+    "registration": {
+      "title": "Registration",
+      "formField": {
+        "firstName": {
+          "label": "Firstname:",
+          "placeholder": "Enter your firstname",
+          "error": {
+            "required": "Enter in this field",
+            "spacing": "The field should not contain extra spaces",
+            "symbols": "The field must contain characters of the Latin alphabet or Cyrillic alphabet",
+            "length": "The field must contain from 2 to 50 characters"
+          }
+        },
+        "lastName": {
+          "label": "Lastname:",
+          "placeholder": "Enter your lastname",
+          "error": {
+            "required": "Enter in this field",
+            "spacing": "The field should not contain extra spaces",
+            "symbols": "The field must contain characters of the Latin alphabet or Cyrillic alphabet",
+            "length": "The field must contain from 2 to 50 characters"
+          }
+        },
+        "gender": {
+          "label": "Gender:",
+          "error": {
+            "required": "Make a select"
+          },
+          "radioText": {
+            "male": "Male",
+            "female": "Female"
+          }
+        },
+        "dateOfBirth": {
+          "label": "Date of birth:",
+          "placeholder": "DD.MM.YYYY",
+          "error": {
+            "required": "Enter in this field"
+          }
+        },
+        "email": {
+          "label": "Email:",
+          "placeholder": "example@mail.com",
+          "error": {
+            "required": "Enter in this field",
+            "type": "Email entered incorrectly"
+          }
+        },
+        "phone": {
+          "label": "Phone:",
+          "placeholder": "+79991234567",
+          "error": {
+            "required": "Enter in this field",
+            "symbols": "The field must contain numbers or symbols -() and + at the beginning"
+          }
+        }
+      },
+      "info": {
+        "text": "Already have an account?",
+        "link": "Login"
+      },
+      "button": "Register",
+      "error": "An account with this email already exists"
+    }
+  },
+  "cardUserProfile": {
+    "firstName": "Firstname:",
+    "lastName": "Lastname:",
+    "gender": "Gender:",
+    "id": "ID:",
+    "dateOfBirth": "Date of birth:",
+    "dateOfRegistration": "Date of registration:",
+    "email": "Email:",
+    "phone": "Phone:",
+    "edit": "Edit"
+  },
+  "cardUserEdit": {
+    "button": {
+      "updatePhoto": "Update photo",
+      "deletePhoto": "Delete photo",
+      "save": "Save"
+    },
+    "errorPhoto": {
+      "format": "The image is allowed only in JPG/PNG/JPEG format",
+      "size": "The image size should not exceed 2 MB"
+    }
+  }
+}

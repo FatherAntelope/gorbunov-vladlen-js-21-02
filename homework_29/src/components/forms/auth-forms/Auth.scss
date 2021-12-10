@@ -1,0 +1,70 @@
+@import "../../../constants/styles/colors";
+
+.user-auth {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+
+  &__body {
+    width: 100%;
+    max-width: 400px;
+  }
+
+  &__header {
+    font-size: 20px;
+    font-weight: 700;
+    color: $colorBlack;
+    text-align: center;
+
+    &_theme_dark {
+      color: $colorWhite;
+    }
+  }
+
+  &__button {
+    background-color: $colorBlack;
+    border: $colorBlack;
+    &:hover, &::selection {
+      background-color: $colorGray;
+    }
+    &:active, &:focus {
+      background-color: $colorBlack;
+    }
+  }
+
+  &__field:not(:last-child) {
+    margin-bottom: 10px;
+    width: 100%;
+  }
+
+  &__field_inline {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row !important;
+    align-items: center;
+    &>* {
+      padding: 0 !important;
+    }
+    gap: 10px;
+  }
+
+  &__field label {
+    color: $colorBlack;
+  }
+
+  &__field_theme_dark label {
+    color: $colorWhite;
+  }
+
+  &__info {
+    text-align: center;
+    margin-top: 7px;
+    color: $colorBlack;
+
+    &_theme_dark {
+      color: $colorWhite;
+    }
+  }
+}
