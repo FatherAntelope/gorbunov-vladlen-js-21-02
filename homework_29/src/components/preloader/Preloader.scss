@@ -1,0 +1,19 @@
+@import "../../constants/styles/colors";
+
+.preloader {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__spin {
+    color: $colorBlack;
+    font-size: 70px;
+    transition: 0.3s color ease-out;
+
+    &_theme_dark {
+      color: $colorWhite;
+    }
+  }
+}
