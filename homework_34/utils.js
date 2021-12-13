@@ -6,7 +6,7 @@
  * @returns {boolean} True - входит, иначе false
  */
 function isSecondContainsFirstStr(stringOne, stringTwo) {
-  return !!stringTwo ? new RegExp(stringTwo, "i").test(stringOne) : false;
+  return (stringOne && stringTwo) ? String(stringOne).toLowerCase().includes(String(stringTwo).toLowerCase()) : false;
 }
 
 /**
@@ -78,3 +78,8 @@ function checkIdDocument(idDocument) {
   //Или /^(([0-9A-z]{4})[- ]){3}([0-9A-z]{4})$/ если нужно комбинировать [- ]
   return /^((([0-9A-z]{4}) ){3}([0-9A-z]{4}))|((([0-9A-z]{4})-){3}([0-9A-z]{4}))$/.test(idDocument);
 }
+
+export {
+  isSecondContainsFirstStr, sliceEnd, dataTransformation, checkFullName, pascalToSnakeCase, getHTMLComments,
+  getNumbers, checkIdDocument
+};
