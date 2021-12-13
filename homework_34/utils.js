@@ -16,7 +16,9 @@ function isSecondContainsFirstStr(stringOne, stringTwo) {
  * @returns {string} если countSymbols > 0 - результат отсечение, иначе str
  */
 function sliceEnd(str, countSymbols) {
-  return (countSymbols > 0) ? str.slice(0, -countSymbols).trimEnd() + "..." : str;
+  str = String(str || '');
+  if (str.length === countSymbols || str.length === 0) return '';
+  return (countSymbols > 0) ? `${str.slice(0, -countSymbols).trimEnd()}...` : str;
 }
 
 /**
