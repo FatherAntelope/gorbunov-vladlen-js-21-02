@@ -45,7 +45,13 @@ function checkFullName(fullName) {
  * @returns {string}
  */
 function pascalToSnakeCase(pascalCase) {
-  return pascalCase.split(/(?=[A-Z])/).join("_").toLowerCase();
+  if (!pascalCase) return '';
+  pascalCase = String(pascalCase).trim();
+  const arrPascalCase = pascalCase.split(' ');
+  if (arrPascalCase.length > 0) {
+    return arrPascalCase.map((item) => item.split(/(?=[A-Z])/).join("_").toLowerCase()).join(' ');
+  }
+  return pascalCase && pascalCase.split(/(?=[A-Z])/).join("_").toLowerCase();
 }
 
 /**

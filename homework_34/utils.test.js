@@ -59,3 +59,22 @@ describe('Тестирую функцию sliceEnd', () => {
     expect(sliceEnd(str, 2.9)).toStrictEqual('Стро...');
   });
 });
+
+describe('Тестирую функцию pascalToSnakeCase', () => {
+  test('Нормальные условия:', () => {
+    expect(pascalToSnakeCase('PascalCase')).toStrictEqual('pascal_case');
+    expect(pascalToSnakeCase('ButtonForSend')).toStrictEqual('button_for_send');
+    expect(pascalToSnakeCase('JS')).toStrictEqual('j_s');
+    expect(pascalToSnakeCase('J')).toStrictEqual('j');
+    expect(pascalToSnakeCase('!£$F')).toStrictEqual('!£$_f');
+    expect(pascalToSnakeCase('PascalCase1@Snake')).toStrictEqual('pascal_case1@_snake');
+    expect(pascalToSnakeCase(' PascalCase ')).toStrictEqual('pascal_case'); // +
+    expect(pascalToSnakeCase(' PascalCase AndArr@ he')).toStrictEqual('pascal_case and_arr@ he'); // +
+  });
+
+  test('Исключительные условия:', () => {
+    expect(pascalToSnakeCase('')).toStrictEqual('');
+    expect(pascalToSnakeCase()).toStrictEqual(''); // !
+    expect(pascalToSnakeCase(123)).toStrictEqual('123');
+  });
+});
