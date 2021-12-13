@@ -34,6 +34,7 @@ describe('Тестирую функцию isSecondContainsFirstStr', () => {
     expect(isSecondContainsFirstStr(274, 2)).toBe(true);
     expect(isSecondContainsFirstStr(null, null)).toBe(false);
     expect(isSecondContainsFirstStr('lorem', '')).toBe(false);
+    expect(isSecondContainsFirstStr({}, {})).toBe(false); // !
   });
 });
 
@@ -57,6 +58,7 @@ describe('Тестирую функцию sliceEnd', () => {
     expect(sliceEnd()).toStrictEqual(''); // +
     expect(sliceEnd(str, 2.2)).toStrictEqual('Стро...');
     expect(sliceEnd(str, 2.9)).toStrictEqual('Стро...');
+    expect(sliceEnd({}, {})).toStrictEqual(''); // !
   });
 });
 
@@ -76,6 +78,8 @@ describe('Тестирую функцию pascalToSnakeCase', () => {
     expect(pascalToSnakeCase('')).toStrictEqual('');
     expect(pascalToSnakeCase()).toStrictEqual(''); // !
     expect(pascalToSnakeCase(123)).toStrictEqual('123');
+    expect(pascalToSnakeCase(null)).toStrictEqual('');
+    expect(pascalToSnakeCase({})).toStrictEqual(''); // !
   });
 });
 
@@ -100,6 +104,8 @@ describe('Тестирую функцию checkFullName', () => {
     expect(checkFullName(' Гор бу нов Вла дл ен ВячеславоВИЧ ')).toBe(false);
     expect(checkFullName('Name Name Namвич')).toBe(false); // +
     expect(checkFullName('!@#$ $#@! !@$вич')).toBe(false);
+    expect(checkFullName({})).toBe(false);
+    expect(checkFullName(null)).toBe(false);
   });
 });
 
@@ -123,5 +129,8 @@ describe('Тестирую функцию checkIdDocument', () => {
     expect(checkIdDocument('AAAA-AAAA-AAAA AAAA-AAAA')).toBe(false);
     expect(checkIdDocument('AAAA AAAA AAAA AAAA AAAA')).toBe(false);
     expect(checkIdDocument('\ \ \ /')).toBe(false);
+    expect(checkIdDocument(1111111111111)).toBe(false);
+    expect(checkIdDocument({})).toBe(false);
+    expect(checkIdDocument(null)).toBe(false);
   });
 });

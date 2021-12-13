@@ -6,6 +6,7 @@
  * @returns {boolean} True - входит, иначе false
  */
 function isSecondContainsFirstStr(stringOne, stringTwo) {
+  if (typeof stringOne === 'object' || typeof stringTwo === 'object') return false;
   return (stringOne && stringTwo) ? String(stringOne).toLowerCase().includes(String(stringTwo).toLowerCase()) : false;
 }
 
@@ -16,6 +17,7 @@ function isSecondContainsFirstStr(stringOne, stringTwo) {
  * @returns {string} если countSymbols > 0 - результат отсечение, иначе str
  */
 function sliceEnd(str, countSymbols) {
+  if (typeof str === 'object' || typeof countSymbols === 'object') return '';
   str = String(str || '');
   if (str.length === countSymbols || str.length === 0) return '';
   return (countSymbols > 0) ? `${str.slice(0, -countSymbols).trimEnd()}...` : str;
@@ -47,7 +49,7 @@ function checkFullName(fullName) {
  * @returns {string}
  */
 function pascalToSnakeCase(pascalCase) {
-  if (!pascalCase) return '';
+  if (!pascalCase || typeof pascalCase === 'object') return '';
   pascalCase = String(pascalCase).trim();
   const arrPascalCase = pascalCase.split(' ');
   if (arrPascalCase.length > 0) {
