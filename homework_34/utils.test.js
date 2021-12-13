@@ -102,3 +102,26 @@ describe('Тестирую функцию checkFullName', () => {
     expect(checkFullName('!@#$ $#@! !@$вич')).toBe(false);
   });
 });
+
+describe('Тестирую функцию checkIdDocument', () => {
+  test('Нормальные условия:', () => {
+    expect(checkIdDocument('X123 X2v1 abS3 AC34')).toBe(true);
+    expect(checkIdDocument('ФАСЫ 123А 123Ф авыа')).toBe(false);
+    expect(checkIdDocument('!!!! 3234 3432 fFs3')).toBe(false);
+    expect(checkIdDocument('dd24-3234-3432-fFs3')).toBe(true);
+    expect(checkIdDocument('dd24-3234 3432-fFs3')).toBe(false);
+    expect(checkIdDocument('dd24-3234 3432')).toBe(false);
+    expect(checkIdDocument('dd24 3234 343 fFs3')).toBe(false);
+    expect(checkIdDocument('AAAA-AAAA-AAAA-AAAA')).toBe(true);
+    expect(checkIdDocument('AAAA AAAA AAAA AAAA')).toBe(true);
+    expect(checkIdDocument('1234 5678 9101 1121')).toBe(true);
+  });
+
+  test('Исключительные условия:', () => {
+    expect(checkIdDocument('')).toBe(false);
+    expect(checkIdDocument('AAAA-AAAA-AAAA-AAAA-AAAA')).toBe(false); // +
+    expect(checkIdDocument('AAAA-AAAA-AAAA AAAA-AAAA')).toBe(false);
+    expect(checkIdDocument('AAAA AAAA AAAA AAAA AAAA')).toBe(false);
+    expect(checkIdDocument('\ \ \ /')).toBe(false);
+  });
+});

@@ -86,7 +86,7 @@ function getNumbers(str) {
  */
 function checkIdDocument(idDocument) {
   //Или /^(([0-9A-z]{4})[- ]){3}([0-9A-z]{4})$/ если нужно комбинировать [- ]
-  return /^((([0-9A-z]{4}) ){3}([0-9A-z]{4}))|((([0-9A-z]{4})-){3}([0-9A-z]{4}))$/.test(idDocument);
+  return /^(((([0-9A-z]{4}) ){3}([0-9A-z]{4}))|((([0-9A-z]{4})-){3}([0-9A-z]{4})))$/.test(idDocument);
 }
 
 export {
