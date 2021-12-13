@@ -78,3 +78,27 @@ describe('Тестирую функцию pascalToSnakeCase', () => {
     expect(pascalToSnakeCase(123)).toStrictEqual('123');
   });
 });
+
+describe('Тестирую функцию checkFullName', () => {
+  test('Нормальные условия:', () => {
+    expect(checkFullName('Горбунов Владлен')).toBe(true);
+    expect(checkFullName('Владлен')).toBe(false);
+    expect(checkFullName('Владлен Вячеславович')).toBe(true);
+    expect(checkFullName('Горбунов Владлен Вячеславович')).toBe(true);
+    expect(checkFullName('Горбунов Владлен Вячеславо')).toBe(false);
+    expect(checkFullName('горбунов владлен вячеславович')).toBe(true);
+  });
+
+  test('Исключительные условия:', () => {
+    expect(checkFullName('')).toBe(false);
+    expect(checkFullName(123)).toBe(false);
+    expect(checkFullName()).toBe(false);
+    expect(checkFullName()).toBe(false);
+    expect(checkFullName('Горбунов Владлен ВячеславоВИЧ')).toBe(true); // +
+    expect(checkFullName('Горбунов Владлен Имя Вячеславович')).toBe(false);
+    expect(checkFullName('  Горбунов         Владлен   ВячеславоВИЧ ')).toBe(true); // +
+    expect(checkFullName(' Гор бу нов Вла дл ен ВячеславоВИЧ ')).toBe(false);
+    expect(checkFullName('Name Name Namвич')).toBe(false); // +
+    expect(checkFullName('!@#$ $#@! !@$вич')).toBe(false);
+  });
+});

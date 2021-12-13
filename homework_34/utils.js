@@ -36,7 +36,9 @@ function dataTransformation(dataTime) {
  * @returns {boolean}
  */
 function checkFullName(fullName) {
-  return /^[А-я]+ [А-я]+( [А-я]*(вич|вна)$)?$/.test(fullName);
+  fullName = String(fullName).trim().toLowerCase();
+  if (/^[A-z]$/.test(fullName)) return false;
+  return /^[А-я]+[ ]{1,}[А-я]+[ ]{0,}([А-я]*(вич|вна)$)?$/.test(fullName);
 }
 
 /**
