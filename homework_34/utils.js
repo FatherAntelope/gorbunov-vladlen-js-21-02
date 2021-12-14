@@ -29,7 +29,16 @@ function sliceEnd(str, countSymbols) {
  * @returns {string} дата и время в формате d.m.Y h:s
  */
 function dataTransformation(dataTime) {
-  return dataTime.replace(/\/+/g, ".").replace(/-/, ":");
+  dataTime = String(dataTime).trim();
+  let data = dataTime.match(/((\d{2})\/(\d{2})\/(\d{4}))/) || '';
+  let time = dataTime.match(/((\d{1,2})-(\d{2}))/) || '';
+  if (Array.isArray(data)) {
+    data = data[0].replace(/\/+/g, ".")
+  }
+  if (Array.isArray(time)) {
+    time = time[0].replace(/-/, ":")
+  }
+  return `${data || ''} ${time || ''}`.trim();
 }
 
 /**

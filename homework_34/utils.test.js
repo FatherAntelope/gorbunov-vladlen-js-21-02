@@ -157,3 +157,25 @@ describe('Тестирую функцию getNumbers', () => {
     expect(getNumbers([5, 'Word', -34, 0.78])).toEqual([5, -34, 0.78]);
   });
 });
+
+describe('Тестирую функцию dataTransformation', () => {
+  test('Нормальные условия:', () => {
+    expect(dataTransformation('12/02/2021 12-00')).toBe('12.02.2021 12:00');
+    expect(dataTransformation('28/07/2035')).toBe('28.07.2035');
+    expect(dataTransformation('15-00')).toBe('15:00');
+    expect(dataTransformation('')).toBe('');
+    expect(dataTransformation('1/2/21')).toBe('');
+    expect(dataTransformation('12/02/21 5-00')).toBe('5:00');
+    expect(dataTransformation('15-0')).toBe('');
+  });
+
+  test('Исключительные условия:', () => {
+    expect(dataTransformation('   12/02/2021  12-00 ')).toBe('12.02.2021 12:00'); // +
+    expect(dataTransformation(6)).toBe('');
+    expect(dataTransformation(null)).toBe(''); // +
+    expect(dataTransformation('zz/zz/zzzz zz-zz')).toBe('');
+    expect(dataTransformation('1.22/2.12/2.1222 22-22')).toBe('22:22');
+    expect(dataTransformation('Какая-то дата 2.22/12/2022 23-00')).toBe('22.12.2022 23:00');
+    expect(dataTransformation({})).toBe('');
+  });
+});
