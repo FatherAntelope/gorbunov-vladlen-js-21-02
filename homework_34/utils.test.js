@@ -41,45 +41,45 @@ describe('Тестирую функцию isSecondContainsFirstStr', () => {
 describe('Тестирую функцию sliceEnd', () => {
   const str = 'Строка';
   test('Нормальные условия:', () => {
-    expect(sliceEnd(str, 3)).toStrictEqual('Стр...');
-    expect(sliceEnd(str, 0)).toStrictEqual(str);
-    expect(sliceEnd(str, 6)).toStrictEqual(''); // +
-    expect(sliceEnd('Волк - не тигр', 4)).toStrictEqual('Волк - не...');
-    expect(sliceEnd('@', 1)).toStrictEqual('');
-    expect(sliceEnd('E!@#$%^&*()_', 2)).toStrictEqual('E!@#$%^&*(...');
+    expect(sliceEnd(str, 3)).toBe('Стр...');
+    expect(sliceEnd(str, 0)).toBe(str);
+    expect(sliceEnd(str, 6)).toBe(''); // +
+    expect(sliceEnd('Волк - не тигр', 4)).toBe('Волк - не...');
+    expect(sliceEnd('@', 1)).toBe('');
+    expect(sliceEnd('E!@#$%^&*()_', 2)).toBe('E!@#$%^&*(...');
   });
 
   test('Исключительные условия:', () => {
-    expect(sliceEnd(str, -2)).toStrictEqual(str);
-    expect(sliceEnd('', 1)).toStrictEqual(''); // +
-    expect(sliceEnd('@', 1)).toStrictEqual('');
-    expect(sliceEnd(-123212.235043, 3)).toStrictEqual('-123212.235...');
-    expect(sliceEnd(str)).toStrictEqual(str);
-    expect(sliceEnd()).toStrictEqual(''); // +
-    expect(sliceEnd(str, 2.2)).toStrictEqual('Стро...');
-    expect(sliceEnd(str, 2.9)).toStrictEqual('Стро...');
-    expect(sliceEnd({}, {})).toStrictEqual(''); // !
+    expect(sliceEnd(str, -2)).toBe(str);
+    expect(sliceEnd('', 1)).toBe(''); // +
+    expect(sliceEnd('@', 1)).toBe('');
+    expect(sliceEnd(-123212.235043, 3)).toBe('-123212.235...');
+    expect(sliceEnd(str)).toBe(str);
+    expect(sliceEnd()).toBe(''); // +
+    expect(sliceEnd(str, 2.2)).toBe('Стро...');
+    expect(sliceEnd(str, 2.9)).toBe('Стро...');
+    expect(sliceEnd({}, {})).toBe(''); // !
   });
 });
 
 describe('Тестирую функцию pascalToSnakeCase', () => {
   test('Нормальные условия:', () => {
-    expect(pascalToSnakeCase('PascalCase')).toStrictEqual('pascal_case');
-    expect(pascalToSnakeCase('ButtonForSend')).toStrictEqual('button_for_send');
-    expect(pascalToSnakeCase('JS')).toStrictEqual('j_s');
-    expect(pascalToSnakeCase('J')).toStrictEqual('j');
-    expect(pascalToSnakeCase('!£$F')).toStrictEqual('!£$_f');
-    expect(pascalToSnakeCase('PascalCase1@Snake')).toStrictEqual('pascal_case1@_snake');
-    expect(pascalToSnakeCase(' PascalCase ')).toStrictEqual('pascal_case'); // +
-    expect(pascalToSnakeCase(' PascalCase AndArr@ he')).toStrictEqual('pascal_case and_arr@ he'); // +
+    expect(pascalToSnakeCase('PascalCase')).toBe('pascal_case');
+    expect(pascalToSnakeCase('ButtonForSend')).toBe('button_for_send');
+    expect(pascalToSnakeCase('JS')).toBe('j_s');
+    expect(pascalToSnakeCase('J')).toBe('j');
+    expect(pascalToSnakeCase('!£$F')).toBe('!£$_f');
+    expect(pascalToSnakeCase('PascalCase1@Snake')).toBe('pascal_case1@_snake');
+    expect(pascalToSnakeCase(' PascalCase ')).toBe('pascal_case'); // +
+    expect(pascalToSnakeCase(' PascalCase AndArr@ he')).toBe('pascal_case and_arr@ he'); // +
   });
 
   test('Исключительные условия:', () => {
-    expect(pascalToSnakeCase('')).toStrictEqual('');
-    expect(pascalToSnakeCase()).toStrictEqual(''); // !
-    expect(pascalToSnakeCase(123)).toStrictEqual('123');
-    expect(pascalToSnakeCase(null)).toStrictEqual('');
-    expect(pascalToSnakeCase({})).toStrictEqual(''); // !
+    expect(pascalToSnakeCase('')).toBe('');
+    expect(pascalToSnakeCase()).toBe(''); // !
+    expect(pascalToSnakeCase(123)).toBe('123');
+    expect(pascalToSnakeCase(null)).toBe('');
+    expect(pascalToSnakeCase({})).toBe(''); // !
   });
 });
 
@@ -132,5 +132,28 @@ describe('Тестирую функцию checkIdDocument', () => {
     expect(checkIdDocument(1111111111111)).toBe(false);
     expect(checkIdDocument({})).toBe(false);
     expect(checkIdDocument(null)).toBe(false);
+  });
+});
+
+describe('Тестирую функцию getNumbers', () => {
+  test('Нормальные условия:', () => {
+    expect(getNumbers('Егору 12 лет')).toEqual([12]);
+    expect(getNumbers('Str5.8 str')).toEqual([5.8]);
+    expect(getNumbers('Str5.8 str7al wor1.334ld')).toEqual([5.8, 7, 1.334]);
+    expect(getNumbers('Str5.8 0 f-4 2 -2.31 .2')).toEqual([5.8, 0, -4, 2, -2.31, 2]);
+    expect(getNumbers('23 @-24^!')).toEqual([23, -24]);
+    expect(getNumbers('5.8-3.4')).toEqual([5.8, -3.4]);
+    expect(getNumbers('Hello, world!')).toBeNull(); // +
+  });
+
+  test('Исключительные условия:', () => {
+    expect(getNumbers('-5.83.4')).toEqual([-5.83, 4]);
+    expect(getNumbers(5)).toEqual([5]); // +
+    expect(getNumbers()).toBeNull();
+    expect(getNumbers('')).toBeNull();
+    expect(getNumbers(null)).toBeNull();
+    expect(getNumbers({})).toBeNull();
+    expect(getNumbers([5, 4])).toEqual([5, 4]);
+    expect(getNumbers([5, 'Word', -34, 0.78])).toEqual([5, -34, 0.78]);
   });
 });

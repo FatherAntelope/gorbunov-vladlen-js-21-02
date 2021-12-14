@@ -75,10 +75,11 @@ function getHTMLComments(html) {
 /**
  * Получает все числа из строки (положительные, отрицательные, вещественные или целые)
  * @param str {string} строка с числами
- * @returns {Array | null} массив чисел, если найдено, иначе null
+ * @returns {Array<number> | null} массив чисел, если найдено, иначе null
  */
 function getNumbers(str) {
-  return str.match(/[+-]?\d+(\.?\d+)?/g);
+  const arrStr = String(str).match(/[+-]?\d+(\.?\d+)?/g) || [];
+  return arrStr.length > 0 ? arrStr.map(item => Number(item)) : null;
 }
 
 /**
