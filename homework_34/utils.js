@@ -33,10 +33,10 @@ function dataTransformation(dataTime) {
   let data = dataTime.match(/((\d{2})\/(\d{2})\/(\d{4}))/) || '';
   let time = dataTime.match(/((\d{1,2})-(\d{2}))/) || '';
   if (Array.isArray(data)) {
-    data = data[0].replace(/\/+/g, ".")
+    data = data[0].replace(/\/+/g, '.')
   }
   if (Array.isArray(time)) {
-    time = time[0].replace(/-/, ":")
+    time = time[0].replace(/-/, ':')
   }
   return `${data || ''} ${time || ''}`.trim();
 }
@@ -62,23 +62,21 @@ function pascalToSnakeCase(pascalCase) {
   pascalCase = String(pascalCase).trim();
   const arrPascalCase = pascalCase.split(' ');
   if (arrPascalCase.length > 0) {
-    return arrPascalCase.map((item) => item.split(/(?=[A-Z])/).join("_").toLowerCase()).join(' ');
+    return arrPascalCase.map((item) => item.split(/(?=[A-Z])/).join('_').toLowerCase()).join(' ');
   }
-  return pascalCase && pascalCase.split(/(?=[A-Z])/).join("_").toLowerCase();
+  return pascalCase && pascalCase.split(/(?=[A-Z])/).join('_').toLowerCase();
 }
 
 /**
  * Получает массив комментариев и убирает с каждого элемента массива спецсимволы
  * @param html {string} html разметка
- * @returns {Array | null} массив комментариев, если есть, иначе null
+ * @returns {Array<string> | null} массив комментариев, если есть, иначе null
  */
 function getHTMLComments(html) {
-  const htmlComments = html.match(/(<!--[\S\s]+?-->)/g);
-  return (htmlComments != null) ?
-    htmlComments.map(value => {
-      return value.replace(/^<!--/, "").replace(/-->$/, "")
-    })
-    : null;
+  const htmlComments = String(html || '').match(/(<!--[\S\s]+?-->)/g);
+  return htmlComments && htmlComments.map(value => (
+    value.replace(/^<!--/, '').replace(/-->$/, '')
+  ));
 }
 
 /**

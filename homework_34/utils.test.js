@@ -179,3 +179,45 @@ describe('Тестирую функцию dataTransformation', () => {
     expect(dataTransformation({})).toBe('');
   });
 });
+
+describe('Тестирую функцию getHTMLComments', () => {
+  test('Нормальные условия:', () => {
+    expect(getHTMLComments(`
+      <!--Комментарий -->
+    `)).toEqual(['Комментарий ']);
+    expect(getHTMLComments(`
+      <!---Комментарий1-->
+      <!--Комментарий два как пример-->
+    `)).toEqual(['-Комментарий1', 'Комментарий два как пример']);
+    expect(getHTMLComments(`
+      <!---------><button>Хехехе</button><!--Комментарий-->
+    `)).toEqual(['-----', 'Комментарий']);
+    expect(getHTMLComments(`
+      <div>Люблю поесть</div>
+      <!---------><button>Хехехе</button><!--Комментарий-->
+      <div>Люблю поспать</div>
+    `)).toEqual(['-----', 'Комментарий']);
+    expect(getHTMLComments(`
+      <div>Люблю поесть</div>
+      <!--
+      Это
+      Многострочный
+      Комментарий
+      -->
+      <div>Люблю поспать</div>
+    `)).toEqual([`
+      Это
+      Многострочный
+      Комментарий
+      `]);
+    expect(getHTMLComments('А тут ничего')).toBeNull();
+  });
+  test('Исключительные условия:', () => {
+    expect(getHTMLComments('<!---->')).toBeNull();
+    expect(getHTMLComments('Текст-->')).toBeNull();
+    expect(getHTMLComments('<!--Текст <!--')).toBeNull();
+    expect(getHTMLComments(1)).toBeNull(); // +
+    expect(getHTMLComments(null)).toBeNull();
+    expect(getHTMLComments({})).toBeNull();
+  });
+});
