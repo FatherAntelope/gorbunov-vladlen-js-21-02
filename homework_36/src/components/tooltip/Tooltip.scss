@@ -1,0 +1,24 @@
+@import "../../constants/styles/colors";
+
+.tooltip {
+  position: relative;
+  width: 100%;
+}
+
+.tooltip__info {
+  position: absolute;
+  z-index: 10;
+  top: -20px;
+  font-size: 10px !important;
+  color: $colorGray;
+  background-color: $colorWhite;
+  border: 1px solid $colorGray;
+  padding: 2px;
+  border-radius: 7px;
+
+  &_theme_dark {
+    color: $colorWhite;
+    background-color: $colorBlueDark;
+    border: none;
+  }
+}

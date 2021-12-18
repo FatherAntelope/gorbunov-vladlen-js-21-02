@@ -1,0 +1,36 @@
+@import "../../constants/styles/colors";
+
+.pagination-wrapper {
+  &_theme_dark {
+    li.ant-pagination-item-active {
+      a {
+        color: #1890ff;
+      }
+    }
+    li.ant-pagination-prev, li.ant-pagination-next {
+      button.ant-pagination-item-link {
+        color: $colorWhite;
+      }
+    }
+
+    li.ant-pagination-prev.ant-pagination-disabled, li.ant-pagination-next.ant-pagination-disabled {
+      button.ant-pagination-item-link {
+        border-color: $colorGray;
+        color: $colorGray;
+      }
+    }
+
+    li {
+      background-color: $colorBlue;
+      a {
+        color: $colorWhite;
+        span.ant-pagination-item-ellipsis {
+          color: $colorWhite !important;
+        }
+      }
+      button.ant-pagination-item-link {
+        background-color: $colorBlue;
+      }
+    }
+  }
+}

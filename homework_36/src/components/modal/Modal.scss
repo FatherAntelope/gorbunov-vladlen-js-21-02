@@ -1,0 +1,173 @@
+@import "../../constants/styles/colors";
+
+.modal {
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, .5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.3s transform ease-in;
+  padding: 0 20px;
+  z-index: 1000;
+
+  &__dialog {
+    max-height: 90vh;
+    position: relative;
+    overflow-y: auto;
+    width: 800px;
+
+    &_mini {
+      width: 400px;
+    }
+  }
+
+  &_active {
+    opacity: 1;
+    pointer-events: all;
+    transform: scale(1);
+  }
+
+  &__content {
+    position: relative;
+    background-color: $colorGrayLight;
+    border-radius: 20px;
+    border: 2px solid $colorGray;
+    padding: 15px;
+    width: 100%;
+    transform: scale(0.5);
+    transition: 0.3s transform ease-in, 0.3s background-color ease-out, 0.3s border ease-out;
+
+    &_theme_dark {
+      background-color: $colorBlue;
+      border: 2px solid $colorBlueLight;
+    }
+
+    &_active {
+      transform: scale(1);
+    }
+  }
+
+  &__close {
+    position: absolute;
+    left: 50%;
+    top: 5px;
+    height: 30px;
+    width: 30px;
+    background-color: $colorWhite;
+    border-radius: 50%;
+    border: 2px solid $colorGray;
+    cursor: pointer;
+    transform: translateX(-50%);
+    transition: 0.3s background-color ease-out;
+
+    &:hover {
+      background-color: $colorShadow;
+    }
+
+    &_theme_dark {
+      background-color: $colorBlue;
+      border: 2px solid $colorBlueLight;
+
+      &:hover {
+        background-color: $colorBlueDark;
+      }
+    }
+
+    &-icon {
+      display: block;
+      position: relative;
+      top: 50%;
+      left: 50%;
+      height: 2px;
+      width: 20px;
+      transform: translateX(-50%);
+
+      &:before, &:after {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        background-color: $colorGray;
+      }
+
+      &_theme_dark {
+        &:before, &:after {
+          background-color: $colorBlueLight;
+        }
+      }
+
+      &:before {
+        transform: rotate(45deg);
+      }
+
+      &:after {
+        transform: rotate(-45deg);
+      }
+    }
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 7px;
+  }
+
+  &__info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
+    @media (max-width: 450px) {
+      gap: 0;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+    }
+  }
+
+  &__title, &__subtitle, &__text {
+    margin: 0;
+    padding: 0;
+  }
+
+  &__title, &__title *, &__title *:hover {
+    font-size: 16px;
+    color: $colorBlack;
+  }
+
+  &__subtitle {
+    font-size: 14px;
+    color: $colorGray;
+  }
+
+  &__body {
+    width: 100%;
+    color: $colorBlack;
+    font-size: 16px;
+  }
+
+  &__image {
+    width: 100%;
+    height: auto;
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      max-height: 400px;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 20px;
+    }
+  }
+}
