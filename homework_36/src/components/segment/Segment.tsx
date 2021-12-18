@@ -2,7 +2,7 @@ import React from 'react';
 import './Segment.scss';
 
 interface IProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   isDarkTheme?: boolean;
 }
 
@@ -11,7 +11,8 @@ const Segment = ({ children, isDarkTheme }: IProps) => (
 );
 
 Segment.defaultProps = {
-  isDarkTheme: false
+  isDarkTheme: false,
+  children: undefined
 };
 
 export default Segment;
