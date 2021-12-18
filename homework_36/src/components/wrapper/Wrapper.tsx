@@ -3,7 +3,8 @@ import './Wrapper.scss';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 
 interface IProps {
-  children: React.ReactNode;
+  // eslint-disable-next-line react/require-default-props
+  children?: React.ReactNode;
 }
 
 const Wrapper = ({ children }: IProps) => {
