@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './Tooltip.scss';
 
 interface IProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   textInfo: string;
   isDarkTheme?: boolean;
 }
@@ -36,7 +36,8 @@ const Tooltip = ({ children, textInfo, isDarkTheme }: IProps) => {
 };
 
 Tooltip.defaultProps = {
-  isDarkTheme: false
+  isDarkTheme: false,
+  children: undefined
 };
 
 export default Tooltip;
