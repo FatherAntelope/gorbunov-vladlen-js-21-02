@@ -1,10 +1,10 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import Main from '../../components/main/Main';
 
 describe('Menu component testing:', () => {
   test('Render:', () => {
-    const wrap = mount(<Main />);
+    const wrap = shallow(<Main />);
     expect(wrap.find('main.main')).toHaveLength(1);
   });
 
