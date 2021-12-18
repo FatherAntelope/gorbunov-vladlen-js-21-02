@@ -3,7 +3,7 @@ import './Modal.scss';
 import { useActions } from '../../hooks/useActions';
 
 interface IPropsChild {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   isActive: boolean;
   size?: 'mini' | '';
   isDarkTheme?: boolean;
@@ -37,7 +37,8 @@ const Modal = ({
 
 Modal.defaultProps = {
   size: '',
-  isDarkTheme: false
+  isDarkTheme: false,
+  children: undefined
 };
 
 export default Modal;
