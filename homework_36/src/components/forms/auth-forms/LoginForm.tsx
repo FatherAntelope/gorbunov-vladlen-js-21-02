@@ -51,7 +51,14 @@ const LoginForm = () => {
         <h2 className={`user-auth__header ${themeCheckboxContext.isDarkTheme ? 'user-auth__header_theme_dark' : ''}`}>
           {t('authorization.login.title')}
         </h2>
-        <Form form={form} name="formAuthUser" layout="vertical" onFinish={handleFinishForm}>
+        <Form
+          form={form}
+          name="formAuthUser"
+          layout="vertical"
+          id="formLoginUser"
+          onFinish={handleFinishForm}
+          onError={handleFinishForm}
+        >
           <Form.Item
             className={`user-auth__field ${themeCheckboxContext.isDarkTheme ? 'user-auth__field_theme_dark' : ''}`}
             name="userID"

@@ -60,7 +60,7 @@ describe('CardUserEdit component testing:', () => {
     expect(wrap.find('div.user-edit-form__image img').prop('src')).toBe('URL');
   });
 
-  test('Render and simulate actions', () => {
+  test('Render and simulate events', () => {
     createMatchMedia();
 
     const store = mockStore({
