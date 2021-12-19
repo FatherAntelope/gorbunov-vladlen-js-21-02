@@ -2,21 +2,25 @@ import React from 'react';
 import { mount } from 'enzyme';
 import CardComment from '../../../components/cards/card-comment/CardComment';
 
+const createMatchMedia = () => {
+  Object.defineProperty(window, 'matchMedia', {
+    writable: true,
+    value: jest.fn().mockImplementation((query) => ({
+      matches: false,
+      media: query,
+      onchange: null,
+      addListener: jest.fn(),
+      removeListener: jest.fn(),
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
+      dispatchEvent: jest.fn(),
+    }))
+  });
+};
+
 describe('CardComment component testing:', () => {
   test('Render and check props:', () => {
-    Object.defineProperty(window, 'matchMedia', {
-      writable: true,
-      value: jest.fn().mockImplementation((query) => ({
-        matches: false,
-        media: query,
-        onchange: null,
-        addListener: jest.fn(),
-        removeListener: jest.fn(),
-        addEventListener: jest.fn(),
-        removeEventListener: jest.fn(),
-        dispatchEvent: jest.fn(),
-      }))
-    });
+    createMatchMedia();
     const wrap = mount(
       <CardComment dateOfPublication="18.18.2018" userAvatarURL="url" text="Текст" userFullName="Полное Имя" />
     );
@@ -27,19 +31,7 @@ describe('CardComment component testing:', () => {
   });
 
   test('Render with theme dark:', () => {
-    Object.defineProperty(window, 'matchMedia', {
-      writable: true,
-      value: jest.fn().mockImplementation((query) => ({
-        matches: false,
-        media: query,
-        onchange: null,
-        addListener: jest.fn(),
-        removeListener: jest.fn(),
-        addEventListener: jest.fn(),
-        removeEventListener: jest.fn(),
-        dispatchEvent: jest.fn(),
-      }))
-    });
+    createMatchMedia();
     const wrap = mount(
       <CardComment isDarkTheme dateOfPublication="" userAvatarURL="" text="" userFullName="" />
     );
@@ -49,19 +41,7 @@ describe('CardComment component testing:', () => {
   });
 
   test('Render with snapshot:', () => {
-    Object.defineProperty(window, 'matchMedia', {
-      writable: true,
-      value: jest.fn().mockImplementation((query) => ({
-        matches: false,
-        media: query,
-        onchange: null,
-        addListener: jest.fn(),
-        removeListener: jest.fn(),
-        addEventListener: jest.fn(),
-        removeEventListener: jest.fn(),
-        dispatchEvent: jest.fn(),
-      }))
-    });
+    createMatchMedia();
     const wrap = mount(
       <CardComment
         isDarkTheme

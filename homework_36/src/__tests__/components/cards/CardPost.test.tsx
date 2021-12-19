@@ -2,21 +2,25 @@ import React from 'react';
 import { mount } from 'enzyme';
 import CardPost from '../../../components/cards/card-post/CardPost';
 
+const createMatchMedia = () => {
+  Object.defineProperty(window, 'matchMedia', {
+    writable: true,
+    value: jest.fn().mockImplementation((query) => ({
+      matches: false,
+      media: query,
+      onchange: null,
+      addListener: jest.fn(),
+      removeListener: jest.fn(),
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
+      dispatchEvent: jest.fn(),
+    }))
+  });
+};
+
 describe('CardPost.Preview component testing:', () => {
   test('Render with image and check props:', () => {
-    Object.defineProperty(window, 'matchMedia', {
-      writable: true,
-      value: jest.fn().mockImplementation((query) => ({
-        matches: false,
-        media: query,
-        onchange: null,
-        addListener: jest.fn(),
-        removeListener: jest.fn(),
-        addEventListener: jest.fn(),
-        removeEventListener: jest.fn(),
-        dispatchEvent: jest.fn(),
-      }))
-    });
+    createMatchMedia();
     const wrap = mount(
       <CardPost.Preview
         text="Текст"
@@ -34,19 +38,7 @@ describe('CardPost.Preview component testing:', () => {
   });
 
   test('Render with snapshot:', () => {
-    Object.defineProperty(window, 'matchMedia', {
-      writable: true,
-      value: jest.fn().mockImplementation((query) => ({
-        matches: false,
-        media: query,
-        onchange: null,
-        addListener: jest.fn(),
-        removeListener: jest.fn(),
-        addEventListener: jest.fn(),
-        removeEventListener: jest.fn(),
-        dispatchEvent: jest.fn(),
-      }))
-    });
+    createMatchMedia();
     const wrap = mount(
       <CardPost.Preview
         isDarkTheme
@@ -78,19 +70,7 @@ describe('CardPost.Mini component testing:', () => {
 
 describe('CardPost.Big component testing:', () => {
   test('Render with image and check props:', () => {
-    Object.defineProperty(window, 'matchMedia', {
-      writable: true,
-      value: jest.fn().mockImplementation((query) => ({
-        matches: false,
-        media: query,
-        onchange: null,
-        addListener: jest.fn(),
-        removeListener: jest.fn(),
-        addEventListener: jest.fn(),
-        removeEventListener: jest.fn(),
-        dispatchEvent: jest.fn(),
-      }))
-    });
+    createMatchMedia();
     const wrap = mount(
       <CardPost.Big text="Текст">
         <CardPost.HeaderBig
@@ -108,19 +88,7 @@ describe('CardPost.Big component testing:', () => {
   });
 
   test('Render with snapshot:', () => {
-    Object.defineProperty(window, 'matchMedia', {
-      writable: true,
-      value: jest.fn().mockImplementation((query) => ({
-        matches: false,
-        media: query,
-        onchange: null,
-        addListener: jest.fn(),
-        removeListener: jest.fn(),
-        addEventListener: jest.fn(),
-        removeEventListener: jest.fn(),
-        dispatchEvent: jest.fn(),
-      }))
-    });
+    createMatchMedia();
     const wrap = mount(
       <CardPost.Big text="Текст" isDarkTheme>
         <CardPost.HeaderBig

@@ -14,6 +14,22 @@ jest.mock('react-i18next', () => ({
   }),
 }));
 
+const createMatchMedia = () => {
+  Object.defineProperty(window, 'matchMedia', {
+    writable: true,
+    value: jest.fn().mockImplementation((query) => ({
+      matches: false,
+      media: query,
+      onchange: null,
+      addListener: jest.fn(),
+      removeListener: jest.fn(),
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
+      dispatchEvent: jest.fn(),
+    }))
+  });
+};
+
 const mockStore = configureStore([thunk]);
 
 describe('Header component testing:', () => {
@@ -44,19 +60,7 @@ describe('Header component testing:', () => {
   });
 
   test('Render with props and simulate:', () => {
-    Object.defineProperty(window, 'matchMedia', {
-      writable: true,
-      value: jest.fn().mockImplementation((query) => ({
-        matches: false,
-        media: query,
-        onchange: null,
-        addListener: jest.fn(),
-        removeListener: jest.fn(),
-        addEventListener: jest.fn(),
-        removeEventListener: jest.fn(),
-        dispatchEvent: jest.fn(),
-      }))
-    });
+    createMatchMedia();
     const store = mockStore({ burgerHeader: { isActive: true } });
     store.dispatch = jest.fn();
     const wrap = mount(
@@ -85,19 +89,7 @@ describe('Header component testing:', () => {
   });
 
   test('Render with snapshot:', () => {
-    Object.defineProperty(window, 'matchMedia', {
-      writable: true,
-      value: jest.fn().mockImplementation((query) => ({
-        matches: false,
-        media: query,
-        onchange: null,
-        addListener: jest.fn(),
-        removeListener: jest.fn(),
-        addEventListener: jest.fn(),
-        removeEventListener: jest.fn(),
-        dispatchEvent: jest.fn(),
-      }))
-    });
+    createMatchMedia();
     const store = mockStore({ burgerHeader: { isActive: true } });
     const wrap = mount(
       <Provider store={store}>
