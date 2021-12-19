@@ -121,7 +121,7 @@ const CardUserEdit = ({
         </Upload>
 
         {avatar && (
-          <Button size="small" onClick={handleClickDeleteImage}>
+          <Button size="small" id="buttonDeletePhoto" onClick={handleClickDeleteImage}>
             {t('cardUserEdit.button.deletePhoto')}
           </Button>
         )}
@@ -130,7 +130,14 @@ const CardUserEdit = ({
         <Alert message={sendImage.error} type="error" />
       )}
 
-      <Form form={formEditDataUser} name="formEditDataUser" layout="vertical" onFinish={handleClickEditDataUser}>
+      <Form
+        form={formEditDataUser}
+        id="formEditDataUser"
+        name="formEditDataUser"
+        layout="vertical"
+        onError={handleClickEditDataUser} // для теста
+        onFinish={handleClickEditDataUser}
+      >
         <Form.Item
           className={`user-auth__field ${themeCheckboxContext.isDarkTheme ? 'user-auth__field_theme_dark' : ''}`}
           name="firstName"
