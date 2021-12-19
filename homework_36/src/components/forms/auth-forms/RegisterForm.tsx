@@ -57,7 +57,14 @@ const RegisterForm = () => {
         <h2 className={`user-auth__header ${themeCheckboxContext.isDarkTheme ? 'user-auth__header_theme_dark' : ''}`}>
           {t('authorization.registration.title')}
         </h2>
-        <Form form={form} name="formRegisterUser" layout="vertical" onFinish={handleFinishForm}>
+        <Form
+          form={form}
+          id="formRegisterUser"
+          name="formRegisterUser"
+          layout="vertical"
+          onFinish={handleFinishForm}
+          onError={handleFinishForm}
+        >
           <Form.Item
             className={`user-auth__field ${themeCheckboxContext.isDarkTheme ? 'user-auth__field_theme_dark' : ''}`}
             name="firstName"

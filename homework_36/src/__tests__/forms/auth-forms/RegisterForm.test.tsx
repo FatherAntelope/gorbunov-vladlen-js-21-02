@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { HashRouter } from 'react-router-dom';
-import LoginForm from '../../../components/forms/auth-forms/LoginForm';
+import RegisterForm from '../../../components/forms/auth-forms/RegisterForm';
 import { ThemeCheckboxContext } from '../../../contexts/theme-checkbox/ThemeCheckboxContext';
 
 jest.mock('react-i18next', () => ({
@@ -30,12 +30,12 @@ const createMatchMedia = () => {
   });
 };
 
-describe('LoginForm component form testing:', () => {
+describe('RegisterForm component form testing:', () => {
   test('Render and simulate events', () => {
     createMatchMedia();
     const store = mockStore({
-      loginUserForm: {
-        loginUser: {
+      sendUserForm: {
+        sendUser: {
           id: '234325ih8n9l79uj',
           picture: 'url',
           firstName: 'Ivan Ivanov',
@@ -48,19 +48,19 @@ describe('LoginForm component form testing:', () => {
     const wrap = mount(
       <Provider store={store}>
         <HashRouter>
-          <LoginForm />
+          <RegisterForm />
         </HashRouter>
       </Provider>
     );
     expect(wrap.find('div.user-auth')).toHaveLength(1);
-    wrap.find('#formLoginUser').at(0).simulate('error');
+    wrap.find('#formRegisterUser').at(0).simulate('error');
   });
 
   test('Render with snapshot', () => {
     createMatchMedia();
     const store = mockStore({
-      loginUserForm: {
-        loginUser: {
+      sendUserForm: {
+        sendUser: {
           id: '234325ih8n9l79uj',
           picture: 'url',
           firstName: 'Ivan Ivanov',
@@ -74,7 +74,7 @@ describe('LoginForm component form testing:', () => {
       <Provider store={store}>
         <HashRouter>
           <ThemeCheckboxContext.Provider value={{ isDarkTheme: true }}>
-            <LoginForm />
+            <RegisterForm />
           </ThemeCheckboxContext.Provider>
         </HashRouter>
       </Provider>
