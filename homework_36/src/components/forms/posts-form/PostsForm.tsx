@@ -64,7 +64,11 @@ const PostsForm = () => {
                 )}
               dateOfPublication={item.publishDate}
             >
-              <div style={{ width: '100%', cursor: 'pointer' }} onClick={() => handleOpenModal(item.id)}>
+              <div
+                id="openCardPostModal"
+                style={{ width: '100%', cursor: 'pointer' }}
+                onClick={() => handleOpenModal(item.id)}
+              >
                 <CardPost.Image imageURL={item.image} />
               </div>
             </CardPost.Preview>
