@@ -1,0 +1,16 @@
+@import "../../constants/styles/colors";
+
+.segment {
+  height: 100%;
+  width: 100%;
+  border-radius: 20px;
+  background-color: $colorWhite;
+  border: 3px solid $colorShadow;
+  padding: 15px;
+  transition: 0.3s background-color ease-out, 0.3s border ease-out;
+
+  &_theme_dark {
+    background-color: $colorBlue;
+    border: 3px solid $colorBlueLight;
+  }
+}

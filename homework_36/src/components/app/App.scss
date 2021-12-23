@@ -1,0 +1,17 @@
+@import "../../constants/styles/colors";
+
+* {
+  scroll-behavior: smooth;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: $colorWhite;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $colorGray;
+  }
+}

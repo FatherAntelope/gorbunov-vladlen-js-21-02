@@ -1,0 +1,34 @@
+.user-edit-form {
+  display: flex;
+  flex-direction: column;
+
+  &__header {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__image-edit {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 10px;
+  }
+
+  &__image {
+    width: auto;
+    height: 180px;
+    margin-bottom: 10px;
+
+    @media (max-width: 400px) {
+      height: 150px;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 20px;
+    }
+  }
+}

@@ -1,0 +1,84 @@
+@import "../../../constants/styles/colors";
+
+.card-comment {
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+  background-color: $colorWhite;
+  border: 3px solid $colorShadow;
+  color: $colorBlack;
+  padding: 10px;
+  transition: 0.3s background-color ease-out, 0.3s color ease-out, 0.3s border ease-out;
+
+  &_theme_dark {
+    background-color: $colorBlueLight;
+    border: 3px solid $colorBlueDark;
+    color: $colorWhite;
+  }
+
+  &__content {
+    display: flex;
+    gap: 10px;
+  }
+
+  &__avatar {
+    width: 32px;
+  }
+
+  &__body {
+    width: 100%;
+  }
+
+  &__info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    @media (max-width: 450px) {
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+    }
+  }
+
+
+  &__date, &__name, &__text {
+    font-size: 12px;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__date {
+    color: $colorGray;
+    transition: 0.3s color ease-out;
+
+    &_theme_dark {
+      color: $colorShadow;
+    }
+  }
+
+  &__name {
+    font-weight: 500;
+  }
+
+  &__name, &__name * {
+    color: $colorBlack;
+    transition: 0.3s color ease-out;
+  }
+
+  &__name_theme_dark {
+    color: $colorWhite;
+  }
+
+  &__name *:hover{
+    color: $colorShadow;
+  }
+
+  &__name_theme_dark, &__name_theme_dark * {
+    color: $colorWhite;
+  }
+
+  &__name, &__text {
+    color: inherit;
+  }
+}
