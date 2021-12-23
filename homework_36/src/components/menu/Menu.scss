@@ -1,0 +1,43 @@
+@import "../../constants/styles/colors";
+
+.menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+
+  @media (max-width: 640px) {
+    background-color: $colorWhite;
+    position: fixed;
+    top: 0;
+    left: -100vw;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+    z-index: -1;
+    transition: 0.3s left ease-out, 0.3s background-color ease-out;
+
+    &_theme_dark {
+      background-color: $colorBlue;
+    }
+
+    &_mobile-slide_active {
+      left: 0;
+    }
+  }
+
+  &__item {
+    color: $colorBlack;
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.3s color ease-out;
+
+    &:hover {
+      color: $colorShadow;
+    }
+
+    &_theme_dark {
+      color: $colorWhite;
+    }
+  }
+}
